@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <color name="colorBackgroundWhiteSmoke">#F7F0F5</color>-->
+<!--    <color name="colorPrimaryWheat">#F5E0B7</color>-->
+<!--    <color name="colorAccentDesertSand">#DECBB7</color>-->
+<!--    <color name="colorPrimaryDarkWenge">#5C5552</color>-->
+<!--    <color name="colorDarkOldBurgundy">#433633</color>-->
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="gradientLeft">#87129A</color>
+    <color name="gradientRight">#09539F</color>
+    <color name="gradientNewsCalLeft">#87129A</color>
+    <color name="gradientNewsCalRight">#09539F</color>
+    <color name="colorGreyFafafa">#FAFAFA</color>
+    <color name="colorTextBlack">#373636</color>
+
+</resources>

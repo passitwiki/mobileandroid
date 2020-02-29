@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/gradientBorder"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:elevation="4dp">
+
+        <TextView
+            android:id="@+id/textViewLecturersNameFull"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/bodyText"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            tools:text="Janowski Lucjan" />
+
+        <TextView
+            android:id="@+id/textViewLecturersTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textViewLecturersNameFull"
+            android:layout_toEndOf="@id/textViewLecturersNameFull"
+            style="@style/bodyText"
+            android:paddingLeft="9dp"
+            android:textSize="16sp"
+            tools:text="dr hab." />
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

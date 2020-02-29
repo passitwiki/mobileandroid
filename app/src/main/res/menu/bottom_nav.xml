@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/itemDashboard"
+        android:icon="@drawable/ic_dashboard"
+        android:title="@string/dashboard" />
+    <item
+        android:id="@+id/itemSubjects"
+        android:icon="@drawable/ic_subjects"
+        android:title="@string/subjects" />
+    <item
+        android:id="@+id/itemLecturers"
+        android:icon="@drawable/ic_lecturer"
+        android:title="@string/lecturers" />
+    <item
+        android:id="@+id/itemMemes"
+        android:icon="@drawable/ic_memes"
+        android:title="@string/memes" />
+
+
+</menu>

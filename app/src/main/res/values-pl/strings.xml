@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accessibility">Ułatwienia dostępu</string>
+    <string name="change_password">"Zmień hasło "</string>
+    <string name="color_correction">Zmiana kontrastu:</string>
+    <string name="dashboard">Główna</string>
+    <string name="dontrememberpassword">Nie pamiętam hasła</string>
+    <string name="exam_calendar">Kalendarz zaliczeń</string>
+    <string name="hi">Cześć!</string>
+    <string name="lecturers">Wykładowcy</string>
+    <string name="logincontinue">Zaloguj się, aby kontynuować.</string>
+    <string name="logout">Wyloguj</string>
+    <string name="memes">Memy</string>
+    <string name="news">Ogłoszenia</string>
+    <string name="password">hasło</string>
+    <string name="settings">Ustawienia</string>
+    <string name="subjects">Przedmioty</string>
+    <string name="text_size">Rozmiar tekstu</string>
+    <string name="username">nazwa użytkownika</string>
+</resources>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="16dp"
+    android:paddingTop="?attr/actionBarSize"
+    android:paddingEnd="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".fragments.UserFragment">
+
+    <!-- TODO: Make this fragment pretty and useful -->
+    <TextView
+        android:id="@+id/textViewUserNameSurname"
+        style="@style/bodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        tools:text="Janowski Lucjan" />
+
+    <TextView
+        android:id="@+id/textViewChangePassword"
+        style="@style/bodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewUserNameSurname"
+        android:paddingTop="10dp"
+        android:text="@string/change_password"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textViewAccessibility"
+        style="@style/bodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewChangePassword"
+        android:paddingTop="25dp"
+        android:textSize="20sp"
+        tools:text="accessibility" />
+
+    <TextView
+        android:id="@+id/textViewChangeTextSize"
+        style="@style/bodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewAccessibility"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/text_size"
+        android:textSize="18sp" />
+
+    <SeekBar
+        android:id="@+id/seekBarTextSize"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewChangeTextSize"
+        android:max="2"
+        android:progress="0" />
+
+    <TextView
+        android:id="@+id/textViewChangeTheme"
+        style="@style/bodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seekBarTextSize"
+        android:paddingTop="10dp"
+        android:text="@string/color_correction"
+        android:textSize="18sp" />
+
+
+
+    <TextView
+        android:id="@+id/textViewLogout"
+        style="@style/bodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:paddingBottom="?attr/actionBarSize"
+        tools:text="logout" />
+
+
+
+
+</RelativeLayout>

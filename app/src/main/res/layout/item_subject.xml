@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="4dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/gradientBorder"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textViewSubjectsName"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            tools:text="Subject name"
+            android:paddingBottom="4dp"/>
+        <ImageView
+            android:id="@+id/imageViewLecturerIcon"
+            android:layout_width="18sp"
+            android:layout_height="18sp"
+            android:src="@drawable/ic_lecturer"
+            android:layout_below="@id/textViewSubjectsName"
+            />
+
+        <TextView
+            android:id="@+id/textViewSubjectsDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewSubjectsName"
+            android:layout_toEndOf="@+id/imageViewLecturerIcon"
+            style="@style/bodyText"
+            android:textSize="16sp"
+            android:paddingStart="4dp"
+            tools:text="Lucjan Janowski" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/textViewSubjectsDescription"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/textViewSubjectsName"-->
+<!--            style="@style/bodyText"-->
+<!--            android:textSize="16sp"-->
+<!--            tools:text="Description: this is a very important subject of great importance." />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textViewSubjectsSemesterAndField"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/textViewSubjectsDescription"-->
+<!--            android:fontFamily="@font/font_verdana"-->
+<!--            android:padding="5dp"-->
+<!--            android:textColor="?attr/textColor"-->
+<!--            android:textSize="15sp"-->
+<!--            tools:text="Field_of_study X" />-->
+
+    </RelativeLayout>
+
+</RelativeLayout>

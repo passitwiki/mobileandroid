@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="backgroundColor" format="color" />
+    <attr name="gradientBorder" format="color" />
+    <attr name="gradientBorderNewsCal" format="color" />
+    <attr name="textColor" format="color" />
+    <attr name="toolbarColor" format="color" />
+    <attr name="headerTextColor" format="color" />
+    <attr name="fancyTextColor" format="color" />
+
+
+</resources>
