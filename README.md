@@ -12,8 +12,8 @@ The kotlin-android app part of our project
 * top toolbar behavior
 * calendar screen
 * adding news : 
-** popup
-** the logic behind it
+> popup
+> the logic behind it
 * darkmode
 
 #### Frontend-wise:
