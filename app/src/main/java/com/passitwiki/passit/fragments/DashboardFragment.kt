@@ -29,13 +29,13 @@ class DashboardFragment : Fragment() {
 
 
 //        imageViewButtonSettings.setOnClickListener {
-//            val userDialogFragment = UserFragment()
-//            userDialogFragment.show(parentFragmentManager,"UserFragment")
+//            val userDialogFragment = SettingsFragment()
+//            userDialogFragment.show(parentFragmentManager,"SettingsFragment")
 //        }
 
         val bearerToken = "Bearer $globalToken"
 
-
+        //TODO news adding logic
 
         RetrofitClient.instance.getNews(bearerToken)
             .enqueue(object : Callback<List<News>> {
@@ -61,8 +61,8 @@ class DashboardFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
 
 //        view.imageViewButtonSettings.setOnClickListener {
-//            val userDialogFragment = UserFragment()
-//            userDialogFragment.show(parentFragmentManager, "UserFragment")
+//            val userDialogFragment = SettingsFragment()
+//            userDialogFragment.show(parentFragmentManager, "SettingsFragment")
 //            supportFragmentManager
 //                .beginTransaction()
 //                .replace(R.id.frameLayoutMain, dashboardFragment)

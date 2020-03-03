@@ -17,7 +17,7 @@ interface Api {
         @Field("password") password: String
     ): Call<JwtCreateResponse>
 
-    @GET("auth/users/me/")
+    @GET("auth/users/me/?expand=profile,profile.field_age_groups")
     fun getUserInfo(
         @Header("Authorization") bearerToken: String
     ): Call<User>

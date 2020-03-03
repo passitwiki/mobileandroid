@@ -54,5 +54,4 @@ class LecturerAdapter(private val lecturers: List<Lecturer>) :
         val fullName = itemView.textViewLecturersNameFull
         val title = itemView.textViewLecturersTitle
     }
-
 }

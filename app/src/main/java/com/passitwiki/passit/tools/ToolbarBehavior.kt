@@ -9,7 +9,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 
-//TODO make it work XD or delete
+//TODO make toolbar beharor work
 
 class ToolbarBehavior<V : View>(context: Context, attrs: AttributeSet) :
     CoordinatorLayout.Behavior<V>(context, attrs) {

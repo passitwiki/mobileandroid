@@ -9,12 +9,20 @@
     <string name="hi">Cześć!</string>
     <string name="lecturers">Wykładowcy</string>
     <string name="logincontinue">Zaloguj się, aby kontynuować.</string>
-    <string name="logout">Wyloguj</string>
+    <string name="logout">Wyloguj się</string>
     <string name="memes">Memy</string>
     <string name="news">Ogłoszenia</string>
     <string name="password">hasło</string>
     <string name="settings">Ustawienia</string>
     <string name="subjects">Przedmioty</string>
     <string name="text_size">Rozmiar tekstu</string>
-    <string name="username">nazwa użytkownika</string>
+    <string name="username">nr indeksu</string>
+    <string name="fos_choice">Wyświetlany kierunek studiów</string>
+    <string name="contrast">Zwiększ kontrast</string>
+    <string name="curr_passwd">Wpisz bieżące hasło</string>
+    <string name="new_passwd">Wpisz nowe hasło</string>
+    <string name="confirm_passwd">Powtórz nowe hasło</string>
+    <string name="success_passwd">Hasło zostało pomyślnie zmienione.</string>
+    <string name="mismatch_passwd">Nowe hasła do siebie nie pasują.</string>
+    <string name="wrong_passwd">Podane hasło nie jest prawidłowe.</string>
 </resources>

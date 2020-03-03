@@ -21,6 +21,26 @@
         <item name="android:navigationBarColor">@color/colorBlack</item>
     </style>
 
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!--        <item name="colorPrimary">@color/colorLightBlue</item>-->
+        <!--        <item name="colorPrimaryDark">@color/colorDarkBlue</item>-->
+        <!--        <item name="colorAccent">@color/colorBlue</item>-->
+        <!--        <item name="android:colorBackground">@color/colorWhite</item>-->
+        <!--        <item name="android:navigationBarColor">@color/colorDarkBlue</item>-->
+        <!--        <item name="android:textColorPrimary">@color/colorDarkBlue</item>-->
+        <item name="colorAccent">@color/colorTextBlack</item>
+        <item name="colorPrimary">@color/colorBlack</item>
+        <item name="colorPrimaryDark">@color/colorBlack</item>
+        <item name="backgroundColor">@color/colorBlack</item>
+        <item name="gradientBorder">@drawable/gradient_border</item>
+        <item name="gradientBorderNewsCal">@drawable/gradient_border_news_cal</item>
+        <item name="textColor">@color/colorGreyFafafa</item>
+        <item name="headerTextColor">@color/colorBlack</item>
+        <item name="toolbarColor">@color/colorBlack</item>
+        <item name="android:navigationBarColor">@color/colorBlack</item>
+    </style>
+
     <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/roboto_regular</item>
     </style>

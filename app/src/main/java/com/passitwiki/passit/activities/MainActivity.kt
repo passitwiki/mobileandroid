@@ -1,10 +1,9 @@
 package com.passitwiki.passit.activities
 
 import android.os.Bundle
+import android.util.Log.d
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isGone
 import androidx.fragment.app.FragmentTransaction
 import com.passitwiki.passit.R
 import com.passitwiki.passit.api.RetrofitClient
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var lecturersFragment: LecturersFragment
     lateinit var memesFragment: MemesFragment
     lateinit var subjectsFragment: SubjectsFragment
-    lateinit var userFragment: UserFragment
+    lateinit var settingsFragment: SettingsFragment
     var currentFragment: String = "dash"
 
 
@@ -45,16 +44,22 @@ class MainActivity : AppCompatActivity() {
         RetrofitClient.instance.getUserInfo(bearerToken)
             .enqueue(object : Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
+                    d("MyTag", "Error: ${t}")
+
                 }
 
                 override fun onResponse(
                     call: Call<User>,
                     response: Response<User>
                 ) {
+                    d("MyTag", "onResponse: ${response.body()}")
+
+                    //TODO BIG IMPORTANT this shitty thing
+
                     globalUser = User(
-                        response.body()!!.email,
                         response.body()!!.id,
-                        response.body()!!.username
+                        response.body()!!.username,
+                        response.body()!!.profile
                     )
 
 //                    Toast.makeText(applicationContext, globalUser!!.username, Toast.LENGTH_LONG).show()
@@ -169,13 +174,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun changeToUser() {
-        currentFragment = "user"
+        currentFragment = "sett"
         this.textViewToolbar.text= getString(R.string.settings)
         this.imageViewButtonSettings.setVisibility(View.GONE)
-        userFragment = UserFragment()
+        settingsFragment = SettingsFragment()
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.frameLayoutMain, userFragment)
+            .replace(R.id.frameLayoutMain, settingsFragment)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
     }

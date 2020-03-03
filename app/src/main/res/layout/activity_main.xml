@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     tools:context=".activities.MainActivity">
 
-    <!--  TODO toolbar edition  -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/toolbarColor"
         android:backgroundTint="?attr/toolbarColor"
-        android:minHeight="?attr/actionBarSize">
+        android:minHeight="?attr/actionBarSize"
+        android:elevation="4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -52,6 +53,8 @@
 
     </FrameLayout>
 
+
+<!--  TODO make text gradient color  -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/btmNav"
         android:layout_width="match_parent"
@@ -68,103 +71,3 @@
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent">-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/textViewParse"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--            app:layout_constraintRight_toRightOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            app:layout_constraintVertical_bias="0.05" />-->
-
-    <!--        <Button-->
-    <!--            android:id="@+id/buttonParse"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="Test connectivity"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            app:layout_constraintVertical_bias="0.4" />-->
-
-    <!--        <Button-->
-    <!--            android:id="@+id/buttonLecturers"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="Lecturers"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintHorizontal_bias="0.1"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            app:layout_constraintVertical_bias="0.6" />-->
-
-    <!--        <Button-->
-    <!--            android:id="@+id/buttonMemes"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="Memes"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintHorizontal_bias="0.5"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            app:layout_constraintVertical_bias="0.6" />-->
-
-
-    <!--        <Button-->
-    <!--            android:id="@+id/buttonSubjects"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="Subjects"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintHorizontal_bias="0.9"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            app:layout_constraintVertical_bias="0.6" />-->
-
-    <!--        <Button-->
-    <!--            android:id="@+id/buttonNews"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="News"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintHorizontal_bias="0.1"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            app:layout_constraintVertical_bias="0.8" />-->
-
-    <!--        <Button-->
-    <!--            android:id="@+id/buttonAccount"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="Account"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintHorizontal_bias="0.5"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            app:layout_constraintVertical_bias="0.8" />-->
-
-    <!--        <Button-->
-    <!--            android:id="@+id/buttonAbout"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="About"-->
-    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintHorizontal_bias="0.9"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-    <!--            app:layout_constraintVertical_bias="0.8" />-->
-    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
