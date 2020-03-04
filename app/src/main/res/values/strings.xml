@@ -10,7 +10,7 @@
     <string name="lecturers">Lecturers</string>
     <string name="memes">Memes</string>
     <string name="hi">Hi!</string>
-    <string name="logincontinue">Log in to continue.</string>
+    <string name="login_continue">Log in to continue.</string>
     <string name="username">index number</string>
     <string name="password">password</string>
     <string name="dontrememberpassword">I don\'t remember my password.</string>
@@ -29,4 +29,13 @@
     <string name="success_passwd">The new password has successfully been set.</string>
     <string name="mismatch_passwd">Entered new passwords do not match.</string>
     <string name="wrong_passwd">The entered password is not correct.</string>
+    <string name="plus" translatable="false">Plus</string>
+    <string name="arrow" translatable="false">Arrow</string>
+    <string name="user" translatable="false">User</string>
+    <string name="calendar" translatable="false">Calendar</string>
+    <string name="xxx" translatable="false">XX.XX.XXXX</string>
+    <string name="rep">\@Representative</string>
+
+    <!--  TODO delete  -->
+    <string name="field" translatable="false">WiET - Informatyka</string>
 </resources>

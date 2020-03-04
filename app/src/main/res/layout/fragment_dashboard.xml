@@ -25,7 +25,8 @@
             android:paddingStart="16dp"
             android:paddingTop="13dp"
             android:paddingEnd="16dp"
-            android:paddingBottom="13dp">
+            android:paddingBottom="13dp"
+            tools:ignore="UselessParent">
 
             <TextView
                 android:id="@+id/textViewSubjectsDescription"
@@ -33,7 +34,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:text="@string/exam_calendar" />
+                android:text="@string/exam_calendar"
+                tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:id="@+id/imageViewLecturerIcon"
@@ -41,7 +43,8 @@
                 android:layout_height="18sp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_settings" />
+                android:contentDescription="@string/arrow"
+                android:src="@drawable/ic_arrow_right" />
 
         </RelativeLayout>
 
@@ -64,13 +67,15 @@
             android:layout_height="wrap_content"
             android:text="@string/news"
             android:textStyle="bold"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:ignore="RelativeOverlap" />
 
         <ImageView
             android:layout_width="18sp"
             android:layout_height="18sp"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_settings" />
+            android:contentDescription="@string/plus"
+            android:src="@drawable/ic_plus" />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

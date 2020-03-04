@@ -20,6 +20,7 @@
             android:id="@+id/imageViewUser"
             android:layout_width="67dp"
             android:layout_height="67dp"
+            android:contentDescription="@string/user"
             android:src="@drawable/ic_user" />
 
         <TextView
@@ -29,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/imageViewUser"
             android:paddingStart="27dp"
+            android:paddingEnd="27dp"
             android:paddingTop="13dp"
             android:textSize="18sp"
             tools:text="Janowski Lucjan" />
@@ -41,6 +43,7 @@
             android:layout_below="@id/textViewUserNameSurname"
             android:layout_toEndOf="@id/imageViewUser"
             android:paddingStart="27dp"
+            android:paddingEnd="27dp"
             android:paddingTop="8dp"
             android:text="@string/change_password"
             android:textSize="14sp" />
@@ -51,7 +54,7 @@
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="1sp"
+        android:layout_height="1dp"
         android:layout_below="@+id/relativeLayoutUserPart"
         android:background="?attr/textColor" />
 
@@ -76,13 +79,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/accessibility"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:id="@+id/imageViewExpander"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
+                android:contentDescription="@string/arrow"
                 android:src="@drawable/ic_arrow_down" />
         </RelativeLayout>
 
@@ -99,13 +104,14 @@
                 style="@style/bodyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Contrasting colors" />
+                android:text="@string/contrast" />
 
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/textViewContrast"
-                android:paddingLeft="22dp" />
+                android:paddingStart="22dp"
+                android:paddingEnd="22dp" />
 
         </RelativeLayout>
     </RelativeLayout>
@@ -113,7 +119,7 @@
     <View
         android:id="@+id/divider2"
         android:layout_width="match_parent"
-        android:layout_height="1sp"
+        android:layout_height="1dp"
         android:layout_below="@+id/relativeLayoutAccess"
         android:background="?attr/textColor" />
 
@@ -139,13 +145,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/fos_choice"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="RelativeOverlap" />
 
             <ImageView
                 android:id="@+id/imageViewExpander2"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
+                android:contentDescription="@string/arrow"
                 android:src="@drawable/ic_arrow_down" />
         </RelativeLayout>
 
@@ -164,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="true"
-                android:text="WiET - Informatyka" />
+                android:text="@string/field" />
 
         </RelativeLayout>
     </RelativeLayout>
@@ -172,7 +180,7 @@
     <View
         android:id="@+id/divider3"
         android:layout_width="match_parent"
-        android:layout_height="1sp"
+        android:layout_height="1dp"
         android:layout_below="@+id/relativeLayoutFos"
         android:background="?attr/textColor" />
 

@@ -7,16 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.passitwiki.passit.R
-import kotlinx.android.synthetic.main.fragment_memes.*
 import kotlinx.android.synthetic.main.fragment_memes.view.*
 
 //TODO description for both the fragment and its functions
 //TODO make this fragment usable???
 class MemesFragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -23,11 +23,15 @@ import retrofit2.Response
  */
 class LoginActivity : AppCompatActivity() {
 
+    lateinit var sh: SharedPreferences
+    var currentTheme: String = "dark"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val sh: SharedPreferences = getPreferences(Context.MODE_PRIVATE)
+        sh = getPreferences(Context.MODE_PRIVATE)
+        checkTheme()
 
 
         buttonLogin.setOnClickListener {
@@ -76,6 +80,32 @@ class LoginActivity : AppCompatActivity() {
 
                 })
         }
+
+
     }
+
+    /**
+     * Handling the theme change and remembering the last state.
+     */
+    override fun onResume() {
+        super.onResume()
+        val theme: String = sh.getString("current_theme", "dark")!!
+        if (currentTheme != theme) recreate()
+    }
+
+    /**
+     * Handling the theme change and remembering the last state.
+     */
+    private fun checkTheme() {
+        currentTheme = sh.getString("current_theme", "dark")!!
+        if (currentTheme == "light") {
+            setTheme(R.style.LightTheme)
+            sh.edit().putString("current_theme", "light").apply()
+        } else {
+            setTheme(R.style.DarkTheme)
+            sh.edit().putString("current_theme", "dark").apply()
+        }
+    }
+
 
 }

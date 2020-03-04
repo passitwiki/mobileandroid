@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_news.view.*
  * An adapter class that adapts repeatedly a recieved JsonArray to a pattern.
  * Takes in a response from the api and
  * creates as many items as getItemCount has.
- * @param lecturers a list object from a json array made with Gson
+ * @param news a list object from a json array made with Gson
  */
 class NewsAdapter(private val news: List<News>) :
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
@@ -40,7 +40,7 @@ class NewsAdapter(private val news: List<News>) :
      * @param position the number of the object you're working with
      */
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val decreasingOrderPosition = getItemCount() - position -1
+        val decreasingOrderPosition = itemCount - position - 1
         val pieceOfNews = news[decreasingOrderPosition]
         holder.title.text = pieceOfNews.title
         holder.content.text = pieceOfNews.content

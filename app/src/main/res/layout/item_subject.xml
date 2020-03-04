@@ -16,7 +16,8 @@
         android:background="?attr/gradientBorder"
         android:elevation="4dp"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/textViewSubjectsName"
@@ -32,6 +33,7 @@
             android:layout_height="18sp"
             android:src="@drawable/ic_lecturer"
             android:layout_below="@id/textViewSubjectsName"
+            android:contentDescription="@string/lecturers"
             />
 
         <TextView
@@ -43,27 +45,8 @@
             style="@style/bodyText"
             android:textSize="16sp"
             android:paddingStart="4dp"
+            android:paddingEnd="4dp"
             tools:text="Lucjan Janowski" />
-
-<!--        <TextView-->
-<!--            android:id="@+id/textViewSubjectsDescription"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@id/textViewSubjectsName"-->
-<!--            style="@style/bodyText"-->
-<!--            android:textSize="16sp"-->
-<!--            tools:text="Description: this is a very important subject of great importance." />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/textViewSubjectsSemesterAndField"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@id/textViewSubjectsDescription"-->
-<!--            android:fontFamily="@font/font_verdana"-->
-<!--            android:padding="5dp"-->
-<!--            android:textColor="?attr/textColor"-->
-<!--            android:textSize="15sp"-->
-<!--            tools:text="Field_of_study X" />-->
 
     </RelativeLayout>
 

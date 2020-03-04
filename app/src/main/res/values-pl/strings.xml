@@ -8,7 +8,7 @@
     <string name="exam_calendar">Kalendarz zaliczeń</string>
     <string name="hi">Cześć!</string>
     <string name="lecturers">Wykładowcy</string>
-    <string name="logincontinue">Zaloguj się, aby kontynuować.</string>
+    <string name="login_continue">Zaloguj się, aby kontynuować.</string>
     <string name="logout">Wyloguj się</string>
     <string name="memes">Memy</string>
     <string name="news">Ogłoszenia</string>
@@ -25,4 +25,5 @@
     <string name="success_passwd">Hasło zostało pomyślnie zmienione.</string>
     <string name="mismatch_passwd">Nowe hasła do siebie nie pasują.</string>
     <string name="wrong_passwd">Podane hasło nie jest prawidłowe.</string>
+    <string name="rep">\@Starosta</string>
 </resources>

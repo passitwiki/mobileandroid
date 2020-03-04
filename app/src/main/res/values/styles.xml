@@ -12,12 +12,12 @@
         <item name="colorAccent">@color/colorTextBlack</item>
         <item name="colorPrimary">@color/colorBlack</item>
         <item name="colorPrimaryDark">@color/colorBlack</item>
-        <item name="backgroundColor">@color/colorGreyFafafa</item>
+        <item name="backgroundColor">@color/colorGreyFAFAFA</item>
         <item name="gradientBorder">@drawable/gradient_border</item>
         <item name="gradientBorderNewsCal">@drawable/gradient_border_news_cal</item>
         <item name="textColor">@color/colorTextBlack</item>
         <item name="headerTextColor">@color/colorBlack</item>
-        <item name="toolbarColor">@color/colorGreyFafafa</item>
+        <item name="toolbarColor">@color/colorGreyFAFAFA</item>
         <item name="android:navigationBarColor">@color/colorBlack</item>
     </style>
 
@@ -35,7 +35,7 @@
         <item name="backgroundColor">@color/colorBlack</item>
         <item name="gradientBorder">@drawable/gradient_border</item>
         <item name="gradientBorderNewsCal">@drawable/gradient_border_news_cal</item>
-        <item name="textColor">@color/colorGreyFafafa</item>
+        <item name="textColor">@color/colorGreyFAFAFA</item>
         <item name="headerTextColor">@color/colorBlack</item>
         <item name="toolbarColor">@color/colorBlack</item>
         <item name="android:navigationBarColor">@color/colorBlack</item>

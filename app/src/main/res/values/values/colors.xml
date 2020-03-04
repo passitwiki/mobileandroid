@@ -11,7 +11,7 @@
     <color name="gradientRight">#09539F</color>
     <color name="gradientNewsCalLeft">#87129A</color>
     <color name="gradientNewsCalRight">#09539F</color>
-    <color name="colorGreyFafafa">#FAFAFA</color>
+    <color name="colorGreyFAFAFA">#FAFAFA</color>
     <color name="colorTextBlack">#373636</color>
 
 </resources>
