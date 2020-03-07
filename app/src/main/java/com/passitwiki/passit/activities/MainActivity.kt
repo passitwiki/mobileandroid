@@ -59,7 +59,9 @@ class MainActivity : AppCompatActivity() {
                     globalUser = User(
                         response.body()!!.id,
                         response.body()!!.username,
-                        response.body()!!.profile
+                        response.body()!!.profile,
+                        response.body()!!.first_name,
+                        response.body()!!.last_name
                     )
 
                     sharedPref = getPreferences(Context.MODE_PRIVATE)
@@ -76,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                     changeToDashboard(token!!)
 
                     imageViewButtonSettings.setOnClickListener {
-                        changeToUser()
+                        changeToSettings()
                     }
 
                     btmNav.setOnNavigationItemSelectedListener { item ->
@@ -152,7 +154,7 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun changeToUser() {
+    fun changeToSettings() {
         currentFragment = "sett"
         this.textViewToolbar.text = getString(R.string.settings)
         this.imageViewButtonSettings.visibility = (View.GONE)

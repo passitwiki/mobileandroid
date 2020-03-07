@@ -3,14 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="72dp"
     tools:context=".fragments.SubjectsFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:paddingTop="?attr/actionBarSize"
+    <!--  TODO finish layout of the spinner  -->
+    <Spinner
+        android:id="@+id/spinnerSemester"
+        android:layout_width="131dp"
+        android:layout_height="29dp"
+        android:layout_centerHorizontal="true"
+        android:background="?attr/gradientBorder" />
 
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/subjectsRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerSemester" />
 
 
 </RelativeLayout>

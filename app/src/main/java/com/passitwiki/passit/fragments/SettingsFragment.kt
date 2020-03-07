@@ -1,12 +1,17 @@
 package com.passitwiki.passit.fragments
 
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.fragment.app.Fragment
 import com.passitwiki.passit.R
+import com.passitwiki.passit.activities.LoginActivity
+import com.passitwiki.passit.tools.globalContext
 import com.passitwiki.passit.tools.globalSharedPreferences
 import com.passitwiki.passit.tools.globalUser
 import kotlinx.android.synthetic.main.fragment_settings.view.*
@@ -32,12 +37,14 @@ class SettingsFragment : Fragment() {
         val imageTop = view.imageViewExpander
         val imageBottom = view.imageViewExpander2
         val fosTextView = view.textViewFos
+        val switchTheme = view.switchTheme
+        val textChangePasswordButton = view.textViewChangePassword
 
 
-        nameTextView.append(globalUser?.username)
+        nameTextView.append(globalUser?.first_name + " " + globalUser?.last_name)
 
         fosTextView.append(globalSharedPreferences!!.getString("current_fos", "no_fos_present")!!)
-        //TODO make an adapter for FAG multi-element array
+        //TODO make an adapter for FAG multi-element array - not supported
 
         var collapsedTop = "true" //true - collapsed
         expanderTop.setOnClickListener {
@@ -66,14 +73,39 @@ class SettingsFragment : Fragment() {
             }
         }
 
+        textChangePasswordButton.setOnClickListener {
+
+        }
+
 
         //TODO darkmode onSwitch toggle
+        switchTheme.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener
+        { _, isChecked ->
+            toggleTheme(
+                isChecked
+            )
+        })
+
 
         view.textViewLogout.setOnClickListener {
-            //TODO good logout logic
+            val intent = (Intent(globalContext, LoginActivity::class.java))
+            startActivity(intent)
+            activity!!.finish()
         }
 
         return view
+    }
+
+    private fun toggleTheme(darkTheme: Boolean) {
+        val editor: SharedPreferences.Editor =
+            globalSharedPreferences!!.edit()
+        editor.putBoolean("current_theme_light", false)
+        editor.apply()
+
+        activity!!.setTheme(R.style.DarkTheme)
+//        val intent = (Intent(globalContext, MainActivity::class.java))
+//        finish()
+//        startActivity(intent)
     }
 
 //    private fun collapseBehavior(

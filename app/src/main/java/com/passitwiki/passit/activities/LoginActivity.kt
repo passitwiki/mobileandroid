@@ -35,13 +35,12 @@ class LoginActivity : AppCompatActivity() {
 
         buttonLogin.setOnClickListener {
 
-            val email = editTextEmail.text.toString().trim()
+            val email = editTextIndex.text.toString().trim()
             val password = editTextPassword.text.toString().trim()
 
-
             if (email.isEmpty()) {
-                editTextEmail.error = "Email required"
-                editTextEmail.requestFocus()
+                editTextIndex.error = "Email required"
+                editTextIndex.requestFocus()
                 return@setOnClickListener
             }
             if (password.isEmpty()) {

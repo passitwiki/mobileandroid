@@ -5,6 +5,8 @@ import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.passitwiki.passit.R
@@ -14,6 +16,7 @@ import com.passitwiki.passit.models.Subject
 import com.passitwiki.passit.tools.globalContext
 import com.passitwiki.passit.tools.globalSharedPreferences
 import kotlinx.android.synthetic.main.fragment_subjects.*
+import kotlinx.android.synthetic.main.fragment_subjects.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -60,7 +63,34 @@ class SubjectsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_subjects, container, false)
+        val view = inflater.inflate(R.layout.fragment_subjects, container, false)
+
+        val listOfSemester =
+            arrayOf("Semester 1", "Semester 2", "Semester 3", "Semester 4", "Semester 5")
+
+        view.spinnerSemester!!.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    //TODO("Not yet implemented")
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    //TODO("Not yet implemented")
+                }
+            }
+
+        val array_adapter =
+            ArrayAdapter(globalContext!!, android.R.layout.simple_spinner_item, listOfSemester)
+        array_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        view.spinnerSemester.adapter = array_adapter
+
+        return view
     }
 
     fun showData(subjects: List<Subject>) {

@@ -35,7 +35,4 @@
     <string name="calendar" translatable="false">Calendar</string>
     <string name="xxx" translatable="false">XX.XX.XXXX</string>
     <string name="rep">\@Representative</string>
-
-    <!--  TODO delete  -->
-    <string name="field" translatable="false">WiET - Informatyka</string>
 </resources>
