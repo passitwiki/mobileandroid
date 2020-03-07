@@ -1,5 +1,7 @@
 package com.passitwiki.passit.activities
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log.d
 import android.view.View
@@ -9,9 +11,7 @@ import com.passitwiki.passit.R
 import com.passitwiki.passit.api.RetrofitClient
 import com.passitwiki.passit.fragments.*
 import com.passitwiki.passit.models.User
-import com.passitwiki.passit.tools.globalContext
-import com.passitwiki.passit.tools.globalToken
-import com.passitwiki.passit.tools.globalUser
+import com.passitwiki.passit.tools.*
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var subjectsFragment: SubjectsFragment
     private lateinit var settingsFragment: SettingsFragment
     private var currentFragment: String = "dash"
+    lateinit var sharedPref: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,9 +36,13 @@ class MainActivity : AppCompatActivity() {
 
         globalContext = applicationContext
 
+        globalRefresh = intent.getStringExtra("refresh")
+
         globalToken = intent.getStringExtra("token")
         val token = globalToken
         val bearerToken = "Bearer $globalToken"
+
+
 
         RetrofitClient.instance.getUserInfo(bearerToken)
             .enqueue(object : Callback<User> {
@@ -57,9 +62,16 @@ class MainActivity : AppCompatActivity() {
                         response.body()!!.profile
                     )
 
-                    //TODO user fos global or recognizable
+                    sharedPref = getPreferences(Context.MODE_PRIVATE)
+                    FieldOfStudyChecker.updateFieldOfStudy(
+                        globalUser!!.profile.field_age_groups[0].field_of_study
+                    )
 
-//                    Toast.makeText(applicationContext, globalUser!!.username, Toast.LENGTH_LONG).show()
+                    d(
+                        "MyTagAyy",
+                        globalUser!!.profile.field_age_groups[0].field_of_study.toString()
+                    )
+
 
                     changeToDashboard(token!!)
 

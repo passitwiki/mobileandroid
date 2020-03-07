@@ -12,6 +12,7 @@ import com.passitwiki.passit.adapter.SubjectsAdapter
 import com.passitwiki.passit.api.RetrofitClient
 import com.passitwiki.passit.models.Subject
 import com.passitwiki.passit.tools.globalContext
+import com.passitwiki.passit.tools.globalSharedPreferences
 import kotlinx.android.synthetic.main.fragment_subjects.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -34,7 +35,22 @@ class SubjectsFragment : Fragment() {
                     response: Response<List<Subject>>
                 ) {
                     d("MyTag", "onResponse: ${response.body()}")
-                    showData(response.body()!!)
+                    val listOfSubjects: ArrayList<Subject> =
+                        response.body()!! as ArrayList<Subject>
+                    val returnListOfSubjects: ArrayList<Subject> = ArrayList()
+
+                    for (i in listOfSubjects) {
+                        if (i.field_of_study == globalSharedPreferences!!.getString(
+                                "current_fos",
+                                "null_fos"
+                            )
+                        ) {
+                            returnListOfSubjects.add(i)
+                        }
+
+                    }
+                    returnListOfSubjects.sortBy { it.semester }
+                    showData(returnListOfSubjects as List<Subject>)
                 }
             })
     }

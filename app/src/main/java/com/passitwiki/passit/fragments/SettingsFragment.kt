@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.passitwiki.passit.R
+import com.passitwiki.passit.tools.globalSharedPreferences
 import com.passitwiki.passit.tools.globalUser
 import kotlinx.android.synthetic.main.fragment_settings.view.*
 
@@ -30,8 +31,13 @@ class SettingsFragment : Fragment() {
         val bottomBody = view.relativeLayoutFosBody
         val imageTop = view.imageViewExpander
         val imageBottom = view.imageViewExpander2
+        val fosTextView = view.textViewFos
+
 
         nameTextView.append(globalUser?.username)
+
+        fosTextView.append(globalSharedPreferences!!.getString("current_fos", "no_fos_present")!!)
+        //TODO make an adapter for FAG multi-element array
 
         var collapsedTop = "true" //true - collapsed
         expanderTop.setOnClickListener {

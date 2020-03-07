@@ -2,13 +2,13 @@ package com.passitwiki.passit.activities
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.passitwiki.passit.R
 import com.passitwiki.passit.api.RetrofitClient
 import com.passitwiki.passit.models.JwtCreateResponse
+import com.passitwiki.passit.tools.globalSharedPreferences
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,14 +23,13 @@ import retrofit2.Response
  */
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var sh: SharedPreferences
     var currentTheme: String = "dark"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        sh = getPreferences(Context.MODE_PRIVATE)
+        globalSharedPreferences = getPreferences(Context.MODE_PRIVATE)
         checkTheme()
 
 
@@ -62,10 +61,12 @@ class LoginActivity : AppCompatActivity() {
                         response: Response<JwtCreateResponse>
                     ) {
                         if (response.body()?.access != null) {
-                            sh.edit().putString("user_logged_in", "yes").apply()
+                            globalSharedPreferences!!.edit().putString("user_logged_in", "yes")
+                                .apply()
 
                             val intent = (Intent(applicationContext, MainActivity::class.java))
                             intent.putExtra("token", response.body()?.access)
+                            intent.putExtra("refresh", response.body()?.refresh)
                             startActivity(intent)
                             finish()
 
@@ -89,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
      */
     override fun onResume() {
         super.onResume()
-        val theme: String = sh.getString("current_theme", "dark")!!
+        val theme: String = globalSharedPreferences!!.getString("current_theme", "dark")!!
         if (currentTheme != theme) recreate()
     }
 
@@ -97,13 +98,13 @@ class LoginActivity : AppCompatActivity() {
      * Handling the theme change and remembering the last state.
      */
     private fun checkTheme() {
-        currentTheme = sh.getString("current_theme", "dark")!!
+        currentTheme = globalSharedPreferences!!.getString("current_theme", "dark")!!
         if (currentTheme == "light") {
             setTheme(R.style.LightTheme)
-            sh.edit().putString("current_theme", "light").apply()
+            globalSharedPreferences!!.edit().putString("current_theme", "light").apply()
         } else {
             setTheme(R.style.DarkTheme)
-            sh.edit().putString("current_theme", "dark").apply()
+            globalSharedPreferences!!.edit().putString("current_theme", "dark").apply()
         }
     }
 

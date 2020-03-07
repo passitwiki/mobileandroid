@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_subject.view.*
  * An adapter class that adapts repeatedly a recieved JsonArray to a pattern.
  * Takes in a response from the api and
  * creates as many items as getItemCount has.
- * @param lecturers a list object from a json array made with Gson
+ * @param subjects a list object from a json array made with Gson
  */
 class SubjectsAdapter(private val subjects: List<Subject>) :
     RecyclerView.Adapter<SubjectsAdapter.SubjectsViewHolder>() {
@@ -41,11 +41,11 @@ class SubjectsAdapter(private val subjects: List<Subject>) :
      */
     override fun onBindViewHolder(holder: SubjectsViewHolder, position: Int) {
         val subject = subjects[position]
+        holder.name.text = subject.name
 
 //        val descText =
 //            if (subject.general_desctiption != "null") "Description: ${subject.general_desctiption}" else "No desription yet."
 //        val semAndFieldText = "FoS: ${subject.field_of_study}; Sem: ${subject.semester}"
-        holder.name.text = subject.name
 //        holder.description.text = descText
 //        holder.semesterAndField.text = semAndFieldText
     }

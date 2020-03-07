@@ -22,6 +22,11 @@ interface Api {
         @Header("Authorization") bearerToken: String
     ): Call<User>
 
+    @GET("fieldsofstudy/")
+    fun getFieldOfStudy(
+        @Header("Authorization") bearerToken: String
+    ): Call<List<FieldOfStudy>>
+
     @GET("news/")
     fun getNews(
         @Header("Authorization") bearerToken: String
