@@ -3,7 +3,6 @@ The kotlin-android app part of our project
 ### Tasks at hand:
 
 #### Backend-wise:
-* good logout logic (not just finish())
 * caching data on each screen
 * caching user data so it doesn't log him out
 * fullBackupContent
@@ -38,4 +37,5 @@ The kotlin-android app part of our project
 * BottomNavigationBar utilisation
 * multi-language support
 * styles wholly based on attributes
+* login and logout logic
 
