@@ -17,6 +17,14 @@ interface Api {
         @Field("password") password: String
     ): Call<JwtCreateResponse>
 
+    @FormUrlEncoded
+    @POST("auth/users/set_password/")
+    fun postSetPassword(
+        @Header("Authorization") bearerToken: String,
+        @Field("new_password") username: String,
+        @Field("current_password") password: String
+    ): Call<Unit>
+
     @GET("auth/users/me/?expand=profile,profile.field_age_groups")
     fun getUserInfo(
         @Header("Authorization") bearerToken: String

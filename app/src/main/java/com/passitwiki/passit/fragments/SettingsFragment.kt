@@ -44,7 +44,7 @@ class SettingsFragment : Fragment() {
         nameTextView.append(globalUser?.first_name + " " + globalUser?.last_name)
 
         fosTextView.append(globalSharedPreferences!!.getString("current_fos", "no_fos_present")!!)
-        //TODO make an adapter for FAG multi-element array - not supported
+        //TODO make an adapter for FAG multi-element array - not supported yet
 
         var collapsedTop = "true" //true - collapsed
         expanderTop.setOnClickListener {
@@ -74,7 +74,8 @@ class SettingsFragment : Fragment() {
         }
 
         textChangePasswordButton.setOnClickListener {
-
+            val passwordDialogFragment = PasswordDialogFragment()
+            passwordDialogFragment.show(fragmentManager!!, "password")
         }
 
 

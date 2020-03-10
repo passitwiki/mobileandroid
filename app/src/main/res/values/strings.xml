@@ -13,7 +13,7 @@
     <string name="login_continue">Log in to continue.</string>
     <string name="username">index number</string>
     <string name="password">password</string>
-    <string name="dontrememberpassword">I don\'t remember my password.</string>
+    <string name="don_t_remember_password">I don\'t remember my password.</string>
     <string name="settings">Settings</string>
     <string name="change_password">Change your password</string>
     <string name="accessibility">Accessibility</string>
@@ -23,16 +23,17 @@
     <string name="exam_calendar">Exam calendar</string>
     <string name="fos_choice">Displayed field of study</string>
     <string name="contrast">Increase contrast</string>
-    <string name="curr_passwd">Current password</string>
-    <string name="new_passwd">New password</string>
-    <string name="confirm_passwd">Repeat new password</string>
-    <string name="success_passwd">The new password has successfully been set.</string>
-    <string name="mismatch_passwd">Entered new passwords do not match.</string>
-    <string name="wrong_passwd">The entered password is not correct.</string>
+    <string name="curr_password">Current password</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_password">Repeat new password</string>
+    <string name="success_password">The new password has successfully been set.</string>
+    <string name="mismatch_password">Entered new passwords do not match.</string>
+    <string name="wrong_password">The entered password is not correct.</string>
     <string name="plus" translatable="false">Plus</string>
     <string name="arrow" translatable="false">Arrow</string>
     <string name="user" translatable="false">User</string>
     <string name="calendar" translatable="false">Calendar</string>
     <string name="xxx" translatable="false">XX.XX.XXXX</string>
     <string name="rep">\@Representative</string>
+
 </resources>

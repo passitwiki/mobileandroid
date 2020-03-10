@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/imageViewUser"
             android:paddingStart="27dp"
-            android:paddingEnd="27dp"
             android:paddingTop="13dp"
+            android:paddingEnd="27dp"
             android:textSize="18sp"
             tools:text="Janowski Lucjan" />
 
@@ -43,8 +43,8 @@
             android:layout_below="@id/textViewUserNameSurname"
             android:layout_toEndOf="@id/imageViewUser"
             android:paddingStart="27dp"
-            android:paddingEnd="27dp"
             android:paddingTop="8dp"
+            android:paddingEnd="27dp"
             android:text="@string/change_password"
             android:textSize="14sp" />
 
@@ -159,11 +159,11 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:paddingTop="16dp"
             android:id="@+id/relativeLayoutFosBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/relativeLayoutFosHeader"
+            android:paddingTop="16dp"
             android:visibility="gone">
 
             <TextView

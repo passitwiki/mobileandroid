@@ -4,7 +4,7 @@
     <string name="change_password">"Zmień hasło "</string>
     <string name="color_correction">Zmiana kontrastu:</string>
     <string name="dashboard">Główna</string>
-    <string name="dontrememberpassword">Nie pamiętam hasła</string>
+    <string name="don_t_remember_password">Nie pamiętam hasła</string>
     <string name="exam_calendar">Kalendarz zaliczeń</string>
     <string name="hi">Cześć!</string>
     <string name="lecturers">Wykładowcy</string>
@@ -19,11 +19,11 @@
     <string name="username">nr indeksu</string>
     <string name="fos_choice">Wyświetlany kierunek studiów</string>
     <string name="contrast">Zwiększ kontrast</string>
-    <string name="curr_passwd">Wpisz bieżące hasło</string>
-    <string name="new_passwd">Wpisz nowe hasło</string>
-    <string name="confirm_passwd">Powtórz nowe hasło</string>
-    <string name="success_passwd">Hasło zostało pomyślnie zmienione.</string>
-    <string name="mismatch_passwd">Nowe hasła do siebie nie pasują.</string>
-    <string name="wrong_passwd">Podane hasło nie jest prawidłowe.</string>
+    <string name="curr_password">Wpisz bieżące hasło</string>
+    <string name="new_password">Wpisz nowe hasło</string>
+    <string name="confirm_password">Powtórz nowe hasło</string>
+    <string name="success_password">Hasło zostało pomyślnie zmienione.</string>
+    <string name="mismatch_password">Nowe hasła do siebie nie pasują.</string>
+    <string name="wrong_password">Podane hasło nie jest prawidłowe.</string>
     <string name="rep">\@Starosta</string>
 </resources>

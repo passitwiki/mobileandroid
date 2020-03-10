@@ -75,25 +75,25 @@ class MainActivity : AppCompatActivity() {
                     )
 
 
-                    changeToDashboard(token!!)
+                    changeToDashboard(token!!, savedInstanceState)
 
                     imageViewButtonSettings.setOnClickListener {
-                        changeToSettings()
+                        changeToSettings(savedInstanceState)
                     }
 
                     btmNav.setOnNavigationItemSelectedListener { item ->
                         when (item.itemId) {
                             R.id.itemDashboard -> {
-                                changeToDashboard(token)
+                                changeToDashboard(token, savedInstanceState)
                             }
                             R.id.itemLecturers -> {
-                                changeToLecturers()
+                                changeToLecturers(savedInstanceState)
                             }
                             R.id.itemSubjects -> {
-                                changeToSubjects()
+                                changeToSubjects(savedInstanceState)
                             }
                             R.id.itemMemes -> {
-                                changeToMemes()
+                                changeToMemes(savedInstanceState)
                             }
                         }
                         true
@@ -103,73 +103,98 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun changeToDashboard(token: String) {
+    fun changeToDashboard(token: String, savedInstanceState: Bundle?) {
         currentFragment = "dash"
         this.textViewToolbar.text = getString(R.string.dashboard)
         this.imageViewButtonSettings.visibility = (View.VISIBLE)
-        dashboardFragment = DashboardFragment()
         val args = Bundle()
         args.putString("token", token)
-        dashboardFragment.arguments = args
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.frameLayoutMain, dashboardFragment)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .commit()
+        if (savedInstanceState == null) {
+            dashboardFragment = DashboardFragment()
+            dashboardFragment.arguments = args
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayoutMain, dashboardFragment, "dash")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit()
+        } else {
+            dashboardFragment =
+                supportFragmentManager.findFragmentByTag("dash") as DashboardFragment
+        }
     }
 
-    fun changeToLecturers() {
+    fun changeToLecturers(savedInstanceState: Bundle?) {
         currentFragment = "lect"
         this.textViewToolbar.text = getString(R.string.lecturers)
         this.imageViewButtonSettings.visibility = (View.GONE)
-        lecturersFragment = LecturersFragment()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.frameLayoutMain, lecturersFragment)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .commit()
+        if (savedInstanceState == null) {
+            lecturersFragment = LecturersFragment()
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayoutMain, lecturersFragment, "lect")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit()
+        } else {
+            lecturersFragment =
+                supportFragmentManager.findFragmentByTag("lect") as LecturersFragment
+        }
     }
 
-    fun changeToSubjects() {
+    fun changeToSubjects(savedInstanceState: Bundle?) {
         currentFragment = "subj"
         this.textViewToolbar.text = getString(R.string.subjects)
         this.imageViewButtonSettings.visibility = (View.GONE)
-        subjectsFragment = SubjectsFragment()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.frameLayoutMain, subjectsFragment)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .commit()
+        if (savedInstanceState == null) {
+            subjectsFragment = SubjectsFragment()
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayoutMain, subjectsFragment, "subj")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit()
+        } else {
+            subjectsFragment =
+                supportFragmentManager.findFragmentByTag("subj") as SubjectsFragment
+        }
     }
 
-    fun changeToMemes() {
+    fun changeToMemes(savedInstanceState: Bundle?) {
         currentFragment = "meme"
         this.textViewToolbar.text = getString(R.string.memes)
         this.imageViewButtonSettings.visibility = (View.GONE)
-        memesFragment = MemesFragment()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.frameLayoutMain, memesFragment)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .commit()
+        if (savedInstanceState == null) {
+            memesFragment = MemesFragment()
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayoutMain, memesFragment, "meme")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit()
+        } else {
+            memesFragment =
+                supportFragmentManager.findFragmentByTag("meme") as MemesFragment
+        }
     }
 
-    fun changeToSettings() {
+    fun changeToSettings(savedInstanceState: Bundle?) {
         currentFragment = "sett"
         this.textViewToolbar.text = getString(R.string.settings)
         this.imageViewButtonSettings.visibility = (View.GONE)
-        settingsFragment = SettingsFragment()
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.frameLayoutMain, settingsFragment)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-            .commit()
+        if (savedInstanceState == null) {
+            settingsFragment = SettingsFragment()
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayoutMain, settingsFragment, "sett")
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit()
+        } else {
+            settingsFragment =
+                supportFragmentManager.findFragmentByTag("sett") as SettingsFragment
+        }
     }
 
     override fun onBackPressed() {
         if (currentFragment != "dash") {
             val token = intent.getStringExtra("token")
-            changeToDashboard(token!!)
+            changeToDashboard(token!!, savedInstanceState = null)
         } else {
             super.onBackPressed()
         }
