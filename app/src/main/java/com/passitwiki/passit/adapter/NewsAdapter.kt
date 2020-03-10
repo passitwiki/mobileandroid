@@ -42,8 +42,27 @@ class NewsAdapter(private val news: List<News>) :
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val decreasingOrderPosition = itemCount - position - 1
         val pieceOfNews = news[decreasingOrderPosition]
+
         holder.title.text = pieceOfNews.title
         holder.content.text = pieceOfNews.content
+        holder.creationDate.text = pieceOfNews.created_at.substring(0, 10)
+
+        val textContent = holder.content
+        val ellipsis = holder.ellipsis
+        textContent.maxLines = 2
+        //TODO FIX THIS SHIT TO DISPLAY STUFF
+        if (textContent.lineCount > 2) {
+            ellipsis.visibility = View.VISIBLE
+        }
+        textContent.setOnClickListener {
+            if (textContent.maxLines == 2 || textContent.lineCount < 2) {
+                textContent.maxLines = Int.MAX_VALUE
+                ellipsis.visibility = View.GONE
+            } else {
+                textContent.maxLines = 2
+                ellipsis.visibility = View.VISIBLE
+            }
+        }
     }
 
     /**
@@ -53,6 +72,8 @@ class NewsAdapter(private val news: List<News>) :
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title = itemView.textViewNewsTitle
         val content = itemView.textViewNewsContent
+        val creationDate = itemView.textViewDatePosted
+        val ellipsis = itemView.textViewEllipsis
     }
 
 }

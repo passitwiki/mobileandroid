@@ -5,8 +5,8 @@ import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.passitwiki.passit.R
 import com.passitwiki.passit.adapter.NewsAdapter
@@ -15,7 +15,6 @@ import com.passitwiki.passit.models.News
 import com.passitwiki.passit.tools.globalContext
 import com.passitwiki.passit.tools.globalToken
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,7 +47,12 @@ class DashboardFragment : Fragment() {
                     response: Response<List<News>>
                 ) {
                     d("MyTag", "onResponse: ${response.body()}")
-                    showData(response.body()!!)
+                    if (response.body() == null) {
+                        Toast.makeText(globalContext!!, "Something went wrong", Toast.LENGTH_LONG)
+                            .show()
+                    } else {
+                        showData(response.body()!!)
+                    }
                 }
             })
     }
@@ -59,6 +63,7 @@ class DashboardFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
+
 
 //        view.imageViewButtonSettings.setOnClickListener {
 //            val userDialogFragment = SettingsFragment()

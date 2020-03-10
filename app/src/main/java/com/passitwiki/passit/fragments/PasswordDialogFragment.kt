@@ -24,6 +24,18 @@ import retrofit2.Response
 
 class PasswordDialogFragment : DialogFragment() {
 
+
+    //TODO making the view display btm nav bar
+    override fun onStart() {
+        super.onStart()
+        val dialog = dialog
+        if (dialog != null) {
+            val width = ViewGroup.LayoutParams.MATCH_PARENT
+            val height = ViewGroup.LayoutParams.MATCH_PARENT
+            dialog.window!!.setLayout(width, height)
+        }
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view: View = activity!!.layoutInflater
             .inflate(R.layout.fragment_passworddialog, LinearLayout(activity), false)
@@ -42,6 +54,13 @@ class PasswordDialogFragment : DialogFragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_passworddialog, container, false)
+
+        view.arrowBack.setOnClickListener {
+            dismiss()
+        }
+        view.buttonCross.setOnClickListener {
+            dismiss()
+        }
 
         view.buttonCheck.setOnClickListener {
             val currPassword = view.editTextCurrentPassword.text.toString().trim()

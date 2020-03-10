@@ -8,5 +8,7 @@ data class News(
     val title: String,
     val content: String,
     val subject_group: Int,
-    val field_age_group: Int
+    val field_age_group: Int,
+    val created_at: String,
+    val updated_at: String
 )

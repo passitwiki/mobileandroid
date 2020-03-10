@@ -35,8 +35,22 @@
             android:layout_below="@id/textViewNewsTitle"
             android:paddingTop="9dp"
             android:textSize="16sp"
+            android:clickable="true"
+            android:focusable="true"
             tools:text="This is the content of news."
             android:paddingBottom="20dp"/>
+
+        <TextView
+            android:id="@+id/textViewEllipsis"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewNewsTitle"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="9dp"
+            android:paddingBottom="20dp"
+            android:text="\n..."
+            android:textSize="16sp" />
 
         <ImageView
             android:id="@+id/imageViewCalendar"
