@@ -35,5 +35,17 @@
     <string name="calendar" translatable="false">Calendar</string>
     <string name="xxx" translatable="false">XX.XX.XXXX</string>
     <string name="rep">\@Representative</string>
+    <string name="description">Description</string>
+    <string name="materials">Materials</string>
+    <string name="instructors">Instructors</string>
+    <string name="general">General</string>
+    <string name="degree">Degree: </string>
+    <string name="consultations">Consultation times: </string>
+    <string name="contact">Contact: </string>
+    <string name="opinions">Opinions: </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

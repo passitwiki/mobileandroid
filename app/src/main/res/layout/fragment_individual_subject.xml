@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".fragments.IndividualSubjectFragment">
+
+    <TextView
+        android:id="@+id/textViewSubjectDescription"
+        style="@style/bodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="30dp"
+        android:paddingBottom="30dp"
+        android:text="@string/description"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewSubjectMaterials"
+        style="@style/bodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/textViewSubjectDescription"
+        android:text="@string/materials"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewThisSubject"
+        style="@style/bodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewSubjectDescription"
+        android:paddingBottom="11dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="NAZWA PRZEDMIOTY" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutSubjectDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewThisSubject"
+        android:background="?attr/gradientBorder"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textViewExamable"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:textSize="16sp"
+            tools:text="E -PRZEDMIOT OBJETY MOIM USCISKIEM" />
+
+        <TextView
+            android:id="@+id/textViewSubjectsLecturers"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewExamable"
+            android:paddingBottom="10dp"
+            android:text="@string/instructors"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewIndividualLecturer"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewSubjectsLecturers"
+            android:textSize="16sp"
+            tools:text="dr IMIE NAZWISKO" />
+
+    </RelativeLayout>
+</RelativeLayout>

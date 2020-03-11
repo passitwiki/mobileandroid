@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".fragments.IndividualLecturerFragment">
+
+    <TextView
+        android:id="@+id/textViewLecturerGeneral"
+        style="@style/bodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="30dp"
+        android:paddingBottom="30dp"
+        android:text="@string/general"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewLecturersMemes"
+        style="@style/bodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/textViewLecturerGeneral"
+        android:text="@string/memes"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewThisSubject"
+        style="@style/bodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewLecturerGeneral"
+        android:paddingBottom="11dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="NAZWA Prowadzacego" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutSubjectDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewThisSubject"
+        android:background="?attr/gradientBorder"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textViewDegree"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:text="@string/degree"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textViewConsultations"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewDegree"
+            android:paddingBottom="10dp"
+            android:text="@string/consultations"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textViewContact"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewConsultations"
+            android:text="@string/contact"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textViewOpinions"
+        style="@style/bodyText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeLayoutSubjectDescription"
+        android:paddingTop="33dp"
+        android:paddingBottom="11dp"
+        android:text="@string/opinions"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutOpinions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewOpinions"
+        android:background="?attr/gradientBorder"
+        android:padding="16dp">
+
+    </RelativeLayout>
+
+</RelativeLayout>

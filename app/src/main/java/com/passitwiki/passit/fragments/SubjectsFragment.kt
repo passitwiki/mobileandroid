@@ -24,40 +24,6 @@ import retrofit2.Response
 //TODO description for both the fragment and its functions
 class SubjectsFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        RetrofitClient.instance.getSubjects()
-            .enqueue(object : Callback<List<Subject>> {
-                override fun onFailure(call: Call<List<Subject>>, t: Throwable) {
-                    d("MyTag", "onFailure: $t")
-                }
-
-                override fun onResponse(
-                    call: Call<List<Subject>>,
-                    response: Response<List<Subject>>
-                ) {
-                    d("MyTag", "onResponse: ${response.body()}")
-                    val listOfSubjects: ArrayList<Subject> =
-                        response.body()!! as ArrayList<Subject>
-                    val returnListOfSubjects: ArrayList<Subject> = ArrayList()
-
-                    for (i in listOfSubjects) {
-                        if (i.field_of_study == globalSharedPreferences!!.getString(
-                                "current_fos",
-                                "null_fos"
-                            )
-                        ) {
-                            returnListOfSubjects.add(i)
-                        }
-
-                    }
-                    returnListOfSubjects.sortBy { it.semester }
-                    showData(returnListOfSubjects as List<Subject>)
-                }
-            })
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,7 +37,8 @@ class SubjectsFragment : Fragment() {
         view.spinnerSemester!!.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    //TODO("Not yet implemented")
+                    globalSharedPreferences!!.edit().putString("curent_semester", "yes")
+                        .apply()
                 }
 
                 override fun onItemSelected(
@@ -80,7 +47,35 @@ class SubjectsFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    //TODO("Not yet implemented")
+                    RetrofitClient.instance.getSubjects()
+                        .enqueue(object : Callback<List<Subject>> {
+                            override fun onFailure(call: Call<List<Subject>>, t: Throwable) {
+                                d("MyTag", "onFailure: $t")
+                            }
+
+                            override fun onResponse(
+                                call: Call<List<Subject>>,
+                                response: Response<List<Subject>>
+                            ) {
+                                d("MyTag", "onResponse: ${response.body()}")
+                                val listOfSubjects: ArrayList<Subject> =
+                                    response.body()!! as ArrayList<Subject>
+                                val returnListOfSubjects: ArrayList<Subject> = ArrayList()
+
+                                for (i in listOfSubjects) {
+                                    if (i.field_of_study == globalSharedPreferences!!.getString(
+                                            "current_fos",
+                                            "null_fos"
+                                        ) && i.semester == position + 1
+                                    ) {
+                                        returnListOfSubjects.add(i)
+                                    }
+
+                                }
+                                returnListOfSubjects.sortBy { it.semester }
+                                showData(returnListOfSubjects as List<Subject>)
+                            }
+                        })
                 }
             }
 

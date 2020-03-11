@@ -43,11 +43,11 @@ class SubjectsAdapter(private val subjects: List<Subject>) :
         val subject = subjects[position]
         holder.name.text = subject.name
 
-//        val descText =
-//            if (subject.general_desctiption != "null") "Description: ${subject.general_desctiption}" else "No desription yet."
-//        val semAndFieldText = "FoS: ${subject.field_of_study}; Sem: ${subject.semester}"
-//        holder.description.text = descText
-//        holder.semesterAndField.text = semAndFieldText
+        //TODO MAKE THE ONCLICKLISTENER
+        holder.card.setOnClickListener {
+
+        }
+
     }
 
     /**
@@ -56,7 +56,6 @@ class SubjectsAdapter(private val subjects: List<Subject>) :
      */
     class SubjectsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name = itemView.textViewSubjectsName
-//        val description = itemView.textViewSubjectsDescription
-//        val semesterAndField = itemView.textViewSubjectsSemesterAndField
+        val card = itemView.relativeLayoutSubjectCard
     }
 }

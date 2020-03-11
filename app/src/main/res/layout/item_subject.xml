@@ -10,6 +10,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/relativeLayoutSubjectCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -27,26 +28,26 @@
             android:textSize="20sp"
             tools:text="Subject name"
             android:paddingBottom="4dp"/>
-        <ImageView
-            android:id="@+id/imageViewLecturerIcon"
-            android:layout_width="18sp"
-            android:layout_height="18sp"
-            android:src="@drawable/ic_lecturer"
-            android:layout_below="@id/textViewSubjectsName"
-            android:contentDescription="@string/lecturers"
-            />
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imageViewLecturerIcon"-->
+        <!--            android:layout_width="18sp"-->
+        <!--            android:layout_height="18sp"-->
+        <!--            android:src="@drawable/ic_lecturer"-->
+        <!--            android:layout_below="@id/textViewSubjectsName"-->
+        <!--            android:contentDescription="@string/lecturers"-->
+        <!--            />-->
 
-        <TextView
-            android:id="@+id/textViewSubjectsDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewSubjectsName"
-            android:layout_toEndOf="@+id/imageViewLecturerIcon"
-            style="@style/bodyText"
-            android:textSize="16sp"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            tools:text="Lucjan Janowski" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/textViewLecturerOfSubject"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_below="@id/textViewSubjectsName"-->
+        <!--            android:layout_toEndOf="@+id/imageViewLecturerIcon"-->
+        <!--            style="@style/bodyText"-->
+        <!--            android:textSize="16sp"-->
+        <!--            android:paddingStart="4dp"-->
+        <!--            android:paddingEnd="4dp"-->
+        <!--            tools:text="Lucjan Janowski" />-->
 
     </RelativeLayout>
 

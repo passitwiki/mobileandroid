@@ -26,4 +26,13 @@
     <string name="mismatch_password">Nowe hasła do siebie nie pasują.</string>
     <string name="wrong_password">Podane hasło nie jest prawidłowe.</string>
     <string name="rep">\@Starosta</string>
+    <string name="description">Opis</string>
+    <string name="materials">Materiały</string>
+    <string name="instructors">Prowadzący</string>
+    <string name="general">Ogólne</string>
+    <string name="degree">Stopień naukowy: </string>
+    <string name="consultations">Terminy konsultacji: </string>
+    <string name="contact">Kontakt: </string>
+    <string name="opinions">Opinie: </string>
+
 </resources>
