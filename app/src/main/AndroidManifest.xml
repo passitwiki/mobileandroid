@@ -16,6 +16,7 @@
         android:theme="@style/LightTheme"
         android:usesCleartextTraffic="true">
 
+        <!-- This is the splashscreen at the beginning - are we not using that? UI -->
         <!--        <activity android:name=".activities.IntroActivity">-->
         <!--            <intent-filter>-->
         <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -27,13 +28,13 @@
         <activity
             android:name=".activities.LoginActivity"
             android:windowSoftInputMode="stateVisible|adjustResize">
+            <!-- That makes the layout resizable when the keyboard is drawn-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
 
         <activity android:name=".activities.MainActivity">
             <intent-filter>
@@ -43,7 +44,5 @@
             </intent-filter>
         </activity>
 
-
     </application>
-
 </manifest>

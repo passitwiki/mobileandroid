@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingEnd="30dp"
+        android:paddingStart="0dp"
         android:paddingBottom="30dp"
         android:text="@string/description"
         android:textSize="20sp" />
@@ -34,7 +35,7 @@
         android:paddingBottom="11dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        tools:text="NAZWA PRZEDMIOTY" />
+        tools:text="subject" />
 
     <RelativeLayout
         android:id="@+id/relativeLayoutSubjectDescription"
@@ -45,20 +46,20 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/textViewExamable"
+            android:id="@+id/textViewWithExam"
             style="@style/bodyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
             android:textSize="16sp"
-            tools:text="E -PRZEDMIOT OBJETY MOIM USCISKIEM" />
+            tools:text="E -subject with an exam" />
 
         <TextView
             android:id="@+id/textViewSubjectsLecturers"
             style="@style/bodyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textViewExamable"
+            android:layout_below="@id/textViewWithExam"
             android:paddingBottom="10dp"
             android:text="@string/instructors"
             android:textSize="16sp"
@@ -71,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewSubjectsLecturers"
             android:textSize="16sp"
-            tools:text="dr IMIE NAZWISKO" />
+            tools:text="dr name surname" />
 
     </RelativeLayout>
 </RelativeLayout>

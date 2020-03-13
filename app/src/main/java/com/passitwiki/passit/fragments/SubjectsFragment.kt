@@ -29,16 +29,16 @@ class SubjectsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_subjects, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_subjects, container, false)
 
         val listOfSemester =
             arrayOf("Semester 1", "Semester 2", "Semester 3", "Semester 4", "Semester 5")
 
-        view.spinnerSemester!!.onItemSelectedListener =
+        rootView.spinnerSemester!!.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    globalSharedPreferences!!.edit().putString("curent_semester", "yes")
-                        .apply()
+//                    globalSharedPreferences!!.edit().putString("current_semester", "yes")
+//                        .apply()
                 }
 
                 override fun onItemSelected(
@@ -47,7 +47,7 @@ class SubjectsFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    RetrofitClient.instance.getSubjects()
+                    RetrofitClient.instance.getSubjectsBySemester(position + 1)
                         .enqueue(object : Callback<List<Subject>> {
                             override fun onFailure(call: Call<List<Subject>>, t: Throwable) {
                                 d("MyTag", "onFailure: $t")
@@ -66,26 +66,26 @@ class SubjectsFragment : Fragment() {
                                     if (i.field_of_study == globalSharedPreferences!!.getString(
                                             "current_fos",
                                             "null_fos"
-                                        ) && i.semester == position + 1
+                                        )
                                     ) {
                                         returnListOfSubjects.add(i)
                                     }
 
                                 }
-                                returnListOfSubjects.sortBy { it.semester }
+//                                returnListOfSubjects.sortBy { it.semester }
                                 showData(returnListOfSubjects as List<Subject>)
                             }
                         })
                 }
             }
 
-        val array_adapter =
+        val arrayAdapter =
             ArrayAdapter(globalContext!!, android.R.layout.simple_spinner_item, listOfSemester)
-        array_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        view.spinnerSemester.adapter = array_adapter
+        rootView.spinnerSemester.adapter = arrayAdapter
 
-        return view
+        return rootView
     }
 
     fun showData(subjects: List<Subject>) {

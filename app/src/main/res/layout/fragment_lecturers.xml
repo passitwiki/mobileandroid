@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayoutFragmentSubjects"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
+    android:paddingTop="56dp"
     tools:context=".fragments.LecturersFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:paddingTop="?attr/actionBarSize"
-        android:id="@+id/lecturersRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp">
 
+        <RelativeLayout
+            android:id="@+id/relativeLayoutSpinnerCardLecturers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="?attr/gradientBorder">
 
-</RelativeLayout>
+            <Spinner
+                android:id="@+id/spinnerSemester"
+                android:layout_width="150dp"
+                android:layout_height="29dp" />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lecturersRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/relativeLayoutSpinnerCardLecturers" />
+    </RelativeLayout>
+</ScrollView>

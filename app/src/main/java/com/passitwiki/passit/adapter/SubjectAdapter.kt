@@ -3,6 +3,8 @@ package com.passitwiki.passit.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.passitwiki.passit.R
 import com.passitwiki.passit.models.Subject
@@ -10,7 +12,7 @@ import kotlinx.android.synthetic.main.item_subject.view.*
 
 
 /**
- * An adapter class that adapts repeatedly a recieved JsonArray to a pattern.
+ * An adapter class that adapts repeatedly a received JsonArray to a pattern.
  * Takes in a response from the api and
  * creates as many items as getItemCount has.
  * @param subjects a list object from a json array made with Gson
@@ -43,7 +45,7 @@ class SubjectsAdapter(private val subjects: List<Subject>) :
         val subject = subjects[position]
         holder.name.text = subject.name
 
-        //TODO MAKE THE ONCLICKLISTENER
+        //TODO MAKE THE ON CLICK LISTENER
         holder.card.setOnClickListener {
 
         }
@@ -55,7 +57,8 @@ class SubjectsAdapter(private val subjects: List<Subject>) :
      * so there is a true object from the xml layout.
      */
     class SubjectsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name = itemView.textViewSubjectsName
-        val card = itemView.relativeLayoutSubjectCard
+        val name: TextView = itemView.textViewSubjectsName
+        val card: RelativeLayout = itemView.relativeLayoutSubjectCard
     }
+
 }

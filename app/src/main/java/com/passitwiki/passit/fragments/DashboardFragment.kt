@@ -15,6 +15,7 @@ import com.passitwiki.passit.models.News
 import com.passitwiki.passit.tools.globalContext
 import com.passitwiki.passit.tools.globalToken
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,6 +37,7 @@ class DashboardFragment : Fragment() {
 
         //TODO news adding logic
 
+
         RetrofitClient.instance.getNews(bearerToken)
             .enqueue(object : Callback<List<News>> {
                 override fun onFailure(call: Call<List<News>>, t: Throwable) {
@@ -48,7 +50,11 @@ class DashboardFragment : Fragment() {
                 ) {
                     d("MyTag", "onResponse: ${response.body()}")
                     if (response.body() == null) {
-                        Toast.makeText(globalContext!!, "Something went wrong", Toast.LENGTH_LONG)
+                        Toast.makeText(
+                                globalContext!!,
+                                "Something went wrong",
+                                Toast.LENGTH_LONG
+                            )
                             .show()
                     } else {
                         showData(response.body()!!)
@@ -64,6 +70,13 @@ class DashboardFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
 
+
+        val addNewsButton = view.imageViewAddNews
+
+        addNewsButton.setOnClickListener {
+            val addNewsDialogFragment = AddNewsDialogFragment()
+            addNewsDialogFragment.show(fragmentManager!!, "addNews")
+        }
 
 //        view.imageViewButtonSettings.setOnClickListener {
 //            val userDialogFragment = SettingsFragment()

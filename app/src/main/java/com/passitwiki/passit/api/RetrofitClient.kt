@@ -18,7 +18,7 @@ object RetrofitClient {
     private const val BASE_URL = "http://192.168.122.1:8000/api/"
 
 
-    var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(object : Interceptor {
+    private var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(object : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
             val newRequest: Request = chain.request().newBuilder()
                 .build()

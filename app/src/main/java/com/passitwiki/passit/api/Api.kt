@@ -40,8 +40,25 @@ interface Api {
         @Header("Authorization") bearerToken: String
     ): Call<List<News>>
 
+    @FormUrlEncoded
+    @POST("news/")
+    fun postNews(
+        @Header("Authorization") bearerToken: String,
+        @Field("title") title: String,
+        @Field("content") content: String,
+        @Field("subject_group") subjectGroup: Int,
+        @Field("field_age_group") fieldAgeGroup: Int
+    ): Call<Unit>
+
+//    @GET("subjects/")
+//    fun getSubjects(): Call<List<Subject>>
+
     @GET("subjects/")
-    fun getSubjects(): Call<List<Subject>>
+    fun getSubjectsBySemester(
+        @Query("semester") semester: Int
+    ): Call<List<Subject>>
+
+
 
     @GET("lecturers/")
     fun getLecturers(): Call<List<Lecturer>>

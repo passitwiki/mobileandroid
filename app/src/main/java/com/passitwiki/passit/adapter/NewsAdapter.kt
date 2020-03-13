@@ -3,6 +3,7 @@ package com.passitwiki.passit.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.passitwiki.passit.R
 import com.passitwiki.passit.models.News
@@ -10,7 +11,7 @@ import kotlinx.android.synthetic.main.item_news.view.*
 
 
 /**
- * An adapter class that adapts repeatedly a recieved JsonArray to a pattern.
+ * An adapter class that adapts repeatedly a received JsonArray to a pattern.
  * Takes in a response from the api and
  * creates as many items as getItemCount has.
  * @param news a list object from a json array made with Gson
@@ -40,8 +41,8 @@ class NewsAdapter(private val news: List<News>) :
      * @param position the number of the object you're working with
      */
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        val decreasingOrderPosition = itemCount - position - 1
-        val pieceOfNews = news[decreasingOrderPosition]
+//        val decreasingOrderPosition = itemCount - position - 1
+        val pieceOfNews = news[position]
 
         holder.title.text = pieceOfNews.title
         holder.content.text = pieceOfNews.content
@@ -70,10 +71,10 @@ class NewsAdapter(private val news: List<News>) :
      * so there is a true object from the xml layout.
      */
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title = itemView.textViewNewsTitle
-        val content = itemView.textViewNewsContent
-        val creationDate = itemView.textViewDatePosted
-        val ellipsis = itemView.textViewEllipsis
+        val title: TextView = itemView.textViewNewsTitle
+        val content: TextView = itemView.textViewNewsContent
+        val creationDate: TextView = itemView.textViewDatePosted
+        val ellipsis: TextView = itemView.textViewEllipsis
     }
 
 }

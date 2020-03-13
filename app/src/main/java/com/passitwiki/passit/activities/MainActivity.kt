@@ -119,7 +119,10 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         } else {
             dashboardFragment =
-                supportFragmentManager.findFragmentByTag("dash") as DashboardFragment
+                supportFragmentManager.getFragment(
+                    savedInstanceState,
+                    "dashboard_fragment"
+                ) as DashboardFragment
         }
     }
 
@@ -136,7 +139,10 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         } else {
             lecturersFragment =
-                supportFragmentManager.findFragmentByTag("lect") as LecturersFragment
+                supportFragmentManager.getFragment(
+                    savedInstanceState,
+                    "lecturers_fragment"
+                ) as LecturersFragment
         }
     }
 
@@ -153,7 +159,10 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         } else {
             subjectsFragment =
-                supportFragmentManager.findFragmentByTag("subj") as SubjectsFragment
+                supportFragmentManager.getFragment(
+                    savedInstanceState,
+                    "subjects_fragment"
+                ) as SubjectsFragment
         }
     }
 
@@ -170,7 +179,10 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         } else {
             memesFragment =
-                supportFragmentManager.findFragmentByTag("meme") as MemesFragment
+                supportFragmentManager.getFragment(
+                    savedInstanceState,
+                    "memes_fragment"
+                ) as MemesFragment
         }
     }
 
@@ -187,7 +199,10 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         } else {
             settingsFragment =
-                supportFragmentManager.findFragmentByTag("sett") as SettingsFragment
+                supportFragmentManager.getFragment(
+                    savedInstanceState,
+                    "settings_fragment"
+                ) as SettingsFragment
         }
     }
 
@@ -199,6 +214,25 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+//        Save the fragment's instance
+        supportFragmentManager.putFragment(outState, "dashboard_fragment", dashboardFragment)
+        supportFragmentManager.putFragment(outState, "lecturers_fragment", lecturersFragment)
+        supportFragmentManager.putFragment(outState, "memes_fragment", memesFragment)
+        supportFragmentManager.putFragment(outState, "subjects_fragment", subjectsFragment)
+        supportFragmentManager.putFragment(outState, "settings_fragment", settingsFragment)
+
+    }
+
+//    override protected fun onSaveInstanceState(outState: Bundle?) {
+//        super.onSaveInstanceState(outState!!)
+//
+//        //Save the fragment's instance
+//        supportFragmentManager.putFragment(outState, "myFragmentName", mMyFragment)
+//    }
 
 }
 

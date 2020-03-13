@@ -15,8 +15,8 @@ import com.passitwiki.passit.R
 import com.passitwiki.passit.api.RetrofitClient
 import com.passitwiki.passit.tools.globalContext
 import com.passitwiki.passit.tools.globalToken
-import kotlinx.android.synthetic.main.fragment_passworddialog.*
-import kotlinx.android.synthetic.main.fragment_passworddialog.view.*
+import kotlinx.android.synthetic.main.fragment_password_dialog.*
+import kotlinx.android.synthetic.main.fragment_password_dialog.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,14 +31,14 @@ class PasswordDialogFragment : DialogFragment() {
         val dialog = dialog
         if (dialog != null) {
             val width = ViewGroup.LayoutParams.MATCH_PARENT
-            val height = ViewGroup.LayoutParams.MATCH_PARENT
+            val height = ViewGroup.LayoutParams.WRAP_CONTENT
             dialog.window!!.setLayout(width, height)
         }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val view: View = activity!!.layoutInflater
-            .inflate(R.layout.fragment_passworddialog, LinearLayout(activity), false)
+            .inflate(R.layout.fragment_password_dialog, LinearLayout(activity), false)
 
 
         val builder = Dialog(activity!!)
@@ -53,7 +53,7 @@ class PasswordDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_passworddialog, container, false)
+        val view = inflater.inflate(R.layout.fragment_password_dialog, container, false)
 
         view.arrowBack.setOnClickListener {
             dismiss()
@@ -82,7 +82,7 @@ class PasswordDialogFragment : DialogFragment() {
                 editTextConfirmPassword.requestFocus()
                 return@setOnClickListener
             }
-            if (!newPassword.equals(confirmPassword)) {
+            if (newPassword != confirmPassword) {
                 editTextNewPassword.error = "The new passwords don't match"
                 editTextNewPassword.requestFocus()
                 return@setOnClickListener

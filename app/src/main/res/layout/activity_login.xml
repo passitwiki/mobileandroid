@@ -85,7 +85,8 @@
             android:layout_height="35dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:background="?attr/gradientBorder">
+            android:background="?attr/gradientBorder"
+            tools:ignore="UselessParent">
 
             <ImageView
                 android:layout_width="23dp"

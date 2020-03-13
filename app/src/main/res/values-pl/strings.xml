@@ -2,7 +2,6 @@
 <resources>
     <string name="accessibility">Ułatwienia dostępu</string>
     <string name="change_password">"Zmień hasło "</string>
-    <string name="color_correction">Zmiana kontrastu:</string>
     <string name="dashboard">Główna</string>
     <string name="don_t_remember_password">Nie pamiętam hasła</string>
     <string name="exam_calendar">Kalendarz zaliczeń</string>
@@ -15,7 +14,6 @@
     <string name="password">hasło</string>
     <string name="settings">Ustawienia</string>
     <string name="subjects">Przedmioty</string>
-    <string name="text_size">Rozmiar tekstu</string>
     <string name="username">nr indeksu</string>
     <string name="fos_choice">Wyświetlany kierunek studiów</string>
     <string name="contrast">Zwiększ kontrast</string>
@@ -34,5 +32,16 @@
     <string name="consultations">Terminy konsultacji: </string>
     <string name="contact">Kontakt: </string>
     <string name="opinions">Opinie: </string>
+    <string name="add_news">Add news</string>
+    <string name="news_title">Tytuł ogłoszenia</string>
+    <string name="news_content">Treść ogłoszenia…</string>
+    <string name="news_attachment">Dodaj załącznik</string>
+    <string name="news_remove">Czy na pewno chcesz usunąć ogłoszenie?</string>
+    <string name="add_opinion">Dodaj opinie</string>
+    <string name="opinion_content">Treść opinii</string>
+    <string name="add_meme">Stwórz mema!</string>
+    <string name="meme_photo">Dodaj zdjęcie</string>
+    <string name="meme_up">Podpis na górze obrazka</string>
+    <string name="meme_down">Podpis na dole obrazka</string>
 
 </resources>

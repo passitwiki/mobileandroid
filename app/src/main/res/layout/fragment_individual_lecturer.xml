@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingEnd="30dp"
+        android:paddingStart="0dp"
         android:paddingBottom="30dp"
         android:text="@string/general"
         android:textSize="20sp" />
@@ -34,7 +35,7 @@
         android:paddingBottom="11dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        tools:text="NAZWA Prowadzacego" />
+        tools:text="name" />
 
     <RelativeLayout
         android:id="@+id/relativeLayoutSubjectDescription"
@@ -74,23 +75,36 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/textViewOpinions"
-        style="@style/bodyText"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/relativeLayoutOpinionsPlus"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/relativeLayoutSubjectDescription"
         android:paddingTop="33dp"
-        android:paddingBottom="11dp"
-        android:text="@string/opinions"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:paddingBottom="11dp">
+
+        <TextView
+            android:id="@+id/textViewOpinions"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/opinions"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignParentEnd="true"
+            android:contentDescription="@string/plus"
+            android:src="@drawable/ic_plus" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relativeLayoutOpinions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewOpinions"
+        android:layout_below="@id/relativeLayoutOpinionsPlus"
         android:background="?attr/gradientBorder"
         android:padding="16dp">
 

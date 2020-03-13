@@ -2,7 +2,6 @@
 
     <!-- Base application theme. -->
     <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar">
-
         <item name="colorAccent">@color/colorTextBlack</item>
         <item name="colorPrimary">@color/colorBlack</item>
         <item name="colorPrimaryDark">@color/colorBlack</item>
@@ -16,7 +15,8 @@
         <item name="btmTitleTextColor">@color/gradient</item>
     </style>
 
-    <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!--  Dark theme  -->
+    <style name="DarkTheme" parent="ThemeOverlay.AppCompat.Dark">
         <item name="colorAccent">@color/colorTextBlack</item>
         <item name="colorPrimary">@color/colorBlack</item>
         <item name="colorPrimaryDark">@color/colorBlack</item>
@@ -30,17 +30,19 @@
         <item name="btmTitleTextColor">@color/gradient</item>
     </style>
 
+    <!--  In theory - it styles the BottomNavigationBar  -->
     <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
-
+    <!--  Style for the text displayed in top toolbar  -->
     <style name="toolbarText">
         <item name="fontFamily">@font/roboto_bold</item>
         <item name="android:textColor">?attr/headerTextColor</item>
         <item name="android:textStyle">bold</item>
     </style>
 
+    <!--  Default style for text  -->
     <style name="bodyText">
         <item name="fontFamily">@font/roboto_regular</item>
         <item name="android:textColor">?attr/textColor</item>

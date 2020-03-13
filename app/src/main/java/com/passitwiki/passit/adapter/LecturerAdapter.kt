@@ -3,13 +3,14 @@ package com.passitwiki.passit.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.passitwiki.passit.R
 import com.passitwiki.passit.models.Lecturer
 import kotlinx.android.synthetic.main.item_lecturer.view.*
 
 /**
- * An adapter class that adapts repeatedly a recieved JsonArray to a pattern.
+ * An adapter class that adapts repeatedly a received JsonArray to a pattern.
  * Takes in a response from the api and
  * creates as many items as getItemCount has.
  * @param lecturers a list object from a json array made with Gson
@@ -43,7 +44,7 @@ class LecturerAdapter(private val lecturers: List<Lecturer>) :
         val fullNameString = "${lecturer.last_name} ${lecturer.first_name}"
 
         holder.fullName.text = fullNameString
-        holder.title.text = lecturer.title
+//        holder.title.text = lecturer.title
     }
 
     /**
@@ -51,7 +52,7 @@ class LecturerAdapter(private val lecturers: List<Lecturer>) :
      * so there is a true object from the xml layout.
      */
     class LecturerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val fullName = itemView.textViewLecturersNameFull
-        val title = itemView.textViewLecturersTitle
+        val fullName: TextView = itemView.textViewLecturersNameFull
+//        val title = itemView.textViewLecturersTitle
     }
 }

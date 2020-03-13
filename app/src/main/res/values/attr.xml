@@ -8,6 +8,4 @@
     <attr name="headerTextColor" format="color" />
     <attr name="fancyTextColor" format="color" />
     <attr name="btmTitleTextColor" format="color" />
-
-
 </resources>

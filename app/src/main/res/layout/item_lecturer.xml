@@ -9,7 +9,7 @@
 
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:background="?attr/gradientBorder"
@@ -18,7 +18,19 @@
         android:elevation="4dp"
         tools:ignore="UselessParent">
 
+        <ImageView
+            android:id="@+id/lecturerIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/lecturers"
+            android:src="@drawable/ic_lecturer" />
+
         <TextView
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/lecturerIcon"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:id="@+id/textViewLecturersNameFull"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,17 +39,17 @@
             android:textSize="20sp"
             tools:text="Janowski Lucjan" />
 
-        <TextView
-            android:id="@+id/textViewLecturersTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textViewLecturersNameFull"
-            android:layout_toEndOf="@id/textViewLecturersNameFull"
-            style="@style/bodyText"
-            android:paddingStart="9dp"
-            android:textSize="16sp"
-            tools:ignore="RtlSymmetry"
-            tools:text="dr hab." />
+        <!--        <TextView-->
+        <!--            android:id="@+id/textViewLecturersTitle"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_alignBottom="@+id/textViewLecturersNameFull"-->
+        <!--            android:layout_toEndOf="@id/textViewLecturersNameFull"-->
+        <!--            style="@style/bodyText"-->
+        <!--            android:paddingStart="9dp"-->
+        <!--            android:textSize="16sp"-->
+        <!--            tools:ignore="RtlSymmetry"-->
+        <!--            tools:text="dr hab." />-->
 
 
     </RelativeLayout>

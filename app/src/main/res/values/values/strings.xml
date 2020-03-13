@@ -10,10 +10,10 @@
     <string name="lecturers">Lecturers</string>
     <string name="memes">Memes</string>
     <string name="hi">Hi!</string>
-    <string name="logincontinue">Log in to continue.</string>
+    <string name="login_continue">Log in to continue.</string>
     <string name="username">username</string>
     <string name="password">password</string>
-    <string name="dontrememberpassword">I don\'t remember my password.</string>
+    <string name="don_t_remember_password">I don\'t remember my password.</string>
     <string name="settings">Settings</string>
     <string name="change_password">Change your password</string>
     <string name="accessibility">Accessibility</string>

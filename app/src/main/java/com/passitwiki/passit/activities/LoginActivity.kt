@@ -23,7 +23,7 @@ import retrofit2.Response
  */
 class LoginActivity : AppCompatActivity() {
 
-    var currentTheme: String = "dark"
+    private var currentTheme: String = "dark"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

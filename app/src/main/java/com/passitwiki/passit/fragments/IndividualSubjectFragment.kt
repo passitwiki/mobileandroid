@@ -7,11 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.passitwiki.passit.R
 
-/**
- * A simple [Fragment] subclass.
- * Use the [IndividualSubjectFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class IndividualSubjectFragment : Fragment() {
 
     override fun onCreateView(
