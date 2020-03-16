@@ -11,17 +11,29 @@ import com.passitwiki.passit.R
 import com.passitwiki.passit.adapter.LecturerAdapter
 import com.passitwiki.passit.api.RetrofitClient
 import com.passitwiki.passit.models.Lecturer
-import com.passitwiki.passit.tools.globalContext
 import kotlinx.android.synthetic.main.fragment_lecturers.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-//TODO description for both the fragment and its functions
 class LecturersFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+
+    companion object {
+        const val KEY = "FragmentSLecturers"
+        const val ACCESS_TOKEN = "AccessToken"
+        fun newInstance(token: String, key: String): Fragment {
+            val fragment = LecturersFragment()
+            val argument = Bundle()
+            argument.putString(ACCESS_TOKEN, token)
+            argument.putString(KEY, key)
+            fragment.arguments = argument
+            return fragment
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         RetrofitClient.instance.getLecturers()
             .enqueue(object : Callback<List<Lecturer>> {
@@ -53,7 +65,7 @@ class LecturersFragment : Fragment() {
     fun showData(lecturers: List<Lecturer>) {
 
         lecturersRecyclerView.apply {
-            layoutManager = LinearLayoutManager(globalContext)
+            layoutManager = LinearLayoutManager(activity!!.applicationContext)
             adapter = LecturerAdapter(lecturers)
         }
     }

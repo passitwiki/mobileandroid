@@ -11,57 +11,30 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.passitwiki.passit.R
 import com.passitwiki.passit.adapter.NewsAdapter
 import com.passitwiki.passit.api.RetrofitClient
+import com.passitwiki.passit.dialogfragments.AddNewsDialogFragment
 import com.passitwiki.passit.models.News
-import com.passitwiki.passit.tools.globalContext
-import com.passitwiki.passit.tools.globalToken
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-//TODO description for both the fragment and its functions
 class DashboardFragment : Fragment() {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-//        imageViewButtonSettings.setOnClickListener {
-//            val userDialogFragment = SettingsFragment()
-//            userDialogFragment.show(parentFragmentManager,"SettingsFragment")
-//        }
-
-        val bearerToken = "Bearer $globalToken"
-
-        //TODO news adding logic
-
-
-        RetrofitClient.instance.getNews(bearerToken)
-            .enqueue(object : Callback<List<News>> {
-                override fun onFailure(call: Call<List<News>>, t: Throwable) {
-                    d("MyTag", "onFailure: $t")
-                }
-
-                override fun onResponse(
-                    call: Call<List<News>>,
-                    response: Response<List<News>>
-                ) {
-                    d("MyTag", "onResponse: ${response.body()}")
-                    if (response.body() == null) {
-                        Toast.makeText(
-                                globalContext!!,
-                                "Something went wrong",
-                                Toast.LENGTH_LONG
-                            )
-                            .show()
-                    } else {
-                        showData(response.body()!!)
-                    }
-                }
-            })
+    companion object {
+        const val KEY = "FragmentDashboard"
+        const val ACCESS_TOKEN = "AccessToken"
+        fun newInstance(token: String, key: String): Fragment {
+            val fragment = DashboardFragment()
+            val argument = Bundle()
+            argument.putString(ACCESS_TOKEN, token)
+            argument.putString(KEY, key)
+            fragment.arguments = argument
+            return fragment
+        }
     }
+
+    var news: MutableList<News> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,33 +42,58 @@ class DashboardFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
+        news = ArrayList()
 
 
-        val addNewsButton = view.imageViewAddNews
+        arguments.let {
 
-        addNewsButton.setOnClickListener {
-            val addNewsDialogFragment = AddNewsDialogFragment()
-            addNewsDialogFragment.show(fragmentManager!!, "addNews")
+            val accessToken = it?.getString(ACCESS_TOKEN)
+            val addNewsButton = view.imageViewAddNews
+
+            addNewsButton.setOnClickListener {
+                val addNewsDialogFragment =
+                    AddNewsDialogFragment.newInstance(accessToken!!, "AddNews")
+                addNewsDialogFragment.show(fragmentManager!!, "addNews")
+            }
         }
 
-//        view.imageViewButtonSettings.setOnClickListener {
-//            val userDialogFragment = SettingsFragment()
-//            userDialogFragment.show(parentFragmentManager, "SettingsFragment")
-//            supportFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.frameLayoutMain, dashboardFragment)
-//                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-//                .commit()
-//        }
+        arguments.let {
+            val accessToken = it?.getString(ACCESS_TOKEN)
 
+            RetrofitClient.instance.getNews(accessToken!!)
+                .enqueue(object : Callback<List<News>> {
+                    override fun onFailure(call: Call<List<News>>, t: Throwable) {
+                        d("MyTag", "onFailure: $t")
+                    }
 
+                    override fun onResponse(
+                        call: Call<List<News>>,
+                        response: Response<List<News>>
+                    ) {
+                        d("MyTag", "onResponse: ${response.body()}")
+                        if (response.body() == null) {
+                            Toast.makeText(
+                                    activity!!.applicationContext,
+                                    "Something went wrong",
+                                    Toast.LENGTH_LONG
+                                )
+                                .show()
+                        } else {
+                            if (news.isEmpty() || response.body()!! != news) {
+                                news.addAll(response.body()!!)
+                                showData(response.body()!!)
+                            }
+                        }
+                    }
+                })
+        }
         return view
     }
 
 
     fun showData(users: List<News>) {
         newsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(globalContext)
+            layoutManager = LinearLayoutManager(activity!!.applicationContext)
             adapter = NewsAdapter(users)
         }
     }

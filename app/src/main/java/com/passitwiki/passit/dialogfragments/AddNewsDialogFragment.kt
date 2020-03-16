@@ -1,4 +1,4 @@
-package com.passitwiki.passit.fragments
+package com.passitwiki.passit.dialogfragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.passitwiki.passit.R
 import com.passitwiki.passit.api.RetrofitClient
-import com.passitwiki.passit.tools.globalContext
-import com.passitwiki.passit.tools.globalToken
 import com.passitwiki.passit.tools.globalUser
 import kotlinx.android.synthetic.main.fragment_add_news_dialog.view.*
 import retrofit2.Call
@@ -17,6 +15,20 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AddNewsDialogFragment : DialogFragment() {
+
+    companion object {
+        const val KEY = "FragmentSettings"
+        const val ACCESS_TOKEN = "AccessToken"
+        fun newInstance(token: String, key: String): DialogFragment {
+            val dFragment =
+                AddNewsDialogFragment()
+            val argument = Bundle()
+            argument.putString(ACCESS_TOKEN, token)
+            argument.putString(KEY, key)
+            dFragment.arguments = argument
+            return dFragment
+        }
+    }
 
     //TODO making the view display btm nav bar
     override fun onStart() {
@@ -66,26 +78,36 @@ class AddNewsDialogFragment : DialogFragment() {
                 return@setOnClickListener
             }
 
-            RetrofitClient.instance.postNews(
-                    "Bearer $globalToken",
-                    title,
-                    content,
-                    2,
-                    globalUser!!.profile.field_age_groups[0].id
-                )
-                .enqueue(object : Callback<Unit> {
-                    override fun onFailure(call: Call<Unit>, t: Throwable) {
-                        Toast.makeText(globalContext, t.message, Toast.LENGTH_LONG).show()
-                    }
+            arguments.let {
+                val accessToken = it?.getString(ACCESS_TOKEN)
 
-                    override fun onResponse(
-                        call: Call<Unit>,
-                        response: Response<Unit>
-                    ) {
-                        dismiss()
-                    }
+                RetrofitClient.instance.postNews(
+                        accessToken!!,
+                        title,
+                        content,
+                        2,
+                        globalUser!!.profile.field_age_groups[0].id
+                    )
+                    .enqueue(object : Callback<Unit> {
+                        override fun onFailure(call: Call<Unit>, t: Throwable) {
+                            Toast.makeText(
+                                activity!!.applicationContext,
+                                t.message,
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
 
-                })
+                        override fun onResponse(
+                            call: Call<Unit>,
+                            response: Response<Unit>
+                        ) {
+                            dismiss()
+                        }
+
+                    })
+            }
+
+
         }
 
         return view

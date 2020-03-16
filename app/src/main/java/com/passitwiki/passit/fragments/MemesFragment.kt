@@ -9,9 +9,20 @@ import com.bumptech.glide.Glide
 import com.passitwiki.passit.R
 import kotlinx.android.synthetic.main.fragment_memes.view.*
 
-//TODO description for both the fragment and its functions
-//TODO make this fragment usable???
 class MemesFragment : Fragment() {
+
+    companion object {
+        const val KEY = "FragmentMemes"
+        const val ACCESS_TOKEN = "AccessToken"
+        fun newInstance(token: String, key: String): Fragment {
+            val fragment = MemesFragment()
+            val argument = Bundle()
+            argument.putString(ACCESS_TOKEN, token)
+            argument.putString(KEY, key)
+            fragment.arguments = argument
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

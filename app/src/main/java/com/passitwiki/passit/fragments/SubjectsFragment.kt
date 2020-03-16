@@ -13,16 +13,28 @@ import com.passitwiki.passit.R
 import com.passitwiki.passit.adapter.SubjectsAdapter
 import com.passitwiki.passit.api.RetrofitClient
 import com.passitwiki.passit.models.Subject
-import com.passitwiki.passit.tools.globalContext
-import com.passitwiki.passit.tools.globalSharedPreferences
 import kotlinx.android.synthetic.main.fragment_subjects.*
 import kotlinx.android.synthetic.main.fragment_subjects.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-//TODO description for both the fragment and its functions
 class SubjectsFragment : Fragment() {
+
+    companion object {
+        const val KEY = "FragmentSubjects"
+        const val ACCESS_TOKEN = "AccessToken"
+        const val FIELD_OF_STUDY = "FieldOfStudy"
+        fun newInstance(token: String, key: String, fos: String): Fragment {
+            val fragment = SubjectsFragment()
+            val argument = Bundle()
+            argument.putString(ACCESS_TOKEN, token)
+            argument.putString(KEY, key)
+            argument.putString(FIELD_OF_STUDY, fos)
+            fragment.arguments = argument
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +49,6 @@ class SubjectsFragment : Fragment() {
         rootView.spinnerSemester!!.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-//                    globalSharedPreferences!!.edit().putString("current_semester", "yes")
-//                        .apply()
                 }
 
                 override fun onItemSelected(
@@ -63,16 +73,13 @@ class SubjectsFragment : Fragment() {
                                 val returnListOfSubjects: ArrayList<Subject> = ArrayList()
 
                                 for (i in listOfSubjects) {
-                                    if (i.field_of_study == globalSharedPreferences!!.getString(
-                                            "current_fos",
-                                            "null_fos"
-                                        )
-                                    ) {
-                                        returnListOfSubjects.add(i)
+                                    arguments.let {
+                                        val fos = it?.getString(FIELD_OF_STUDY)
+                                        if (i.field_of_study == fos) {
+                                            returnListOfSubjects.add(i)
+                                        }
                                     }
-
                                 }
-//                                returnListOfSubjects.sortBy { it.semester }
                                 showData(returnListOfSubjects as List<Subject>)
                             }
                         })
@@ -80,7 +87,11 @@ class SubjectsFragment : Fragment() {
             }
 
         val arrayAdapter =
-            ArrayAdapter(globalContext!!, android.R.layout.simple_spinner_item, listOfSemester)
+            ArrayAdapter(
+                activity!!.applicationContext,
+                android.R.layout.simple_spinner_item,
+                listOfSemester
+            )
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         rootView.spinnerSemester.adapter = arrayAdapter
@@ -90,7 +101,7 @@ class SubjectsFragment : Fragment() {
 
     fun showData(subjects: List<Subject>) {
         subjectsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(globalContext)
+            layoutManager = LinearLayoutManager(activity!!.applicationContext)
             adapter = SubjectsAdapter(subjects)
         }
     }
