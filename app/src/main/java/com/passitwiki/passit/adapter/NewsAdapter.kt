@@ -1,5 +1,6 @@
 package com.passitwiki.passit.adapter
 
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,25 +44,24 @@ class NewsAdapter(private val news: List<News>) :
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
 //        val decreasingOrderPosition = itemCount - position - 1
         val pieceOfNews = news[position]
+        val creation = "@" + pieceOfNews.created_by
 
         holder.title.text = pieceOfNews.title
         holder.content.text = pieceOfNews.content
         holder.creationDate.text = pieceOfNews.created_at.substring(0, 10)
+        holder.createdBy.text = creation
 
         val textContent = holder.content
-        val ellipsis = holder.ellipsis
         textContent.maxLines = 2
-        //TODO FIX THIS SHIT TO DISPLAY STUFF
-        if (textContent.lineCount > 2) {
-            ellipsis.visibility = View.VISIBLE
-        }
+        textContent.ellipsize = TextUtils.TruncateAt.END
+
         textContent.setOnClickListener {
             if (textContent.maxLines == 2 || textContent.lineCount < 2) {
                 textContent.maxLines = Int.MAX_VALUE
-                ellipsis.visibility = View.GONE
+                textContent.ellipsize = null
             } else {
                 textContent.maxLines = 2
-                ellipsis.visibility = View.VISIBLE
+                textContent.ellipsize = TextUtils.TruncateAt.END
             }
         }
     }
@@ -74,7 +74,7 @@ class NewsAdapter(private val news: List<News>) :
         val title: TextView = itemView.textViewNewsTitle
         val content: TextView = itemView.textViewNewsContent
         val creationDate: TextView = itemView.textViewDatePosted
-        val ellipsis: TextView = itemView.textViewEllipsis
+        val createdBy: TextView = itemView.textViewUserPosted
     }
 
 }

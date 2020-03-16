@@ -39,17 +39,17 @@
             android:textSize="16sp"
             tools:text="This is the content of news." />
 
-        <TextView
-            android:id="@+id/textViewEllipsis"
-            style="@style/bodyText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewNewsTitle"
-            android:layout_alignParentEnd="true"
-            android:paddingTop="9dp"
-            android:paddingBottom="20dp"
-            android:text="@string/todo"
-            android:textSize="16sp" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/textViewEllipsis"-->
+        <!--            style="@style/bodyText"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_below="@id/textViewNewsTitle"-->
+        <!--            android:layout_alignParentEnd="true"-->
+        <!--            android:paddingTop="9dp"-->
+        <!--            android:paddingBottom="20dp"-->
+        <!--            android:text="@string/todo"-->
+        <!--            android:textSize="16sp" />-->
 
         <ImageView
             android:id="@+id/imageViewCalendar"

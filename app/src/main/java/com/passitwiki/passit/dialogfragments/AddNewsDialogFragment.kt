@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.passitwiki.passit.R
 import com.passitwiki.passit.api.RetrofitClient
-import com.passitwiki.passit.tools.globalUser
 import kotlinx.android.synthetic.main.fragment_add_news_dialog.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,12 +18,14 @@ class AddNewsDialogFragment : DialogFragment() {
     companion object {
         const val KEY = "FragmentSettings"
         const val ACCESS_TOKEN = "AccessToken"
-        fun newInstance(token: String, key: String): DialogFragment {
+        const val FIELD_AGE_GROUP = "FieldAgeGroup"
+        fun newInstance(token: String, key: String, fag: String): DialogFragment {
             val dFragment =
                 AddNewsDialogFragment()
             val argument = Bundle()
             argument.putString(ACCESS_TOKEN, token)
             argument.putString(KEY, key)
+            argument.putString(FIELD_AGE_GROUP, fag)
             dFragment.arguments = argument
             return dFragment
         }
@@ -80,14 +81,9 @@ class AddNewsDialogFragment : DialogFragment() {
 
             arguments.let {
                 val accessToken = it?.getString(ACCESS_TOKEN)
+                val fag: Int = it?.getString(FIELD_AGE_GROUP)!!.toInt()
 
-                RetrofitClient.instance.postNews(
-                        accessToken!!,
-                        title,
-                        content,
-                        2,
-                        globalUser!!.profile.field_age_groups[0].id
-                    )
+                RetrofitClient.instance.postNews(accessToken!!, title, content, 2, fag)
                     .enqueue(object : Callback<Unit> {
                         override fun onFailure(call: Call<Unit>, t: Throwable) {
                             Toast.makeText(

@@ -2,12 +2,15 @@ package com.passitwiki.passit.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.passitwiki.passit.R
 import com.passitwiki.passit.activities.LoginActivity
 import com.passitwiki.passit.dialogfragments.PasswordDialogFragment
-import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.fragment_settings.view.*
+
 
 class SettingsFragment : Fragment() {
 
@@ -33,6 +36,43 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val rootView = inflater.inflate(R.layout.fragment_settings, container, false)
+
+        var collapsedTop = true //true - collapsed
+
+        rootView.relativeLayoutUserPartHeader.setOnClickListener {
+            if (collapsedTop) {
+                rootView.imageViewExpander.setImageResource(R.drawable.ic_arrow_up)
+                rootView.relativeLayoutUserPartBody.visibility = View.VISIBLE
+                collapsedTop = false
+            } else {
+                rootView.imageViewExpander.setImageResource(R.drawable.ic_arrow_down)
+                rootView.relativeLayoutUserPartBody.visibility = View.GONE
+                collapsedTop = true
+            }
+        }
+
+        var collapsedBottom = true //true - collapsed
+        rootView.relativeLayoutFosHeader.setOnClickListener {
+            if (collapsedBottom) {
+                rootView.imageViewExpander2.setImageResource(R.drawable.ic_arrow_up)
+                rootView.relativeLayoutFosBody.visibility = View.VISIBLE
+                collapsedBottom = false
+            } else {
+                rootView.imageViewExpander2.setImageResource(R.drawable.ic_arrow_down)
+                rootView.relativeLayoutFosBody.visibility = View.GONE
+                collapsedBottom = true
+            }
+        }
+
+        return rootView
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //TODO make an adapter for FAG multi-element array - not supported yet
@@ -41,44 +81,17 @@ class SettingsFragment : Fragment() {
             val fullName = it?.getString(FULL_NAME)
             val fos = it?.getString(FIELD_OF_STUDY)
 
-            textViewUserNameSurname.append(fullName)
-            textViewFos.append(fos)
+            view.textViewUserNameSurname.text = fullName
+            view.textViewFos.text = fos
         }
 
-
-        var collapsedTop = "true" //true - collapsed
-        relativeLayoutUserPartHeader.setOnClickListener {
-            if (collapsedTop.equals("true")) {
-                imageViewExpander.setImageResource(R.drawable.ic_arrow_up)
-                relativeLayoutUserPartBody.visibility = View.VISIBLE
-                collapsedTop = "false"
-            } else {
-                imageViewExpander.setImageResource(R.drawable.ic_arrow_down)
-                relativeLayoutUserPartBody.visibility = View.GONE
-                collapsedTop = "true"
-            }
-        }
-
-        var collapsedBottom = "true" //true - collapsed
-        relativeLayoutFosHeader.setOnClickListener {
-            if (collapsedBottom.equals("true")) {
-                imageViewExpander2.setImageResource(R.drawable.ic_arrow_up)
-                relativeLayoutFosBody.visibility = View.VISIBLE
-                collapsedBottom = "false"
-            } else {
-                imageViewExpander2.setImageResource(R.drawable.ic_arrow_down)
-                relativeLayoutFosBody.visibility = View.GONE
-                collapsedBottom = "true"
-            }
-        }
-
-        textViewChangePassword.setOnClickListener {
+        view.textViewChangePassword.setOnClickListener {
             val passwordDialogFragment =
                 PasswordDialogFragment()
             passwordDialogFragment.show(fragmentManager!!, "password")
         }
 
-        textViewLogout.setOnClickListener {
+        view.textViewLogout.setOnClickListener {
             val intent = (Intent(activity!!.applicationContext, LoginActivity::class.java))
             startActivity(intent)
             activity!!.finish()

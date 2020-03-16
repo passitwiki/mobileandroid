@@ -33,6 +33,16 @@ object UserSetter {
                         response.body()!!.first_name,
                         response.body()!!.last_name
                     )
+                    Log.d("fosy", user.toString())
+                    sharedPref.edit().putString(
+                        "current_user_full_name",
+                        user.first_name + " " + user.last_name
+                    ).commit()
+                    sharedPref.edit().putString(
+                        "current_fag",
+                        user.profile.memberships[0].field_age_group.toString()
+                    ).commit()
+
                     RetrofitClient.instance.getFieldOfStudy(accessToken)
                         .enqueue(object : Callback<List<FieldOfStudy>> {
                             override fun onFailure(call: Call<List<FieldOfStudy>>, t: Throwable) {
@@ -47,16 +57,13 @@ object UserSetter {
                                     if (it.id == user.profile.field_age_groups[0].field_of_study) {
                                         sharedPref.edit().putString(
                                             "current_fos",
-                                            it.name + user.profile.field_age_groups[0].students_start_year
-                                        ).apply()
-                                        sharedPref.edit().putString(
-                                            "current_user_full_name",
-                                            user.first_name + " " + user.last_name
-                                        ).apply()
+                                            it.name + " " + user.profile.field_age_groups[0].students_start_year
+                                        ).commit()
                                     }
                                 }
                             }
                         })
+
                 }
             })
     }

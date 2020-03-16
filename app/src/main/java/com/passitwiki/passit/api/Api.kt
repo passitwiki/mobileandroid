@@ -25,7 +25,7 @@ interface Api {
         @Field("current_password") password: String
     ): Call<Unit>
 
-    @GET("auth/users/me/?expand=profile,profile.field_age_groups")
+    @GET("auth/users/me/?expand=profile,profile.field_age_groups,profile.memberships")
     fun getUserInfo(
         @Header("Authorization") bearerToken: String
     ): Call<User>

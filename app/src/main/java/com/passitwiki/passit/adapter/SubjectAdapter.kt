@@ -3,7 +3,6 @@ package com.passitwiki.passit.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.passitwiki.passit.R
@@ -44,12 +43,6 @@ class SubjectsAdapter(private val subjects: List<Subject>) :
     override fun onBindViewHolder(holder: SubjectsViewHolder, position: Int) {
         val subject = subjects[position]
         holder.name.text = subject.name
-
-        //TODO MAKE THE ON CLICK LISTENER
-        holder.card.setOnClickListener {
-
-        }
-
     }
 
     /**
@@ -58,7 +51,7 @@ class SubjectsAdapter(private val subjects: List<Subject>) :
      */
     class SubjectsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.textViewSubjectsName
-        val card: RelativeLayout = itemView.relativeLayoutSubjectCard
+//        val card: RelativeLayout = itemView.relativeLayoutSubjectCard
     }
 
 }

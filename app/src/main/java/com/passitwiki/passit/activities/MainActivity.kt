@@ -3,7 +3,6 @@ package com.passitwiki.passit.activities
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.util.SparseArray
 import android.view.View
 import androidx.annotation.IdRes
@@ -12,6 +11,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.passitwiki.passit.R
 import com.passitwiki.passit.fragments.*
+import com.passitwiki.passit.tools.UserSetter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -62,11 +62,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedPreferences = getPreferences(Context.MODE_PRIVATE)
         refreshToken = intent.getStringExtra("refresh")!!
         accessToken = "Bearer ${intent.getStringExtra("token")}"
-        sharedPreferences = getPreferences(Context.MODE_PRIVATE)
-
-        setUpFragments()
+        UserSetter.setUserAndFos(accessToken, sharedPreferences)
 
         if (savedInstanceState != null) {
             savedStateSparseArray =
@@ -77,6 +76,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         btmNav.itemIconTintList = null //Color of the bottom icons
 
+        setUpFragments()
 
         imageViewButtonSettings.setOnClickListener {
             swapFragments(R.id.imageViewButtonSettings, "Settings")
@@ -135,7 +135,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.itemLecturers -> {
                     textViewToolbar.text = getString(R.string.lecturers)
                     imageViewButtonSettings.visibility = (View.GONE)
-                    Log.d("dupa", "dupa")
                     supportFragmentManager.beginTransaction()
                         .hide(activeFragment)
                         .show(lecturersFragment)
@@ -174,15 +173,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpFragments() {
-        val fos = sharedPreferences.getString("current_fos", "Error404: fos not found")!!
+        val fos = sharedPreferences.getString("current_fos", "Error")!!
         val fullName =
             sharedPreferences.getString("current_user_full_name", "Something went terribly wrong")!!
-        dashboardFragment = DashboardFragment.newInstance(accessToken, "Dashboard")
-        activeFragment = dashboardFragment
+        val fag = sharedPreferences.getString("current_fag", "Error")!!
+
+        dashboardFragment = DashboardFragment.newInstance(accessToken, "Dashboard", fag)
         lecturersFragment = LecturersFragment.newInstance(accessToken, "Lecturers")
         subjectsFragment = SubjectsFragment.newInstance(accessToken, "Subjects", fos)
         memesFragment = MemesFragment.newInstance(accessToken, "Memes")
+        //Error
         settingsFragment = SettingsFragment.newInstance(accessToken, "Settings", fos, fullName)
+        activeFragment = dashboardFragment
 
         supportFragmentManager.beginTransaction()
             .add(frameLayoutMain, dashboardFragment, "Dashboard").commit()
@@ -190,76 +192,12 @@ class MainActivity : AppCompatActivity() {
             .add(frameLayoutMain, lecturersFragment, "Lecturers").hide(lecturersFragment).commit()
         supportFragmentManager.beginTransaction().add(frameLayoutMain, subjectsFragment, "Subjects")
             .hide(subjectsFragment).commit()
-        supportFragmentManager.beginTransaction().add(frameLayoutMain, memesFragment, "Memes")
-            .hide(memesFragment).commit()
         supportFragmentManager.beginTransaction().add(frameLayoutMain, settingsFragment, "Settings")
             .hide(settingsFragment).commit()
+        supportFragmentManager.beginTransaction().add(frameLayoutMain, memesFragment, "Memes")
+            .hide(memesFragment).commit()
+
     }
-
-//    private fun createDashboard(key: String, actionId: Int) {
-//        val fragment = DashboardFragment.newInstance(accessToken, key)
-////        mine
-//        this.textViewToolbar.text = getString(R.string.dashboard)
-//        this.imageViewButtonSettings.visibility = (View.VISIBLE)
-//        fragment.setInitialSavedState(savedStateSparseArray[actionId])
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.frameLayoutMain, fragment, key)
-//            .commit()
-//    }
-
-//    private fun createSubjects(key: String, actionId: Int) {
-//        val fragment = SubjectsFragment.newInstance(accessToken, key, "fos")
-//        Log.d("TEST", "creating a subfragment")//DONE12
-//
-////        mine
-//        this.textViewToolbar.text = getString(R.string.subjects)
-//        this.imageViewButtonSettings.visibility = (View.GONE)
-////
-//        fragment.setInitialSavedState(savedStateSparseArray[actionId])
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.frameLayoutMain, fragment, key)
-//            .commit()
-//    }
-//
-//    private fun createLecturers(key: String, actionId: Int) {
-//        val fragment = LecturersFragment.newInstance(accessToken, key)
-//        Log.d("TEST", "creating a lecfragment")//DONE12
-//
-////        mine
-//        this.textViewToolbar.text = getString(R.string.lecturers)
-//        this.imageViewButtonSettings.visibility = (View.GONE)
-////
-//        fragment.setInitialSavedState(savedStateSparseArray[actionId])
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.frameLayoutMain, fragment, key)
-//            .commit()
-//    }
-//
-//    private fun createMemes(key: String, actionId: Int) {
-//        val fragment = MemesFragment.newInstance(accessToken, key)
-//        Log.d("TEST", "creating a memfragment")//DONE12
-//
-////        mine
-//        this.textViewToolbar.text = getString(R.string.memes)
-//        this.imageViewButtonSettings.visibility = (View.GONE)
-////
-//        fragment.setInitialSavedState(savedStateSparseArray[actionId])
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.frameLayoutMain, fragment, key)
-//            .commit()
-//    }
-//
-//    private fun createSettings(key: String, actionId: Int) {
-//        val fragment = SettingsFragment.newInstance(accessToken, key, "nic", "nic")
-////        mine
-//        this.textViewToolbar.text = getString(R.string.settings)
-//        this.imageViewButtonSettings.visibility = (View.GONE)
-////
-//        fragment.setInitialSavedState(savedStateSparseArray[actionId])
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.frameLayoutMain, fragment, key)
-//            .commit()
-//    }
 }
 
 

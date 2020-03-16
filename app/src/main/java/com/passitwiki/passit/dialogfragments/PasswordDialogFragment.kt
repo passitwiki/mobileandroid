@@ -142,59 +142,6 @@ class PasswordDialogFragment : DialogFragment() {
             dismiss()
         }
 
-//        view.buttonCheck.setOnClickListener {
-//            val currPassword = view.editTextCurrentPassword.text.toString().trim()
-//            val newPassword = view.editTextNewPassword.text.toString().trim()
-//            val confirmPassword = view.editTextConfirmPassword.text.toString().trim()
-//
-//            if (currPassword.isEmpty()) {
-//                editTextCurrentPassword.error = "Current password required"
-//                editTextCurrentPassword.requestFocus()
-//                return@setOnClickListener
-//            }
-//            if (newPassword.isEmpty()) {
-//                editTextNewPassword.error = "New password required"
-//                editTextNewPassword.requestFocus()
-//                return@setOnClickListener
-//            }
-//            if (confirmPassword.isEmpty()) {
-//                editTextConfirmPassword.error = "Confirmation required"
-//                editTextConfirmPassword.requestFocus()
-//                return@setOnClickListener
-//            }
-//            if (newPassword != confirmPassword) {
-//                editTextNewPassword.error = "The new passwords don't match"
-//                editTextNewPassword.requestFocus()
-//                return@setOnClickListener
-//            }
-//
-//
-//
-//            RetrofitClient.instance.postSetPassword(
-//                    "Bearer ${globalToken!!}",
-//                    newPassword,
-//                    currPassword
-//                )
-//                .enqueue(object : Callback<Unit> {
-//                    override fun onFailure(call: Call<Unit>, t: Throwable) {
-//                        Toast.makeText(globalContext, t.message, Toast.LENGTH_LONG).show()
-//                    }
-//
-//                    override fun onResponse(
-//                        call: Call<Unit>,
-//                        response: Response<Unit>
-//                    ) {
-//                        Toast.makeText(
-//                            globalContext,
-//                            getString(R.string.success_password),
-//                            Toast.LENGTH_LONG
-//                        ).show()
-//                        dismiss()
-//
-//                    }
-//
-//                })
-//        }
         return view
     }
 

@@ -75,7 +75,11 @@ class SubjectsFragment : Fragment() {
                                 for (i in listOfSubjects) {
                                     arguments.let {
                                         val fos = it?.getString(FIELD_OF_STUDY)
-                                        if (i.field_of_study == fos) {
+                                        if (i.field_of_study == fos!!.substring(
+                                                0,
+                                                fos.length - 5
+                                            )
+                                        ) {
                                             returnListOfSubjects.add(i)
                                         }
                                     }
