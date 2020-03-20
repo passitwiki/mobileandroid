@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.passitwiki.passit.api.RetrofitClient
 import com.passitwiki.passit.models.FieldOfStudy
+import com.passitwiki.passit.models.FoS
 import com.passitwiki.passit.models.User
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,25 +37,35 @@ object UserSetter {
                     sharedPref.edit().putString(
                         "current_user_full_name",
                         user.first_name + " " + user.last_name
-                    ).apply()
+                    ).commit()
+
+                    var fag = 0
+                    var fagObject: FoS = FoS(0, 0, 0)
 
                     for (member in user.profile.memberships) {
                         var hit = 0
                         if (member.is_default) {
                             hit = 1
-                            sharedPref.edit().putString(
+                            fag = member.field_age_group
+                            sharedPref.edit().putInt(
                                 "current_fag",
-                                member.field_age_group.toString()
-                            ).apply()
+                                member.field_age_group
+                            ).commit()
                         }
                         if (hit == 0) {
-                            sharedPref.edit().putString(
+                            fag = user.profile.memberships[0].field_age_group
+                            sharedPref.edit().putInt(
                                 "current_fag",
-                                user.profile.memberships[0].field_age_group.toString()
-                            ).apply()
+                                user.profile.memberships[0].field_age_group
+                            ).commit()
                         }
                     }
-
+                    user.profile.field_age_groups.forEach {
+                        if (it.id == fag) {
+                            fagObject = it
+                        }
+                    }
+                    Log.d("MyTag", "Setting fag object!! ${fagObject.field_of_study}")
 
 
                     RetrofitClient.instance.getFieldOfStudy(accessToken)
@@ -67,16 +78,25 @@ object UserSetter {
                                 call: Call<List<FieldOfStudy>>,
                                 response: Response<List<FieldOfStudy>>
                             ) {
-                                response.body()!!.forEach {
-                                    if (it.id == user.profile.field_age_groups[0].field_of_study) {
+                                Log.d("MyTag", response.body().toString())
+                                response.body()?.forEach {
+                                    if (it.id == fagObject.field_of_study) {
                                         sharedPref.edit().putString(
                                             "current_fos",
-                                            it.name + " " + user.profile.field_age_groups[0].students_start_year
-                                        ).apply()
+                                            it.name + " " + fagObject.students_start_year
+                                        ).commit()
                                         sharedPref.edit().putInt(
                                             "current_fos_int",
-                                            user.profile.field_age_groups[0].field_of_study
-                                        ).apply()
+                                            fagObject.field_of_study
+                                        ).commit()
+                                        Log.d(
+                                            "MyTag",
+                                            "Setting fag object!! ${sharedPref.getInt(
+                                                "current_fos_int",
+                                                0
+                                            )}"
+                                        )
+
                                     }
                                 }
                             }

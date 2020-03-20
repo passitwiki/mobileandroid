@@ -1,8 +1,11 @@
 package com.passitwiki.passit.activities
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.util.Log
 import android.util.SparseArray
 import android.view.View
 import androidx.annotation.IdRes
@@ -13,6 +16,7 @@ import com.passitwiki.passit.R
 import com.passitwiki.passit.fragments.*
 import com.passitwiki.passit.tools.UserSetter
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 lateinit var activeFragment: Fragment
 lateinit var dashboardFragment: Fragment
@@ -31,6 +35,11 @@ class MainActivity : AppCompatActivity() {
     lateinit var subjectsFragment: Fragment
     lateinit var memesFragment: Fragment
     lateinit var settingsFragment: Fragment
+
+    lateinit var fos: String
+    var fosInt = 0
+    lateinit var fullName: String
+    var fag = 0
 
     companion object {
         const val SAVED_STATE_CONTAINER_KEY = "ContainerKey"
@@ -61,12 +70,32 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPreferences = getPreferences(Context.MODE_PRIVATE)
         refreshToken = intent.getStringExtra("refresh")!!
         accessToken = "Bearer ${intent.getStringExtra("token")}"
         UserSetter.setUserAndFos(accessToken, sharedPreferences)
+        Log.d("MyTag", "heya" + sharedPreferences.getInt("current_fos_int", 0))
+
+//        while (sharedPreferences.getInt("current_fos_int", 0) == 0) {
+//            Thread(Runnable {
+//                try {
+//                    Thread.sleep(1)
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                }
+//            }).start()
+//        }
+
+        fos = sharedPreferences.getString("current_fos", "Error")!!
+        fosInt = sharedPreferences.getInt("current_fos_int", 0)
+        fullName =
+            sharedPreferences.getString("current_user_full_name", "Something went terribly wrong")!!
+        fag = sharedPreferences.getInt("current_fag", 0)
+
+
 
         if (savedInstanceState != null) {
             savedStateSparseArray =
@@ -77,11 +106,51 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         btmNav.itemIconTintList = null //Color of the bottom icons
 
+        this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
+
+//        while(fosInt!=0) {
+//
+//        }
         setUpFragments()
+
+//        val progressDialog: ProgressDialog
+//
+//        progressDialog = ProgressDialog(this)
+//        progressDialog.max = 100
+//        progressDialog.setMessage("Please wait...")
+//        progressDialog.setTitle("My Application")
+//        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+//        progressDialog.show()
+//        val handle: Handler = object : Handler() {
+//            override fun handleMessage(msg: Message?) {
+//                super.handleMessage(msg)
+//                progressDialog.incrementProgressBy(1)
+//            }
+//        }
+//        Thread(Runnable {
+//            try {
+//                while (progressDialog.progress <= progressDialog
+//                        .max
+//                ) {
+//                    Thread.sleep(100)
+//                    handle.sendMessage(handle.obtainMessage())
+//                    if (progressDialog.progress == progressDialog
+//                            .max
+//                    ) {
+//                        progressDialog.dismiss()
+//                    }
+//                }
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//        }).start()
+
 
         imageViewButtonSettings.setOnClickListener {
             swapFragments(R.id.imageViewButtonSettings, "Settings")
         }
+
         btmNav.setOnNavigationItemSelectedListener(mBtmNavItemSelectedListener)
     }
 
@@ -183,17 +252,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpFragments() {
-        val fos = sharedPreferences.getString("current_fos", "Error")!!
-        val fosInt = sharedPreferences.getInt("current_fos_int", 0)
-        val fullName =
-            sharedPreferences.getString("current_user_full_name", "Something went terribly wrong")!!
-        val fag = sharedPreferences.getString("current_fag", "Error")!!
-
         dashboardFragment = DashboardFragment.newInstance(accessToken, "Dashboard", fag)
         lecturersFragment = LecturersFragment.newInstance(accessToken, "Lecturers")
         subjectsFragment = SubjectsFragment.newInstance(accessToken, "Subjects", fosInt)
         memesFragment = MemesFragment.newInstance(accessToken, "Memes")
-        //Error
         settingsFragment = SettingsFragment.newInstance(accessToken, "Settings", fos, fullName)
         activeFragment = dashboardFragment
 

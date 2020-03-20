@@ -28,12 +28,12 @@ class DashboardFragment : Fragment() {
         const val KEY = "FragmentDashboard"
         const val ACCESS_TOKEN = "AccessToken"
         const val FIELD_AGE_GROUP = "FieldAgeGroup"
-        fun newInstance(token: String, key: String, fag: String): Fragment {
+        fun newInstance(token: String, key: String, fag: Int): Fragment {
             val fragment = DashboardFragment()
             val argument = Bundle()
             argument.putString(ACCESS_TOKEN, token)
             argument.putString(KEY, key)
-            argument.putString(FIELD_AGE_GROUP, fag)
+            argument.putInt(FIELD_AGE_GROUP, fag)
             fragment.arguments = argument
             return fragment
         }
@@ -54,7 +54,7 @@ class DashboardFragment : Fragment() {
 
             val accessToken = it?.getString(ACCESS_TOKEN)
             val addNewsButton = view.imageViewAddNews
-            val fag = it?.getString(FIELD_AGE_GROUP)
+            val fag = it?.getInt(FIELD_AGE_GROUP)
 
             addNewsButton.setOnClickListener {
                 val addNewsDialogFragment =

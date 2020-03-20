@@ -1,6 +1,8 @@
 package com.passitwiki.passit.fragments
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -66,8 +68,12 @@ class SubjectsFragment : Fragment() {
                     id: Long
                 ) {
                     arguments.let {
-                        val fosInt = it?.getInt(FIELD_OF_STUDY_INT)
-                        RetrofitClient.instance.getSubjects(position + 1, fosInt!!)
+                        var fosInt = it?.getInt(FIELD_OF_STUDY_INT)
+                        Log.d("MyTag", fosInt.toString())
+                        fosInt = activity!!.getPreferences(Context.MODE_PRIVATE)
+                            .getInt("current_fos_int", 0)
+
+                        RetrofitClient.instance.getSubjects(position + 1, fosInt)
                             .enqueue(object : Callback<List<Subject>> {
                                 override fun onFailure(call: Call<List<Subject>>, t: Throwable) {
                                     d("MyTag", "onFailure: $t")
@@ -101,7 +107,7 @@ class SubjectsFragment : Fragment() {
     fun showData(subjects: List<Subject>) {
         subjectsRecyclerView.apply {
             layoutManager = LinearLayoutManager(activity!!.applicationContext)
-            adapter = SubjectsAdapter(subjects, activity!!)
+            adapter = SubjectsAdapter(subjects, requireActivity())
         }
     }
 }

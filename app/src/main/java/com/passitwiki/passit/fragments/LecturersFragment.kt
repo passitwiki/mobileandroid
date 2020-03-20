@@ -32,8 +32,14 @@ class LecturersFragment : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+
+        val view = inflater.inflate(R.layout.fragment_lecturers, container, false)
 
         RetrofitClient.instance.getLecturers()
             .enqueue(object : Callback<List<Lecturer>> {
@@ -45,21 +51,13 @@ class LecturersFragment : Fragment() {
                     call: Call<List<Lecturer>>,
                     response: Response<List<Lecturer>>
                 ) {
-                    d("MyTag", "onResponse: ${response.body()}")
+                    d("MyTahh", "onResponse: ${response.body()}")
                     showData(response.body()!!)
                 }
 
             })
 
-    }
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lecturers, container, false)
+        return view
     }
 
     fun showData(lecturers: List<Lecturer>) {

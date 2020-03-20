@@ -19,13 +19,13 @@ class AddNewsDialogFragment : DialogFragment() {
         const val KEY = "FragmentSettings"
         const val ACCESS_TOKEN = "AccessToken"
         const val FIELD_AGE_GROUP = "FieldAgeGroup"
-        fun newInstance(token: String, key: String, fag: String): DialogFragment {
+        fun newInstance(token: String, key: String, fag: Int): DialogFragment {
             val dFragment =
                 AddNewsDialogFragment()
             val argument = Bundle()
             argument.putString(ACCESS_TOKEN, token)
             argument.putString(KEY, key)
-            argument.putString(FIELD_AGE_GROUP, fag)
+            argument.putInt(FIELD_AGE_GROUP, fag)
             dFragment.arguments = argument
             return dFragment
         }
@@ -81,7 +81,7 @@ class AddNewsDialogFragment : DialogFragment() {
 
             arguments.let {
                 val accessToken = it?.getString(ACCESS_TOKEN)
-                val fag: Int = it?.getString(FIELD_AGE_GROUP)!!.toInt()
+                val fag: Int = it?.getInt(FIELD_AGE_GROUP)!!
 
                 RetrofitClient.instance.postNews(accessToken!!, title, content, 2, fag)
                     .enqueue(object : Callback<Unit> {
