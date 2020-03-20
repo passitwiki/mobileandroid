@@ -14,6 +14,9 @@ import com.passitwiki.passit.fragments.*
 import com.passitwiki.passit.tools.UserSetter
 import kotlinx.android.synthetic.main.activity_main.*
 
+lateinit var activeFragment: Fragment
+lateinit var dashboardFragment: Fragment
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,8 +27,6 @@ class MainActivity : AppCompatActivity() {
     val frameLayoutMain = R.id.frameLayoutMain
     private lateinit var sharedPreferences: SharedPreferences
 
-    lateinit var activeFragment: Fragment
-    lateinit var dashboardFragment: Fragment
     lateinit var lecturersFragment: Fragment
     lateinit var subjectsFragment: Fragment
     lateinit var memesFragment: Fragment
@@ -91,7 +92,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (currentSelectItemId != R.id.itemDashboard) {
+        if (activeFragment == supportFragmentManager.findFragmentByTag("IndividualLecturer")) {
+            swapFragments(R.id.itemLecturers, "Lecturers")
+        } else if (activeFragment == supportFragmentManager.findFragmentByTag("IndividualSubject")) {
+            swapFragments(R.id.itemSubjects, "Subjects")
+        } else if (currentSelectItemId != R.id.itemDashboard
+            || activeFragment == supportFragmentManager.findFragmentByTag("Calendar")
+        ) {
+            btmNav.selectedItemId = R.id.itemDashboard
             swapFragments(R.id.itemDashboard, "Dashboard")
         } else {
             supportFragmentManager.fragments.forEach { fragment ->
@@ -122,6 +130,8 @@ class MainActivity : AppCompatActivity() {
     private fun swapFragments(@IdRes actionId: Int, key: String) {
         if (supportFragmentManager.findFragmentByTag(key) != null) {
             savedFragmentState(actionId)
+
+
             when (actionId) {
                 R.id.itemDashboard -> {
                     textViewToolbar.text = getString(R.string.dashboard)
@@ -174,13 +184,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpFragments() {
         val fos = sharedPreferences.getString("current_fos", "Error")!!
+        val fosInt = sharedPreferences.getInt("current_fos_int", 0)
         val fullName =
             sharedPreferences.getString("current_user_full_name", "Something went terribly wrong")!!
         val fag = sharedPreferences.getString("current_fag", "Error")!!
 
         dashboardFragment = DashboardFragment.newInstance(accessToken, "Dashboard", fag)
         lecturersFragment = LecturersFragment.newInstance(accessToken, "Lecturers")
-        subjectsFragment = SubjectsFragment.newInstance(accessToken, "Subjects", fos)
+        subjectsFragment = SubjectsFragment.newInstance(accessToken, "Subjects", fosInt)
         memesFragment = MemesFragment.newInstance(accessToken, "Memes")
         //Error
         settingsFragment = SettingsFragment.newInstance(accessToken, "Settings", fos, fullName)

@@ -11,10 +11,8 @@ import android.view.Window
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import com.passitwiki.passit.R
 import com.passitwiki.passit.api.RetrofitClient
-import com.passitwiki.passit.fragments.SettingsFragment
 import kotlinx.android.synthetic.main.fragment_password_dialog.*
 import kotlinx.android.synthetic.main.fragment_password_dialog.view.*
 import retrofit2.Call
@@ -27,8 +25,8 @@ class PasswordDialogFragment : DialogFragment() {
     companion object {
         const val KEY = "FragmentSettings"
         const val ACCESS_TOKEN = "AccessToken"
-        fun newInstance(token: String, key: String): Fragment {
-            val fragment = SettingsFragment()
+        fun newInstance(token: String, key: String): DialogFragment {
+            val fragment = PasswordDialogFragment()
             val argument = Bundle()
             argument.putString(ACCESS_TOKEN, token)
             argument.putString(KEY, key)

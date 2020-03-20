@@ -24,13 +24,13 @@ class SubjectsFragment : Fragment() {
     companion object {
         const val KEY = "FragmentSubjects"
         const val ACCESS_TOKEN = "AccessToken"
-        const val FIELD_OF_STUDY = "FieldOfStudy"
-        fun newInstance(token: String, key: String, fos: String): Fragment {
+        const val FIELD_OF_STUDY_INT = "FieldOfStudy"
+        fun newInstance(token: String, key: String, fosInt: Int): Fragment {
             val fragment = SubjectsFragment()
             val argument = Bundle()
             argument.putString(ACCESS_TOKEN, token)
             argument.putString(KEY, key)
-            argument.putString(FIELD_OF_STUDY, fos)
+            argument.putInt(FIELD_OF_STUDY_INT, fosInt)
             fragment.arguments = argument
             return fragment
         }
@@ -44,7 +44,15 @@ class SubjectsFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_subjects, container, false)
 
         val listOfSemester =
-            arrayOf("Semester 1", "Semester 2", "Semester 3", "Semester 4", "Semester 5")
+            arrayOf(
+                "Semester 1",
+                "Semester 2",
+                "Semester 3",
+                "Semester 4",
+                "Semester 5",
+                "Semester 6",
+                "Semester 7"
+            )
 
         rootView.spinnerSemester!!.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -57,36 +65,23 @@ class SubjectsFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    RetrofitClient.instance.getSubjectsBySemester(position + 1)
-                        .enqueue(object : Callback<List<Subject>> {
-                            override fun onFailure(call: Call<List<Subject>>, t: Throwable) {
-                                d("MyTag", "onFailure: $t")
-                            }
-
-                            override fun onResponse(
-                                call: Call<List<Subject>>,
-                                response: Response<List<Subject>>
-                            ) {
-                                d("MyTag", "onResponse: ${response.body()}")
-                                val listOfSubjects: ArrayList<Subject> =
-                                    response.body()!! as ArrayList<Subject>
-                                val returnListOfSubjects: ArrayList<Subject> = ArrayList()
-
-                                for (i in listOfSubjects) {
-                                    arguments.let {
-                                        val fos = it?.getString(FIELD_OF_STUDY)
-                                        if (i.field_of_study == fos!!.substring(
-                                                0,
-                                                fos.length - 5
-                                            )
-                                        ) {
-                                            returnListOfSubjects.add(i)
-                                        }
-                                    }
+                    arguments.let {
+                        val fosInt = it?.getInt(FIELD_OF_STUDY_INT)
+                        RetrofitClient.instance.getSubjects(position + 1, fosInt!!)
+                            .enqueue(object : Callback<List<Subject>> {
+                                override fun onFailure(call: Call<List<Subject>>, t: Throwable) {
+                                    d("MyTag", "onFailure: $t")
                                 }
-                                showData(returnListOfSubjects as List<Subject>)
-                            }
-                        })
+
+                                override fun onResponse(
+                                    call: Call<List<Subject>>,
+                                    response: Response<List<Subject>>
+                                ) {
+                                    d("MyTag", "onResponseSub: ${response.body()}")
+                                    showData(response.body()!!)
+                                }
+                            })
+                    }
                 }
             }
 
@@ -106,7 +101,7 @@ class SubjectsFragment : Fragment() {
     fun showData(subjects: List<Subject>) {
         subjectsRecyclerView.apply {
             layoutManager = LinearLayoutManager(activity!!.applicationContext)
-            adapter = SubjectsAdapter(subjects)
+            adapter = SubjectsAdapter(subjects, activity!!)
         }
     }
 }

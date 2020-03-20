@@ -3,9 +3,13 @@ package com.passitwiki.passit.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.passitwiki.passit.R
+import com.passitwiki.passit.activities.activeFragment
+import com.passitwiki.passit.fragments.IndividualSubjectFragment
 import com.passitwiki.passit.models.Subject
 import kotlinx.android.synthetic.main.item_subject.view.*
 
@@ -16,8 +20,10 @@ import kotlinx.android.synthetic.main.item_subject.view.*
  * creates as many items as getItemCount has.
  * @param subjects a list object from a json array made with Gson
  */
-class SubjectsAdapter(private val subjects: List<Subject>) :
+class SubjectsAdapter(private val subjects: List<Subject>, context: FragmentActivity) :
     RecyclerView.Adapter<SubjectsAdapter.SubjectsViewHolder>() {
+
+    val activity: FragmentActivity = context
 
     /**
      * This fun inflates - makes xml a workable object
@@ -43,6 +49,25 @@ class SubjectsAdapter(private val subjects: List<Subject>) :
     override fun onBindViewHolder(holder: SubjectsViewHolder, position: Int) {
         val subject = subjects[position]
         holder.name.text = subject.name
+
+        holder.button.setOnClickListener {
+            val individualSubject =
+                IndividualSubjectFragment.newInstance(
+                    "Calendar",
+                    subject.name,
+                    "it's always an empty string: " + subject.general_description
+                )
+            activity.supportFragmentManager.beginTransaction()
+                .add(R.id.frameLayoutMain, individualSubject, "IndividualSubject")
+                .hide(individualSubject)
+                .commit()
+            activity.supportFragmentManager.beginTransaction()
+                .hide(activeFragment)
+                .show(individualSubject)
+                .commit()
+            activeFragment = individualSubject
+        }
+
     }
 
     /**
@@ -51,7 +76,7 @@ class SubjectsAdapter(private val subjects: List<Subject>) :
      */
     class SubjectsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.textViewSubjectsName
-//        val card: RelativeLayout = itemView.relativeLayoutSubjectCard
+        val button: RelativeLayout = itemView.relativeLayoutSubjectCard
     }
 
 }

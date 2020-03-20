@@ -3,36 +3,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:paddingStart="16dp"
+    android:paddingTop="?attr/actionBarSize"
+    android:paddingEnd="16dp"
+    android:paddingBottom="?attr/actionBarSize"
     tools:context=".fragments.IndividualSubjectFragment">
 
-    <TextView
-        android:id="@+id/textViewSubjectDescription"
-        style="@style/bodyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingEnd="30dp"
-        android:paddingStart="0dp"
-        android:paddingBottom="30dp"
-        android:text="@string/description"
-        android:textSize="20sp" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/textViewSubjectDescription"-->
+    <!--        style="@style/bodyText"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:paddingEnd="30dp"-->
+    <!--        android:paddingStart="0dp"-->
+    <!--        android:paddingBottom="30dp"-->
+    <!--        android:text="@string/description"-->
+    <!--        android:textSize="20sp" />-->
 
-    <TextView
-        android:id="@+id/textViewSubjectMaterials"
-        style="@style/bodyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/textViewSubjectDescription"
-        android:text="@string/materials"
-        android:textSize="20sp" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/textViewSubjectMaterials"-->
+    <!--        style="@style/bodyText"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_toEndOf="@+id/textViewSubjectDescription"-->
+    <!--        android:text="@string/materials"-->
+    <!--        android:textSize="20sp" />-->
 
     <TextView
         android:id="@+id/textViewThisSubject"
         style="@style/bodyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewSubjectDescription"
         android:paddingBottom="11dp"
+        android:paddingTop="8dp"
+
         android:textSize="18sp"
         android:textStyle="bold"
         tools:text="subject" />
@@ -45,8 +49,17 @@
         android:background="?attr/gradientBorder"
         android:padding="16dp">
 
+        <!--        <TextView-->
+        <!--            android:id="@+id/textViewWithExam"-->
+        <!--            style="@style/bodyText"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:paddingBottom="16dp"-->
+        <!--            android:textSize="16sp"-->
+        <!--            tools:text="E -subject with an exam" />-->
+
         <TextView
-            android:id="@+id/textViewWithExam"
+            android:id="@+id/textViewSubjectDescription"
             style="@style/bodyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,11 +72,12 @@
             style="@style/bodyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textViewWithExam"
+            android:layout_below="@id/textViewSubjectDescription"
             android:paddingBottom="10dp"
             android:text="@string/instructors"
             android:textSize="16sp"
             android:textStyle="bold" />
+
 
         <TextView
             android:id="@+id/textViewIndividualLecturer"
@@ -71,8 +85,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewSubjectsLecturers"
-            android:textSize="16sp"
-            tools:text="dr name surname" />
+            android:text="Not yet implemented"
+            android:textSize="16sp" />
 
     </RelativeLayout>
 </RelativeLayout>

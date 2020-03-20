@@ -67,8 +67,9 @@
         android:background="?attr/toolbarColor"
         android:theme="@style/Widget.BottomNavigationView"
         app:itemHorizontalTranslationEnabled="false"
-        app:layout_behavior="com.passitwiki.passit.tools.BottomNavigationBehavior"
         app:menu="@menu/bottom_nav" />
+    <!--    app:layout_behavior="com.passitwiki.passit.tools.BottomNavigationBehavior"-->
+
     <!--        app:itemTextColor="@drawable/test_gradient_colorstatelist"-->
 
 

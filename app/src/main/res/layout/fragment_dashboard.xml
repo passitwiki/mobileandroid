@@ -1,92 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshDashboard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="?attr/actionBarSize"
+    android:paddingBottom="?attr/actionBarSize"
     tools:context=".fragments.DashboardFragment">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:id="@+id/relativeLayoutCalendar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingTop="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="30dp">
+            android:id="@+id/relativeLayoutDashboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <RelativeLayout
+                android:id="@+id/relativeLayoutCalendar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="?attr/gradientBorderNewsCal"
-                android:elevation="4dp"
-                android:orientation="vertical"
-                android:paddingStart="16dp"
-                android:paddingTop="13dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="13dp"
-                tools:ignore="UselessParent">
+                android:paddingLeft="16dp"
+                android:paddingTop="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="30dp">
 
-                <TextView
-                    android:id="@+id/textViewExamCalendar"
-                    style="@style/bodyText"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/buttonExam"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/exam_calendar"
-                    android:textSize="18sp"
-                    tools:ignore="RelativeOverlap" />
+                    android:layout_gravity="center_vertical"
+                    android:background="?attr/gradientBorderNewsCal"
+                    android:elevation="4dp"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp"
+                    android:paddingTop="13dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="13dp"
+                    tools:ignore="UselessParent">
 
-                <ImageView
-                    android:id="@+id/imageViewArrowRight"
-                    android:layout_width="18sp"
-                    android:layout_height="18sp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@string/arrow"
-                    android:src="@drawable/ic_arrow_right" />
+                    <TextView
+                        android:id="@+id/textViewExamCalendar"
+                        style="@style/bodyText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/exam_calendar"
+                        android:textSize="18sp"
+                        tools:ignore="RelativeOverlap" />
+
+                    <ImageView
+                        android:id="@+id/imageViewArrowRight"
+                        android:layout_width="18sp"
+                        android:layout_height="18sp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/arrow"
+                        android:src="@drawable/ic_arrow_right" />
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/relativeLayoutNewsHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/relativeLayoutCalendar"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp">
-
-            <TextView
-                android:id="@+id/textViewNews"
-                style="@style/bodyText"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/relativeLayoutNewsHeader"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/news"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:ignore="RelativeOverlap" />
+                android:layout_below="@+id/relativeLayoutCalendar"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="16dp">
 
-            <ImageView
-                android:id="@+id/imageViewAddNews"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentEnd="true"
-                android:contentDescription="@string/plus"
-                android:src="@drawable/ic_plus" />
+                <TextView
+                    android:id="@+id/textViewNews"
+                    style="@style/bodyText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/news"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:ignore="RelativeOverlap" />
+
+                <ImageView
+                    android:id="@+id/imageViewAddNews"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/plus"
+                    android:src="@drawable/ic_plus" />
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/newsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/relativeLayoutNewsHeader" />
+
         </RelativeLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/newsRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/relativeLayoutNewsHeader" />
-
-    </RelativeLayout>
-</ScrollView>
+    </ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

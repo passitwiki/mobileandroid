@@ -40,6 +40,11 @@ interface Api {
         @Header("Authorization") bearerToken: String
     ): Call<List<News>>
 
+    @GET("events/")
+    fun getEvents(
+        @Header("Authorization") bearerToken: String
+    ): Call<List<Event>>
+
     @FormUrlEncoded
     @POST("news/")
     fun postNews(
@@ -54,8 +59,9 @@ interface Api {
 //    fun getSubjects(): Call<List<Subject>>
 
     @GET("subjects/")
-    fun getSubjectsBySemester(
-        @Query("semester") semester: Int
+    fun getSubjects(
+        @Query("semester") semester: Int,
+        @Query("field_of_study") fieldOfStudy: Int
     ): Call<List<Subject>>
 
 

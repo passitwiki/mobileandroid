@@ -10,12 +10,22 @@
 
     <!--  TODO layout cal event  -->
     <RelativeLayout
+        android:id="@+id/relativeLayoutDate"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="16dp">
 
         <TextView
+            android:id="@+id/textViewDate"
+            style="@style/bodyText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            tools:text="21" />
 
     </RelativeLayout>
 
@@ -25,6 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:layout_toEndOf="@+id/relativeLayoutDate"
         android:background="?attr/gradientBorderNewsCal"
         android:elevation="4dp"
         android:orientation="vertical"
@@ -37,8 +48,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="4dp"
-            android:textSize="20sp"
-            tools:text="Subject name" />
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="EGZAMIN I termin" />
+
+        <TextView
+            android:id="@+id/textViewCalendarSubject"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewCalendarName"
+            android:paddingBottom="4dp"
+            android:textSize="14sp"
+            tools:text="Algebra" />
+
+        <TextView
+            android:id="@+id/textViewCalendarTime"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewCalendarSubject"
+            android:paddingBottom="4dp"
+            android:textSize="14sp"
+            tools:text="10:00" />
+
+        <TextView
+            android:id="@+id/textViewCalendarDescription"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewCalendarTime"
+            android:paddingBottom="4dp"
+            android:textSize="14sp"
+            tools:text="D-13 s. 242." />
 
     </RelativeLayout>
 

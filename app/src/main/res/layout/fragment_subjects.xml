@@ -4,7 +4,8 @@
     android:id="@+id/relativeLayoutFragmentSubjects"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:paddingTop="56dp"
+    android:paddingTop="?attr/actionBarSize"
+    android:paddingBottom="?attr/actionBarSize"
     tools:context=".fragments.SubjectsFragment">
 
     <RelativeLayout

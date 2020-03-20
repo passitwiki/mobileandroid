@@ -19,5 +19,12 @@ data class Profile(val memberships: ArrayList<Memberships>, val field_age_groups
 //data class Memberships(val members:List<Int>) : ArrayList<Int>()
 //data class FieldAgeGroups(val fosArray:List<FoS>)
 
-data class Memberships(val id: Int, val profile: Int, val field_age_group: Int, val type: Int)
+data class Memberships(
+    val id: Int,
+    val profile: Int,
+    val field_age_group: Int,
+    val type: Int,
+    val is_default: Boolean
+)
+
 data class FoS(val id: Int, val field_of_study: Int, val students_start_year: Int)

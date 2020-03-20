@@ -1,6 +1,8 @@
 package com.passitwiki.passit.activities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,27 +23,40 @@ import retrofit2.Response
  */
 class LoginActivity : AppCompatActivity() {
 
+    lateinit var sharedPref: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        sharedPref = getSharedPreferences("userdetails", Context.MODE_PRIVATE)
+        val logged_in =
+            sharedPref.getBoolean("logged_in", false)
 
-        buttonLogin.setOnClickListener {
-            val email = editTextIndex.text.toString().trim()
-            val password = editTextPassword.text.toString().trim()
+        if (logged_in) {
+            val email = sharedPref.getString("username", "null")
+            val password = sharedPref.getString("password", "null")
+            clickToMain(email!!, password!!)
+        } else {
 
-            if (email.isEmpty()) {
-                editTextIndex.error = "Email required"
-                editTextIndex.requestFocus()
-                return@setOnClickListener
+            setContentView(R.layout.activity_login)
+
+            buttonLogin.setOnClickListener {
+                val email = editTextIndex.text.toString().trim()
+                val password = editTextPassword.text.toString().trim()
+
+                if (email.isEmpty()) {
+                    editTextIndex.error = "Email required"
+                    editTextIndex.requestFocus()
+                    return@setOnClickListener
+                }
+                if (password.isEmpty()) {
+                    editTextPassword.error = "Password required"
+                    editTextPassword.requestFocus()
+                    return@setOnClickListener
+                }
+
+                clickToMain(email, password)
+
             }
-            if (password.isEmpty()) {
-                editTextPassword.error = "Password required"
-                editTextPassword.requestFocus()
-                return@setOnClickListener
-            }
-
-            clickToMain(email, password)
-
         }
     }
 
@@ -61,8 +76,19 @@ class LoginActivity : AppCompatActivity() {
                         intent.putExtra("token", response.body()?.access)
                         intent.putExtra("refresh", response.body()?.refresh)
                         startActivity(intent)
+                        sharedPref.edit().putString(
+                            "username",
+                            email
+                        ).commit()
+                        sharedPref.edit().putString(
+                            "password",
+                            password
+                        ).commit()
+                        sharedPref.edit().putBoolean(
+                            "logged_in",
+                            true
+                        ).commit()
                         finish()
-
                     } else {
                         Toast.makeText(
                             applicationContext,

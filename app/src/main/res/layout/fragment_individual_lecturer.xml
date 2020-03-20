@@ -3,45 +3,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:paddingStart="16dp"
+    android:paddingTop="?attr/actionBarSize"
+    android:paddingEnd="16dp"
+    android:paddingBottom="?attr/actionBarSize"
     tools:context=".fragments.IndividualLecturerFragment">
 
-    <TextView
-        android:id="@+id/textViewLecturerGeneral"
-        style="@style/bodyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingEnd="30dp"
-        android:paddingStart="0dp"
-        android:paddingBottom="30dp"
-        android:text="@string/general"
-        android:textSize="20sp" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/textViewLecturerGeneral"-->
+    <!--        style="@style/bodyText"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:paddingEnd="30dp"-->
+    <!--        android:paddingStart="0dp"-->
+    <!--        android:paddingBottom="30dp"-->
+    <!--        android:text="@string/general"-->
+    <!--        android:textSize="20sp" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textViewLecturersMemes"-->
+    <!--        style="@style/bodyText"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_toEndOf="@+id/textViewLecturerGeneral"-->
+    <!--        android:text="@string/memes"-->
+    <!--        android:textSize="20sp" />-->
 
     <TextView
-        android:id="@+id/textViewLecturersMemes"
+        android:id="@+id/textViewThisLecturer"
         style="@style/bodyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/textViewLecturerGeneral"
-        android:text="@string/memes"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/textViewThisSubject"
-        style="@style/bodyText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewLecturerGeneral"
         android:paddingBottom="11dp"
+        android:paddingTop="8dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        tools:text="name" />
+        tools:text="Lucjan Janowski" />
 
     <RelativeLayout
         android:id="@+id/relativeLayoutSubjectDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewThisSubject"
+        android:layout_below="@id/textViewThisLecturer"
         android:background="?attr/gradientBorder"
         android:padding="16dp">
 
@@ -50,28 +53,65 @@
             style="@style/bodyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="10dp"
             android:text="@string/degree"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewLecturersDegree"
+            style="@style/bodyText"
+            android:layout_toEndOf="@+id/textViewDegree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            tools:text="Dr. hab."
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/textViewConsultations"
             style="@style/bodyText"
+            android:paddingEnd="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewDegree"
             android:paddingBottom="10dp"
+            android:textStyle="bold"
             android:text="@string/consultations"
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/textViewLecturersConsultations"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/textViewConsultations"
+            android:layout_toEndOf="@+id/textViewConsultations"
+            android:paddingBottom="16dp"
+            android:textSize="16sp"
+            tools:text="11-12 sroda D-13" />
+
+        <TextView
             android:id="@+id/textViewContact"
             style="@style/bodyText"
+            android:paddingEnd="8dp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewConsultations"
             android:text="@string/contact"
             android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textViewLecturersContact"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/textViewContact"
+            android:layout_toEndOf="@+id/textViewContact"
+            android:textSize="16sp"
+            tools:text="janowski@kt.agh.edu.pl" />
 
     </RelativeLayout>
 
@@ -108,6 +148,11 @@
         android:background="?attr/gradientBorder"
         android:padding="16dp">
 
+        <TextView
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INCOMING, PLEASE BE PATIENT :)" />
     </RelativeLayout>
 
 </RelativeLayout>

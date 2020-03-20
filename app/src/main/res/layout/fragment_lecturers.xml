@@ -4,32 +4,37 @@
     android:id="@+id/relativeLayoutFragmentSubjects"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    android:paddingTop="56dp"
+    android:paddingTop="?attr/actionBarSize"
+    android:paddingBottom="?attr/actionBarSize"
     tools:context=".fragments.LecturersFragment">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp">
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:paddingTop="16dp">-->
 
-        <RelativeLayout
-            android:id="@+id/relativeLayoutSpinnerCardLecturers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="?attr/gradientBorder">
+    <!--        <RelativeLayout-->
+    <!--            android:id="@+id/relativeLayoutSpinnerCardLecturers"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_centerHorizontal="true"-->
+    <!--            android:background="?attr/gradientBorder">-->
 
-            <Spinner
-                android:id="@+id/spinnerSemester"
-                android:layout_width="150dp"
-                android:layout_height="29dp" />
+    <!--            <Spinner-->
+    <!--                android:id="@+id/spinnerSemester"-->
+    <!--                android:layout_width="150dp"-->
+    <!--                android:layout_height="29dp" />-->
 
-        </RelativeLayout>
+    <!--        </RelativeLayout>-->
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/lecturersRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/relativeLayoutSpinnerCardLecturers" />
-    </RelativeLayout>
+    <!--        <androidx.recyclerview.widget.RecyclerView-->
+    <!--            android:id="@+id/lecturersRecyclerView"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:layout_below="@id/relativeLayoutSpinnerCardLecturers" />-->
+    <!--    </RelativeLayout>-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lecturersRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </ScrollView>

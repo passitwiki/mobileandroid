@@ -3,9 +3,13 @@ package com.passitwiki.passit.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.passitwiki.passit.R
+import com.passitwiki.passit.activities.activeFragment
+import com.passitwiki.passit.fragments.IndividualLecturerFragment
 import com.passitwiki.passit.models.Lecturer
 import kotlinx.android.synthetic.main.item_lecturer.view.*
 
@@ -15,8 +19,10 @@ import kotlinx.android.synthetic.main.item_lecturer.view.*
  * creates as many items as getItemCount has.
  * @param lecturers a list object from a json array made with Gson
  */
-class LecturerAdapter(private val lecturers: List<Lecturer>) :
+class LecturerAdapter(private val lecturers: List<Lecturer>, context: FragmentActivity) :
     RecyclerView.Adapter<LecturerAdapter.LecturerViewHolder>() {
+
+    val activity: FragmentActivity = context
 
     /**
      * This fun inflates - makes xml a workable object
@@ -44,7 +50,27 @@ class LecturerAdapter(private val lecturers: List<Lecturer>) :
         val fullNameString = "${lecturer.last_name} ${lecturer.first_name}"
 
         holder.fullName.text = fullNameString
-//        holder.title.text = lecturer.title
+
+        holder.button.setOnClickListener {
+            val individualLecturer =
+                IndividualLecturerFragment.newInstance(
+                    "Calendar",
+                    fullNameString,
+                    lecturer.title,
+                    lecturer.contact,
+                    lecturer.consultations
+                )
+            activity.supportFragmentManager.beginTransaction()
+                .add(R.id.frameLayoutMain, individualLecturer, "IndividualLecturer")
+                .hide(individualLecturer)
+                .commit()
+            activity.supportFragmentManager.beginTransaction()
+                .hide(activeFragment)
+                .show(individualLecturer)
+                .commit()
+            activeFragment = individualLecturer
+        }
+
     }
 
     /**
@@ -53,6 +79,8 @@ class LecturerAdapter(private val lecturers: List<Lecturer>) :
      */
     class LecturerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val fullName: TextView = itemView.textViewLecturersNameFull
-//        val title = itemView.textViewLecturersTitle
+        val button: RelativeLayout = itemView.buttonLecturer
     }
+
 }
+

@@ -1,5 +1,6 @@
 package com.passitwiki.passit.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ class SettingsFragment : Fragment() {
         const val ACCESS_TOKEN = "AccessToken"
         const val FIELD_OF_STUDY = "FieldOfStudy"
         const val FULL_NAME = "FullName"
+        const val PREFERENCES = "SharedPreferences"
         fun newInstance(
             token: String,
             key: String,
@@ -80,18 +82,34 @@ class SettingsFragment : Fragment() {
         arguments.let {
             val fullName = it?.getString(FULL_NAME)
             val fos = it?.getString(FIELD_OF_STUDY)
+            val accessToken = it?.getString(ACCESS_TOKEN)
 
             view.textViewUserNameSurname.text = fullName
             view.textViewFos.text = fos
-        }
 
-        view.textViewChangePassword.setOnClickListener {
-            val passwordDialogFragment =
-                PasswordDialogFragment()
-            passwordDialogFragment.show(fragmentManager!!, "password")
+
+            view.textViewChangePassword.setOnClickListener {
+                val passwordDialogFragment =
+                    PasswordDialogFragment.newInstance(accessToken!!, "NewPassword")
+                passwordDialogFragment.show(fragmentManager!!, "password")
+            }
         }
 
         view.textViewLogout.setOnClickListener {
+            val sharedPref = activity!!.getSharedPreferences("userdetails", Context.MODE_PRIVATE)
+
+            sharedPref.edit().putString(
+                "username",
+                "null"
+            ).apply()
+            sharedPref.edit().putString(
+                "password",
+                "null"
+            ).apply()
+            sharedPref.edit().putBoolean(
+                "logged_in",
+                false
+            ).apply()
             val intent = (Intent(activity!!.applicationContext, LoginActivity::class.java))
             startActivity(intent)
             activity!!.finish()

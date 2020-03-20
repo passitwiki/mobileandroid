@@ -65,8 +65,11 @@ class LecturersFragment : Fragment() {
     fun showData(lecturers: List<Lecturer>) {
 
         lecturersRecyclerView.apply {
-            layoutManager = LinearLayoutManager(activity!!.applicationContext)
-            adapter = LecturerAdapter(lecturers)
+            arguments.let {
+                val accessToken = it?.getString(ACCESS_TOKEN)
+                layoutManager = LinearLayoutManager(activity!!.applicationContext)
+                adapter = LecturerAdapter(lecturers, activity!!)
+            }
         }
     }
 

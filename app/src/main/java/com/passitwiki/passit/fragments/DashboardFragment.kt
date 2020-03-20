@@ -1,6 +1,7 @@
 package com.passitwiki.passit.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.passitwiki.passit.R
+import com.passitwiki.passit.activities.activeFragment
+import com.passitwiki.passit.activities.dashboardFragment
 import com.passitwiki.passit.adapter.NewsAdapter
 import com.passitwiki.passit.api.RetrofitClient
 import com.passitwiki.passit.dialogfragments.AddNewsDialogFragment
@@ -51,15 +54,64 @@ class DashboardFragment : Fragment() {
 
             val accessToken = it?.getString(ACCESS_TOKEN)
             val addNewsButton = view.imageViewAddNews
-            val fag = it?.getString(FIELD_AGE_GROUP)!!
+            val fag = it?.getString(FIELD_AGE_GROUP)
 
             addNewsButton.setOnClickListener {
                 val addNewsDialogFragment =
-                    AddNewsDialogFragment.newInstance(accessToken!!, "AddNews", fag)
+                    AddNewsDialogFragment.newInstance(accessToken!!, "AddNews", fag!!)
                 addNewsDialogFragment.show(fragmentManager!!, "addNews")
             }
+
+            view.buttonExam.setOnClickListener {
+                replaceWithCalendarFragment()
+            }
+
+            view.swipeRefreshDashboard.setOnRefreshListener {
+                Log.d("SWIPE", "onRefresh called from SwipeRefreshLayout")
+                dashboardFragment = DashboardFragment.newInstance(accessToken!!, "Dashboard", fag!!)
+                activity!!.supportFragmentManager.beginTransaction()
+                    .add(R.id.frameLayoutMain, dashboardFragment, "Dashboard").commit()
+                activity!!.supportFragmentManager.beginTransaction()
+                    .hide(activeFragment)
+                    .show(dashboardFragment)
+                    .commit()
+                activeFragment = dashboardFragment
+            }
+
         }
 
+        display()
+
+
+
+        return view
+    }
+
+
+    fun replaceWithCalendarFragment() {
+        arguments.let {
+            val accessToken = it?.getString(ACCESS_TOKEN)
+            val calendarFragment = CalendarFragment.newInstance(accessToken!!, "Calendar")
+            activity!!.supportFragmentManager.beginTransaction()
+                .add(R.id.frameLayoutMain, calendarFragment, "Calendar").hide(calendarFragment)
+                .commit()
+            activity!!.supportFragmentManager.beginTransaction()
+                .hide(activeFragment)
+                .show(calendarFragment)
+                .commit()
+            activeFragment = calendarFragment
+
+        }
+    }
+
+    fun showData(news: List<News>) {
+        newsRecyclerView.apply {
+            layoutManager = LinearLayoutManager(activity!!.applicationContext)
+            adapter = NewsAdapter(news)
+        }
+    }
+
+    fun display() {
         arguments.let {
             val accessToken = it?.getString(ACCESS_TOKEN)
 
@@ -89,15 +141,6 @@ class DashboardFragment : Fragment() {
                         }
                     }
                 })
-        }
-        return view
-    }
-
-
-    fun showData(users: List<News>) {
-        newsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(activity!!.applicationContext)
-            adapter = NewsAdapter(users)
         }
     }
 
