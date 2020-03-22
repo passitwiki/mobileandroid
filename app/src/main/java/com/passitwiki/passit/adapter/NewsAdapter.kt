@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.passitwiki.passit.R
+import com.passitwiki.passit.dialogfragments.RemoveDialogFragment
+import com.passitwiki.passit.fragments.DashboardFragment
 import com.passitwiki.passit.models.News
 import kotlinx.android.synthetic.main.item_news.view.*
 
@@ -17,7 +19,7 @@ import kotlinx.android.synthetic.main.item_news.view.*
  * creates as many items as getItemCount has.
  * @param news a list object from a json array made with Gson
  */
-class NewsAdapter(private val news: List<News>) :
+class NewsAdapter(private val news: List<News>, val dashFragment: DashboardFragment) :
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     /**
@@ -55,6 +57,13 @@ class NewsAdapter(private val news: List<News>) :
         textContent.maxLines = 2
         textContent.ellipsize = TextUtils.TruncateAt.END
 
+        val remove = holder.textViewRemove
+        remove.setOnClickListener {
+            val removeDialogFragment =
+                RemoveDialogFragment.newInstance("AddNews", pieceOfNews.id)
+            removeDialogFragment.show(dashFragment.fragmentManager!!, "addNews")
+        }
+
         textContent.setOnClickListener {
             if (textContent.maxLines == 2 || textContent.lineCount < 2) {
                 textContent.maxLines = Int.MAX_VALUE
@@ -75,6 +84,7 @@ class NewsAdapter(private val news: List<News>) :
         val content: TextView = itemView.textViewNewsContent
         val creationDate: TextView = itemView.textViewDatePosted
         val createdBy: TextView = itemView.textViewUserPosted
+        val textViewRemove: TextView = itemView.textViewRemove
     }
 
 }

@@ -47,6 +47,8 @@
     <string name="meme_photo">Add a photo</string>
     <string name="meme_up">Top text</string>
     <string name="meme_down">Bottom text</string>
+    <string name="failed_login">No active account found with the given credentials</string>
+    <string name="remove_news_confirm">Are you sure you want to delete this news?</string>
 
     <string name="plus" translatable="false">Plus</string>
     <string name="arrow" translatable="false">Arrow</string>
@@ -55,8 +57,31 @@
     <string name="xxx" translatable="false">XX.XX.XXXX</string>
     <string name="check" translatable="false">Yah</string>
     <string name="cross" translatable="false">Nah</string>
+    <string name="ellipsis" translatable="false">…</string>
+
 
     <string name="todo" translatable="false">\nTODO EXPAND</string>
+
+    <string name="day1">mon.</string>
+    <string name="day2">tue.</string>
+    <string name="day3">wed.</string>
+    <string name="day4">thu.</string>
+    <string name="day5">fri.</string>
+    <string name="day6">sat.</string>
+    <string name="day7">sun.</string>
+
+    <string name="month1">January</string>
+    <string name="month2">February</string>
+    <string name="month3">March</string>
+    <string name="month4">April</string>
+    <string name="month5">May</string>
+    <string name="month6">June</string>
+    <string name="month7">July</string>
+    <string name="month8">August</string>
+    <string name="month9">September</string>
+    <string name="month10">October</string>
+    <string name="month11">November</string>
+    <string name="month12">December</string>
 
 
 </resources>

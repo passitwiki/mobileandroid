@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import com.passitwiki.passit.R
 import kotlinx.android.synthetic.main.fragment_individual_subject.view.*
 
-
+/**
+ * Fragment that displys an individual, chosen subject.
+ */
 class IndividualSubjectFragment : Fragment() {
 
     companion object {
@@ -30,6 +32,9 @@ class IndividualSubjectFragment : Fragment() {
         }
     }
 
+    /**
+     * On creating the view - inflate it and set a few basic texts.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

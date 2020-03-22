@@ -1,9 +1,7 @@
 package com.passitwiki.passit.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +10,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.passitwiki.passit.R
+import com.passitwiki.passit.activities.sharedPreferences
 import com.passitwiki.passit.adapter.SubjectsAdapter
 import com.passitwiki.passit.api.RetrofitClient
 import com.passitwiki.passit.models.Subject
@@ -21,28 +20,31 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * Fragment that displays a list of clickable subject names.
+ */
 class SubjectsFragment : Fragment() {
 
     companion object {
         const val KEY = "FragmentSubjects"
-        const val ACCESS_TOKEN = "AccessToken"
-        const val FIELD_OF_STUDY_INT = "FieldOfStudy"
-        fun newInstance(token: String, key: String, fosInt: Int): Fragment {
+        fun newInstance(key: String): Fragment {
             val fragment = SubjectsFragment()
             val argument = Bundle()
-            argument.putString(ACCESS_TOKEN, token)
             argument.putString(KEY, key)
-            argument.putInt(FIELD_OF_STUDY_INT, fosInt)
             fragment.arguments = argument
             return fragment
         }
     }
 
+    /**
+     * On creating the view - inflate it, when some item is selected on a top spinner,
+     * it displays a list of subjects that come from a SubjectAdapter.
+     * @return the inflated view with the listener
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_subjects, container, false)
 
         val listOfSemester =
@@ -58,36 +60,43 @@ class SubjectsFragment : Fragment() {
 
         rootView.spinnerSemester!!.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                }
-
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
                     view: View?,
                     position: Int,
                     id: Long
                 ) {
-                    arguments.let {
-                        var fosInt = it?.getInt(FIELD_OF_STUDY_INT)
-                        Log.d("MyTag", fosInt.toString())
-                        fosInt = activity!!.getPreferences(Context.MODE_PRIVATE)
-                            .getInt("current_fos_int", 0)
+                    val fosInt = sharedPreferences.getInt("current_fos_int", 0)
+                    Log.d(
+                        "MyTagExplicit",
+                        "SubjectFragment: onCreateView: onItemSelectedListener: get current fieldOfStudyInt $fosInt"
+                    )
 
-                        RetrofitClient.instance.getSubjects(position + 1, fosInt)
-                            .enqueue(object : Callback<List<Subject>> {
-                                override fun onFailure(call: Call<List<Subject>>, t: Throwable) {
-                                    d("MyTag", "onFailure: $t")
-                                }
+                    showSubjectData(position, fosInt)
 
-                                override fun onResponse(
-                                    call: Call<List<Subject>>,
-                                    response: Response<List<Subject>>
-                                ) {
-                                    d("MyTag", "onResponseSub: ${response.body()}")
-                                    showData(response.body()!!)
-                                }
-                            })
-                    }
+                    //WE OUT HERE CHECKING IF IT WORKS
+//                    arguments.let {
+//                        var fosInt = it?.getInt(FIELD_OF_STUDY_INT)
+//                        Log.d("MyTag", fosInt.toString())
+//                        fosInt = sharedPreferences
+//                            .getInt("current_fos_int", 0)
+//
+//                        RetrofitClient.instance.getSubjects(position + 1, fosInt)
+//                            .enqueue(object : Callback<List<Subject>> {
+//                                override fun onFailure(call: Call<List<Subject>>, t: Throwable) {
+//                                    d("MyTag", "onFailure: $t")
+//                                }
+//
+//                                override fun onResponse(
+//                                    call: Call<List<Subject>>,
+//                                    response: Response<List<Subject>>
+//                                ) {
+//                                    d("MyTag", "onResponseSub: ${response.body()}")
+//                                    showData(response.body()!!)
+//                                }
+//                            })
+//                    }
                 }
             }
 
@@ -104,10 +113,33 @@ class SubjectsFragment : Fragment() {
         return rootView
     }
 
-    fun showData(subjects: List<Subject>) {
-        subjectsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(activity!!.applicationContext)
-            adapter = SubjectsAdapter(subjects, requireActivity())
-        }
+    /**
+     * Get the data to populate the recyclerView, set the adapter
+     */
+    fun showSubjectData(position: Int, fosInt: Int) {
+        RetrofitClient.instance.getSubjects(position + 1, fosInt)
+            .enqueue(object : Callback<List<Subject>> {
+                override fun onFailure(call: Call<List<Subject>>, t: Throwable) {
+                    Log.d("MyTag", "onFailure: $t")
+                }
+
+                override fun onResponse(
+                    call: Call<List<Subject>>,
+                    response: Response<List<Subject>>
+                ) {
+                    Log.d("MyTagExplicitNetworking", "SubjectsFragment response ${response.body()}")
+
+                    val listOfSubjects = response.body()!!
+                    Log.d(
+                        "MyTagExplicit",
+                        "SubjectFragment: onCreateView: onItemSelectedListener: showSubjectData: onResponse: $listOfSubjects"
+                    )
+
+                    subjectsRecyclerView.apply {
+                        layoutManager = LinearLayoutManager(activity!!.applicationContext)
+                        adapter = SubjectsAdapter(listOfSubjects, requireActivity())
+                    }
+                }
+            })
     }
 }

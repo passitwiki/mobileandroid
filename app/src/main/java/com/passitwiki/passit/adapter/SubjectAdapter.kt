@@ -55,7 +55,7 @@ class SubjectsAdapter(private val subjects: List<Subject>, context: FragmentActi
                 IndividualSubjectFragment.newInstance(
                     "Calendar",
                     subject.name,
-                    "it's always an empty string: " + subject.general_description
+                    subject.general_description
                 )
             activity.supportFragmentManager.beginTransaction()
                 .add(R.id.frameLayoutMain, individualSubject, "IndividualSubject")

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    tools:context=".dialogfragments.RemoveDialogFragment">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutTitlePart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp"
+            android:paddingBottom="30dp">
+
+            <TextView
+                android:id="@+id/textLayoutAreYouSure"
+                style="@style/bodyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="30dp"
+                android:text="@string/remove_news_confirm"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutButtonsPart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeLayoutTitlePart">
+
+            <ImageView
+                android:id="@+id/buttonCheckRemove"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:clickable="true"
+                android:contentDescription="@string/check"
+                android:focusable="true"
+                android:src="@drawable/ic_check" />
+
+            <ImageView
+                android:id="@+id/buttonCrossRemove"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:clickable="true"
+                android:contentDescription="@string/cross"
+                android:focusable="true"
+                android:src="@drawable/ic_cross" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

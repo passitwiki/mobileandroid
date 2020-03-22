@@ -1,7 +1,7 @@
 package com.passitwiki.passit.fragments
 
 import android.os.Bundle
-import android.util.Log.d
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,60 +16,65 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
+/**
+ * Fragment that displays a list of clickable lecturer names.
+ */
 class LecturersFragment : Fragment() {
 
     companion object {
         const val KEY = "FragmentSLecturers"
-        const val ACCESS_TOKEN = "AccessToken"
-        fun newInstance(token: String, key: String): Fragment {
+        fun newInstance(key: String): Fragment {
             val fragment = LecturersFragment()
             val argument = Bundle()
-            argument.putString(ACCESS_TOKEN, token)
             argument.putString(KEY, key)
             fragment.arguments = argument
             return fragment
         }
     }
 
-
+    /**
+     * On creating the view - inflate it and populate with a list of lecturers.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-
         val view = inflater.inflate(R.layout.fragment_lecturers, container, false)
 
+        showLecturerData()
+
+        return view
+    }
+
+    /**
+     * Get the data to populate the recyclerView, set the adapter
+     */
+    fun showLecturerData() {
         RetrofitClient.instance.getLecturers()
             .enqueue(object : Callback<List<Lecturer>> {
                 override fun onFailure(call: Call<List<Lecturer>>, t: Throwable) {
-                    d("MyTag", "onFailure: $t")
+                    Log.d("MyTag", "onFailure: $t")
                 }
 
                 override fun onResponse(
                     call: Call<List<Lecturer>>,
                     response: Response<List<Lecturer>>
                 ) {
-                    d("MyTahh", "onResponse: ${response.body()}")
-                    showData(response.body()!!)
+                    Log.d(
+                        "MyTagExplicitNetworking",
+                        "LecturersFragment response ${response.body()}"
+                    )
+
+                    val lecturersList = response.body()!!
+                    Log.d(
+                        "MyTagExplicit",
+                        "LecturersFragment: onCreateView: showLecturerData: onResponse: $lecturersList"
+                    )
+                    lecturersRecyclerView.apply {
+                        layoutManager = LinearLayoutManager(activity!!.applicationContext)
+                        adapter = LecturerAdapter(lecturersList, activity!!)
+                    }
                 }
-
             })
-
-        return view
     }
-
-    fun showData(lecturers: List<Lecturer>) {
-
-        lecturersRecyclerView.apply {
-            arguments.let {
-                val accessToken = it?.getString(ACCESS_TOKEN)
-                layoutManager = LinearLayoutManager(activity!!.applicationContext)
-                adapter = LecturerAdapter(lecturers, activity!!)
-            }
-        }
-    }
-
-
 }

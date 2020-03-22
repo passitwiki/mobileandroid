@@ -112,6 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/textViewContrast"
                 android:paddingStart="22dp"
+                android:checked="false"
                 android:paddingEnd="22dp" />
 
         </RelativeLayout>

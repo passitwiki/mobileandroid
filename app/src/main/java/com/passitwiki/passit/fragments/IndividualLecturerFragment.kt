@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import com.passitwiki.passit.R
 import kotlinx.android.synthetic.main.fragment_individual_lecturer.view.*
 
+/**
+ * Fragment that displys an individual, chosen lecturer.
+ */
 class IndividualLecturerFragment : Fragment() {
 
     companion object {
@@ -35,6 +38,9 @@ class IndividualLecturerFragment : Fragment() {
         }
     }
 
+    /**
+     * On creating the view - inflate it and set a few basic texts.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,9 +57,6 @@ class IndividualLecturerFragment : Fragment() {
             view.textViewLecturersConsultations.text = contact
             view.textViewLecturersContact.text = consultations
         }
-
-
-
         return view
     }
 

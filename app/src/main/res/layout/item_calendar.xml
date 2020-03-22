@@ -3,18 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="16dp"
+    android:paddingStart="0dp"
     android:paddingTop="16dp"
-    android:paddingRight="16dp"
+    android:paddingEnd="16dp"
     android:paddingBottom="4dp">
 
     <!--  TODO layout cal event  -->
     <RelativeLayout
         android:id="@+id/relativeLayoutDate"
-        android:layout_width="wrap_content"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:padding="16dp">
+        android:layout_centerVertical="true">
 
         <TextView
             android:id="@+id/textViewDate"
@@ -25,7 +24,7 @@
             android:layout_centerVertical="true"
             android:textAlignment="center"
             android:textSize="18sp"
-            tools:text="21" />
+            tools:text="sob.\n31" />
 
     </RelativeLayout>
 

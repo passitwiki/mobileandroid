@@ -9,6 +9,8 @@ data class News(
     val content: String,
     val subject_group: Int,
     val field_age_group: Int,
+    val attachment: Unit?,
+    val is_owner: Boolean,
     val created_by: String,
     val modified_by: String,
     val created_at: String,

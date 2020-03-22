@@ -43,5 +43,30 @@
     <string name="meme_photo">Dodaj zdjęcie</string>
     <string name="meme_up">Podpis na górze obrazka</string>
     <string name="meme_down">Podpis na dole obrazka</string>
+    <string name="failed_login">Nie znaleziono konta o podanych danych</string>
+    <string name="remove_news_confirm">Czy na pewno chcesz usunąć to ogłoszenie?</string>
+
+
+    <string name="day1">pon.</string>
+    <string name="day2">wt.</string>
+    <string name="day3">śr.</string>
+    <string name="day4">czw.</string>
+    <string name="day5">pt.</string>
+    <string name="day6">sob.</string>
+    <string name="day7">nie.</string>
+
+    <string name="month1">Styczeń</string>
+    <string name="month2">Luty</string>
+    <string name="month3">Marzec</string>
+    <string name="month4">Kwiecień</string>
+    <string name="month5">Maj</string>
+    <string name="month6">Czerwiec</string>
+    <string name="month7">Lipiec</string>
+    <string name="month8">Sierpień</string>
+    <string name="month9">Wrzesień</string>
+    <string name="month10">Październik</string>
+    <string name="month11">Listopad</string>
+    <string name="month12">Grudzień</string>
+
 
 </resources>

@@ -16,7 +16,7 @@
     </style>
 
     <!--  Dark theme  -->
-    <style name="DarkTheme" parent="ThemeOverlay.AppCompat.Dark">
+    <style name="DarkTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorAccent">@color/colorTextBlack</item>
         <item name="colorPrimary">@color/colorBlack</item>
         <item name="colorPrimaryDark">@color/colorBlack</item>

@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.passitwiki.passit.R
+import com.passitwiki.passit.activities.activeFragment
 import com.passitwiki.passit.models.Event
 import kotlinx.android.synthetic.main.item_calendar.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -19,6 +22,30 @@ import kotlinx.android.synthetic.main.item_calendar.view.*
  */
 class CalendarAdapter(private val events: List<Event>) :
     RecyclerView.Adapter<CalendarAdapter.EventViewHolder>() {
+
+    val days = arrayOf(
+        activeFragment.getString(R.string.day1),
+        activeFragment.getString(R.string.day2),
+        activeFragment.getString(R.string.day3),
+        activeFragment.getString(R.string.day4),
+        activeFragment.getString(R.string.day5),
+        activeFragment.getString(R.string.day6),
+        activeFragment.getString(R.string.day7)
+    )
+    val months = arrayOf(
+        activeFragment.getString(R.string.month1),
+        activeFragment.getString(R.string.month2),
+        activeFragment.getString(R.string.month3),
+        activeFragment.getString(R.string.month4),
+        activeFragment.getString(R.string.month5),
+        activeFragment.getString(R.string.month6),
+        activeFragment.getString(R.string.month7),
+        activeFragment.getString(R.string.month8),
+        activeFragment.getString(R.string.month9),
+        activeFragment.getString(R.string.month10),
+        activeFragment.getString(R.string.month11),
+        activeFragment.getString(R.string.month12)
+    )
 
     /**
      * This fun inflates - makes xml a workable object
@@ -46,15 +73,25 @@ class CalendarAdapter(private val events: List<Event>) :
 
         Log.d("MyTah", event.toString())
 
-        val date = event.due_date.toString()
-        val day = date.substring(8, 10) + ".\n" + date.substring(5, 7) + "."
-        val time = date.substring(11, 16)
+
+        //TODO work with dates
+        val dateString = event.due_date
+        val calendar = Calendar.getInstance()
+//        val formatter = DateTimeFormatter.ofPattern("yyy-MM-dd'T'HH:mm:ss'Z'")
+//        val dateObject = LocalDate.parse(dateString, formatter)
+        val formatter = SimpleDateFormat("yyy-MM-dd'T'HH:mm:ss'Z'", Locale("pl", "PL"))
+        calendar.time = formatter.parse(dateString)!!
+
+        val dayInTheMonth = calendar.get(Calendar.DAY_OF_MONTH)
+        val dayInTheWeek = days[calendar.get(Calendar.DAY_OF_WEEK) - 1]
+
+        val timeOfDay = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
 
         holder.name.text = event.name
         holder.subject.text = event.subjectGroup.toString()
-        holder.time.text = time
+        holder.time.text = timeOfDay
         holder.content.text = event.description
-        holder.date.text = day
+        holder.date.text = "$dayInTheWeek\n$dayInTheMonth"
     }
 
     /**
@@ -67,6 +104,7 @@ class CalendarAdapter(private val events: List<Event>) :
         val time: TextView = itemView.textViewCalendarTime
         val content: TextView = itemView.textViewCalendarDescription
         val date: TextView = itemView.textViewDate
+
     }
 
 }

@@ -1,29 +1,33 @@
 package com.passitwiki.passit.dialogfragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.passitwiki.passit.R
+import com.passitwiki.passit.activities.accessToken
 import com.passitwiki.passit.api.RetrofitClient
+import com.passitwiki.passit.tools.justRefresh
 import kotlinx.android.synthetic.main.fragment_add_news_dialog.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * Pop-up that enables you to add new news.
+ */
 class AddNewsDialogFragment : DialogFragment() {
 
     companion object {
-        const val KEY = "FragmentSettings"
-        const val ACCESS_TOKEN = "AccessToken"
+        const val KEY = "AddNewsDialogFragment"
         const val FIELD_AGE_GROUP = "FieldAgeGroup"
-        fun newInstance(token: String, key: String, fag: Int): DialogFragment {
+        fun newInstance(key: String, fag: Int): DialogFragment {
             val dFragment =
                 AddNewsDialogFragment()
             val argument = Bundle()
-            argument.putString(ACCESS_TOKEN, token)
             argument.putString(KEY, key)
             argument.putInt(FIELD_AGE_GROUP, fag)
             dFragment.arguments = argument
@@ -31,7 +35,9 @@ class AddNewsDialogFragment : DialogFragment() {
         }
     }
 
-    //TODO making the view display btm nav bar
+    /**
+     * Changes the layout's size to below.
+     */
     override fun onStart() {
         super.onStart()
         val dialog = dialog
@@ -42,16 +48,14 @@ class AddNewsDialogFragment : DialogFragment() {
         }
     }
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//    }
 
+    /**
+     * Prepares the view and listeners.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add_news_dialog, container, false)
 
         val titleEditText = view.editTextNewsTitle
@@ -80,33 +84,52 @@ class AddNewsDialogFragment : DialogFragment() {
             }
 
             arguments.let {
-                val accessToken = it?.getString(ACCESS_TOKEN)
-                val fag: Int = it?.getInt(FIELD_AGE_GROUP)!!
+                val fag: Int = it!!.getInt(FIELD_AGE_GROUP)
 
-                RetrofitClient.instance.postNews(accessToken!!, title, content, 2, fag)
-                    .enqueue(object : Callback<Unit> {
-                        override fun onFailure(call: Call<Unit>, t: Throwable) {
-                            Toast.makeText(
-                                activity!!.applicationContext,
-                                t.message,
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
-
-                        override fun onResponse(
-                            call: Call<Unit>,
-                            response: Response<Unit>
-                        ) {
-                            dismiss()
-                        }
-
-                    })
+                //TODO CHANGE THE SUBJECT GROUP ACCORDINGLY
+                postInputNews(accessToken, title, content, 2, fag)
             }
-
-
         }
 
         return view
     }
 
+    /**
+     * Takes the input values and posts them to the API. Closes the dialog.
+     */
+    fun postInputNews(
+        access: String,
+        title: String,
+        content: String,
+        subjectGroup: Int,
+        fag: Int
+    ) {
+        RetrofitClient.instance.postNews(access, title, content, subjectGroup, fag)
+            .enqueue(object : Callback<Unit> {
+                override fun onFailure(call: Call<Unit>, t: Throwable) {
+                    Toast.makeText(
+                        activity!!.applicationContext,
+                        t.message,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+                override fun onResponse(
+                    call: Call<Unit>,
+                    response: Response<Unit>
+                ) {
+                    Log.d(
+                        "MyTagExplicitNetworking",
+                        "AddNewsDialogFragment response ${response.body()}"
+                    )
+
+                    if (response.body() == null) {
+                        justRefresh("addNewsDialogFragment")
+                        postInputNews(accessToken, title, content, subjectGroup, fag)
+                    }
+                    dismiss()
+                }
+
+            })
+    }
 }

@@ -1,6 +1,7 @@
 package com.passitwiki.passit.api
 
 import com.passitwiki.passit.models.*
+import com.passitwiki.passit.tools.RefreshResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -55,16 +56,17 @@ interface Api {
         @Field("field_age_group") fieldAgeGroup: Int
     ): Call<Unit>
 
-//    @GET("subjects/")
-//    fun getSubjects(): Call<List<Subject>>
+    @FormUrlEncoded
+    @POST("auth/jwt/refresh/")
+    fun postRefresh(
+        @Field("refresh") refreshToken: String
+    ): Call<RefreshResponse>
 
     @GET("subjects/")
     fun getSubjects(
         @Query("semester") semester: Int,
         @Query("field_of_study") fieldOfStudy: Int
     ): Call<List<Subject>>
-
-
 
     @GET("lecturers/")
     fun getLecturers(): Call<List<Lecturer>>

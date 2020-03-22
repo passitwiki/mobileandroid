@@ -24,7 +24,19 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textStyle="bold"
+            tools:ignore="RelativeOverlap"
             tools:text="News" />
+
+        <TextView
+            android:id="@+id/textViewRemove"
+            style="@style/bodyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/ellipsis"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewNewsContent"
