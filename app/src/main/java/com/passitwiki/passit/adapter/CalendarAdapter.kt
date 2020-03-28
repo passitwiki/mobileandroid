@@ -85,7 +85,12 @@ class CalendarAdapter(private val events: List<Event>) :
         val dayInTheMonth = calendar.get(Calendar.DAY_OF_MONTH)
         val dayInTheWeek = days[calendar.get(Calendar.DAY_OF_WEEK) - 1]
 
-        val timeOfDay = "${calendar.get(Calendar.HOUR_OF_DAY)}:${calendar.get(Calendar.MINUTE)}"
+        val minutes: String =
+            if (calendar.get(Calendar.MINUTE) < 10) "0${calendar.get(Calendar.MINUTE)}" else calendar.get(
+                Calendar.MINUTE
+            ).toString()
+
+        val timeOfDay = "${calendar.get(Calendar.HOUR_OF_DAY)}:$minutes"
 
         holder.name.text = event.name
         holder.subject.text = event.subjectGroup.toString()

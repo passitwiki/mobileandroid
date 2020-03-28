@@ -4,6 +4,8 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +15,8 @@ import com.passitwiki.passit.dialogfragments.RemoveDialogFragment
 import com.passitwiki.passit.fragments.DashboardFragment
 import com.passitwiki.passit.models.News
 import kotlinx.android.synthetic.main.item_news.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -21,8 +25,14 @@ import kotlinx.android.synthetic.main.item_news.view.*
  * creates as many items as getItemCount has.
  * @param news a list object from a json array made with Gson
  */
-class NewsAdapter(private val news: List<News>, val dashFragment: DashboardFragment) :
-    RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+class NewsAdapter(private val news: List<News>, private val dashFragment: DashboardFragment) :
+    RecyclerView.Adapter<NewsAdapter.NewsViewHolder>(), Filterable {
+
+    var newsFilterArrayList = ArrayList<News>()
+
+    init {
+        newsFilterArrayList = news as ArrayList<News>
+    }
 
     /**
      * This fun inflates - makes xml a workable object
@@ -38,7 +48,7 @@ class NewsAdapter(private val news: List<News>, val dashFragment: DashboardFragm
     /**
      * @return how many objects in the list there are
      */
-    override fun getItemCount() = news.size
+    override fun getItemCount() = newsFilterArrayList.size
 
     /**
      * Does the intended repeated work. Binds one "row" and a corresponding object.
@@ -47,7 +57,7 @@ class NewsAdapter(private val news: List<News>, val dashFragment: DashboardFragm
      */
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
 //        val decreasingOrderPosition = itemCount - position - 1
-        val pieceOfNews = news[position]
+        val pieceOfNews = newsFilterArrayList[position]
         val creation = "@" + pieceOfNews.created_by
 
         holder.title.text = pieceOfNews.title
@@ -112,6 +122,38 @@ class NewsAdapter(private val news: List<News>, val dashFragment: DashboardFragm
         val creationDate: TextView = itemView.textViewDatePosted
         val createdBy: TextView = itemView.textViewUserPosted
         val textViewRemove: TextView = itemView.textViewRemove
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charSearch = constraint.toString()
+                if (charSearch.isEmpty()) {
+                    newsFilterArrayList = news as ArrayList<News>
+                } else {
+                    val resultList = ArrayList<News>()
+                    for (itemNews in news) {
+                        if (itemNews.title.toLowerCase(Locale.ROOT)
+                                .contains(charSearch.toLowerCase(Locale.ROOT))
+                            || itemNews.content.toLowerCase(Locale.ROOT)
+                                .contains(charSearch.toLowerCase(Locale.ROOT))
+                        ) {
+                            resultList.add(itemNews)
+                        }
+                    }
+                    newsFilterArrayList = resultList
+                }
+                val filterResults = FilterResults()
+                filterResults.values = newsFilterArrayList
+                return filterResults
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                newsFilterArrayList = results?.values as ArrayList<News>
+                notifyDataSetChanged()
+            }
+        }
     }
 
 }

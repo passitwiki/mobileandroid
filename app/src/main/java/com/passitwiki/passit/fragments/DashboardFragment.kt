@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.passitwiki.passit.R
@@ -43,6 +44,7 @@ class DashboardFragment : Fragment() {
     var news: MutableList<News> = ArrayList()
 
 
+
     /**
      * On creating the view - inflate it, make a list that holds news, prepare the 2 buttons,
      * set a swipeListener, and populate the recycler with news.
@@ -63,9 +65,33 @@ class DashboardFragment : Fragment() {
             addNewsDialogFragment.show(fragmentManager!!, "addNews")
         }
 
+        view.imageViewSearchNews.setOnClickListener {
+            if (view.searchViewButton.visibility == View.GONE) {
+                view.searchViewButton.visibility = View.VISIBLE
+            } else {
+                view.searchViewButton.visibility = View.GONE
+            }
+        }
+
         view.buttonExam.setOnClickListener {
             replaceWithCalendarFragment()
         }
+
+        val dashboardAdapter = NewsAdapter(news, this@DashboardFragment)
+
+        view.searchViewNews.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                dashboardAdapter.filter.filter(newText)
+                return false
+            }
+
+        })
+
+
 
         view.swipeRefreshDashboard.setOnRefreshListener {
             Log.d("MyTagExplicit", "onRefresh called from SwipeRefreshLayout")
@@ -82,7 +108,7 @@ class DashboardFragment : Fragment() {
             "MyTa",
             "DashboardFragment: onCreateView: checking accessToken before init of showNewsData: $accessToken"
         )
-        showNewsData(accessToken)
+        showNewsData(accessToken, dashboardAdapter)
 
         return view
     }
@@ -109,7 +135,7 @@ class DashboardFragment : Fragment() {
     /**
      * Get the data to populate the recyclerView with news.
      */
-    fun showNewsData(access: String) {
+    fun showNewsData(access: String, adapterOfNews: NewsAdapter) {
         RetrofitClient.instance.getNews(access)
             .enqueue(object : Callback<List<News>> {
                 override fun onFailure(call: Call<List<News>>, t: Throwable) {
@@ -132,7 +158,7 @@ class DashboardFragment : Fragment() {
                     val newsList = response.body()
                     if (newsList == null) {
                         justRefresh("dashboardFragment")
-                        showNewsData(accessToken)
+                        showNewsData(accessToken, adapterOfNews)
                     } else {
                         Log.d(
                             "MyTa",
@@ -143,7 +169,7 @@ class DashboardFragment : Fragment() {
                             news.addAll(newsList)
                             newsRecyclerView.apply {
                                 layoutManager = LinearLayoutManager(activity!!.applicationContext)
-                                adapter = NewsAdapter(news, this@DashboardFragment)
+                                adapter = adapterOfNews
                             }
                         }
                     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeRefreshDashboard"
     android:layout_width="match_parent"
@@ -32,8 +33,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:background="?attr/gradientBorderNewsCal"
-                    android:elevation="4dp"
                     android:clickable="true"
+                    android:elevation="4dp"
                     android:focusable="true"
                     android:orientation="vertical"
                     android:paddingStart="16dp"
@@ -85,18 +86,57 @@
 
                 <ImageView
                     android:id="@+id/imageViewAddNews"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
                     android:contentDescription="@string/plus"
                     android:src="@drawable/ic_plus" />
+
+                <ImageView
+                    android:id="@+id/imageViewSearchNews"
+                    android:layout_width="38dp"
+                    android:layout_height="30dp"
+                    android:layout_toStartOf="@+id/imageViewAddNews"
+                    android:contentDescription="@string/plus"
+                    android:paddingEnd="8dp"
+                    android:src="@drawable/ic_search" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/searchViewButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relativeLayoutNewsHeader"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="?attr/gradientBorderNewsCal"
+                    android:clickable="true"
+                    android:elevation="4dp"
+                    android:focusable="true"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.SearchView
+                        android:id="@+id/searchViewNews"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textCursorDrawable="@drawable/ic_search"
+                        app:iconifiedByDefault="false"
+                        app:queryBackground="@null" />
+                </RelativeLayout>
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/newsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/relativeLayoutNewsHeader" />
+                android:layout_below="@id/searchViewButton" />
 
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
