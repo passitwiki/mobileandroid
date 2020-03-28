@@ -5,27 +5,33 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.passitwiki.passit.R
 import com.passitwiki.passit.activities.accessToken
 import com.passitwiki.passit.api.RetrofitClient
+import com.passitwiki.passit.models.News
 import com.passitwiki.passit.tools.justRefresh
-import kotlinx.android.synthetic.main.fragment_remove_dialog.view.*
+import kotlinx.android.synthetic.main.fragment_patch_dialog.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class RemoveDialogFragment : DialogFragment() {
+class PatchDialogFragment : DialogFragment() {
 
     companion object {
-        const val KEY = "RemoveDialogFragment"
+        const val KEY = "PatchDialogFragment"
         const val ID_NEWS = "IdNews"
-        fun newInstance(key: String, idNews: Int): DialogFragment {
-            val fragment = RemoveDialogFragment()
+        const val TITLE_NEWS = "TitleNews"
+        const val CONTENT_NEWS = "ContentNews"
+        fun newInstance(key: String, idNews: Int, title: String, content: String): DialogFragment {
+            val fragment = PatchDialogFragment()
             val argument = Bundle()
             argument.putString(KEY, key)
+            argument.putString(TITLE_NEWS, title)
+            argument.putString(CONTENT_NEWS, content)
             argument.putInt(ID_NEWS, idNews)
             fragment.arguments = argument
             return fragment
@@ -36,24 +42,33 @@ class RemoveDialogFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val thisView = inflater.inflate(R.layout.fragment_remove_dialog, container, false)
+        val thisView = inflater.inflate(R.layout.fragment_patch_dialog, container, false)
 
-        thisView.buttonCrossRemove.setOnClickListener {
+        val id = arguments!!.getInt(ID_NEWS)
+        val title = arguments!!.getString(TITLE_NEWS)!!
+        val content = arguments!!.getString(CONTENT_NEWS)!!
+        val titleEdit = thisView.editTextEditNewsTitle
+        val contentEdit = thisView.editTextEditNewsContent
+
+        titleEdit.setText(title, TextView.BufferType.EDITABLE)
+        contentEdit.setText(content, TextView.BufferType.EDITABLE)
+
+        thisView.buttonCrossEdit.setOnClickListener {
             dismiss()
         }
 
-        thisView.buttonCheckRemove.setOnClickListener {
-            val id = arguments!!.getInt(ID_NEWS)
-            deleteThisNews(id)
+
+        thisView.buttonCheckEdit.setOnClickListener {
+            patchThisNews(id, titleEdit.text.toString(), contentEdit.text.toString())
         }
 
         return thisView
     }
 
-    fun deleteThisNews(id: Int) {
-        RetrofitClient.instance.deleteNews(id, accessToken)
-            .enqueue(object : Callback<Unit> {
-                override fun onFailure(call: Call<Unit>, t: Throwable) {
+    fun patchThisNews(id: Int, title: String, content: String) {
+        RetrofitClient.instance.patchNews(id, accessToken, title, content)
+            .enqueue(object : Callback<News> {
+                override fun onFailure(call: Call<News>, t: Throwable) {
                     Toast.makeText(
                         activity!!.applicationContext,
                         t.message,
@@ -61,10 +76,7 @@ class RemoveDialogFragment : DialogFragment() {
                     ).show()
                 }
 
-                override fun onResponse(
-                    call: Call<Unit>,
-                    response: Response<Unit>
-                ) {
+                override fun onResponse(call: Call<News>, response: Response<News>) {
                     Log.d(
                         "MyTagExplicitNetworking",
                         "RemoveDialogFragment response ${response.body()}"
@@ -72,7 +84,7 @@ class RemoveDialogFragment : DialogFragment() {
 
                     if (response.code() == 401) {
                         justRefresh("addNewsDialogFragment")
-                        deleteThisNews(id)
+                        patchThisNews(id, title, content)
                     }
                     if (response.code() == 404) {
                         Toast.makeText(context!!.applicationContext, "404", Toast.LENGTH_SHORT)

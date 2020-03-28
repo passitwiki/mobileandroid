@@ -19,7 +19,7 @@
 
         <activity
             android:name=".activities.LoginActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize">
+            android:windowSoftInputMode="stateVisible|adjustPan">
             <!-- That makes the layout resizable when the keyboard is drawn-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

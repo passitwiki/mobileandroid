@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
-    android:paddingTop="33dp"
-    android:paddingRight="16dp"
-    android:paddingLeft="16dp"
+    android:padding="16dp"
     tools:context=".activities.LoginActivity">
 
     <ImageView
         android:id="@+id/imageViewLogo"
         android:layout_width="167dp"
         android:layout_height="167dp"
-        android:layout_centerHorizontal="true"
         android:contentDescription="@string/app_name"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/ic_logo" />
 
     <TextView
@@ -22,10 +22,12 @@
         style="@style/bodyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageViewLogo"
         android:paddingTop="33dp"
+        android:layout_below="@+id/imageViewLogo"
         android:text="@string/hi"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
 
     <TextView
         android:id="@+id/textViewIntroText"
@@ -34,7 +36,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewHi"
         android:text="@string/login_continue"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHi" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -42,7 +46,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewIntroText"
         android:orientation="vertical"
-        android:paddingTop="25dp">
+        android:paddingTop="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIntroText">
 
         <EditText
             android:id="@+id/editTextIndex"
@@ -77,15 +84,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/linearLayout">
+        android:layout_below="@+id/linearLayout">
 
         <RelativeLayout
             android:id="@+id/buttonLogin"
             android:layout_width="120dp"
+            android:layout_centerInParent="true"
             android:layout_height="35dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
             android:background="?attr/gradientBorder"
+            android:layout_alignParentEnd="true"
             tools:ignore="UselessParent">
 
             <ImageView
@@ -100,3 +107,114 @@
 
 
 </RelativeLayout>
+
+
+    <!--    <?xml version="1.0" encoding="utf-8"?>-->
+    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="?attr/backgroundColor"-->
+    <!--android:paddingLeft="16dp"-->
+    <!--android:paddingTop="33dp"-->
+    <!--android:paddingRight="16dp"-->
+    <!--tools:context=".activities.LoginActivity">-->
+
+    <!--<ImageView-->
+    <!--    android:id="@+id/imageViewLogo"-->
+    <!--    android:layout_width="167dp"-->
+    <!--    android:layout_height="167dp"-->
+    <!--    android:layout_centerHorizontal="true"-->
+    <!--    android:contentDescription="@string/app_name"-->
+    <!--    android:src="@drawable/ic_logo" />-->
+
+
+    <!--<RelativeLayout-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent"-->
+    <!--    android:layout_below="@id/imageViewLogo">-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textViewHi"-->
+    <!--        style="@style/bodyText"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:paddingTop="33dp"-->
+    <!--        android:text="@string/hi"-->
+    <!--        android:textSize="20sp" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textViewIntroText"-->
+    <!--        style="@style/bodyText"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@+id/textViewHi"-->
+    <!--        android:text="@string/login_continue"-->
+    <!--        android:textSize="20sp" />-->
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/linearLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_below="@id/textViewIntroText"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:paddingTop="25dp">-->
+
+    <!--        <EditText-->
+    <!--            android:id="@+id/editTextIndex"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:autofillHints="false"-->
+    <!--            android:backgroundTint="?attr/textColor"-->
+    <!--            android:drawablePadding="10dp"-->
+    <!--            android:fontFamily="@font/roboto_regular"-->
+    <!--            android:hint="@string/username"-->
+    <!--            android:inputType="text"-->
+    <!--            android:textColor="?attr/textColor"-->
+    <!--            android:textColorHint="?attr/textColor" />-->
+
+    <!--        <EditText-->
+    <!--            android:id="@+id/editTextPassword"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:autofillHints="false"-->
+    <!--            android:backgroundTint="?attr/textColor"-->
+    <!--            android:drawablePadding="5dp"-->
+    <!--            android:fontFamily="@font/roboto_regular"-->
+    <!--            android:hint="@string/password"-->
+    <!--            android:inputType="textPassword"-->
+    <!--            android:paddingTop="10dp"-->
+    <!--            android:textColor="?attr/textColor"-->
+    <!--            android:textColorHint="?attr/textColor" />-->
+
+
+    <!--    </LinearLayout>-->
+
+    <!--    <RelativeLayout-->
+    <!--        android:layout_below="@id/linearLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
+
+    <!--        <RelativeLayout-->
+    <!--            android:id="@+id/buttonLogin"-->
+    <!--            android:layout_width="120dp"-->
+    <!--            android:layout_height="35dp"-->
+    <!--            android:layout_alignParentEnd="true"-->
+    <!--            android:layout_centerVertical="true"-->
+    <!--            android:background="?attr/gradientBorder"-->
+    <!--            tools:ignore="UselessParent">-->
+
+    <!--            <ImageView-->
+    <!--                android:layout_width="23dp"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_alignParentBottom="true"-->
+    <!--                android:layout_centerInParent="true"-->
+    <!--                android:contentDescription="@string/app_name"-->
+    <!--                android:src="@drawable/ic_arrow_right" />-->
+    <!--        </RelativeLayout>-->
+    <!--    </RelativeLayout>-->
+
+    <!--</RelativeLayout>-->
+
+
+    <!--</RelativeLayout>-->

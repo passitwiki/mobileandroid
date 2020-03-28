@@ -41,6 +41,21 @@ interface Api {
         @Header("Authorization") bearerToken: String
     ): Call<List<News>>
 
+    @DELETE("news/{id}/")
+    fun deleteNews(
+        @Path("id") id: Int,
+        @Header("Authorization") bearerToken: String
+    ): Call<Unit>
+
+    @FormUrlEncoded
+    @PATCH("news/{id}/")
+    fun patchNews(
+        @Path("id") id: Int,
+        @Header("Authorization") bearerToken: String,
+        @Field("title") title: String,
+        @Field("content") content: String
+    ): Call<News>
+
     @GET("events/")
     fun getEvents(
         @Header("Authorization") bearerToken: String

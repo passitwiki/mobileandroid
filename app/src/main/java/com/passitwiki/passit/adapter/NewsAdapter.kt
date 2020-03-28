@@ -4,9 +4,11 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.passitwiki.passit.R
+import com.passitwiki.passit.dialogfragments.PatchDialogFragment
 import com.passitwiki.passit.dialogfragments.RemoveDialogFragment
 import com.passitwiki.passit.fragments.DashboardFragment
 import com.passitwiki.passit.models.News
@@ -59,10 +61,35 @@ class NewsAdapter(private val news: List<News>, val dashFragment: DashboardFragm
 
         val remove = holder.textViewRemove
         remove.setOnClickListener {
-            val removeDialogFragment =
-                RemoveDialogFragment.newInstance("AddNews", pieceOfNews.id)
-            removeDialogFragment.show(dashFragment.fragmentManager!!, "addNews")
+            val pm = PopupMenu(dashFragment.activity, remove)
+            pm.menuInflater.inflate(R.menu.news_options, pm.menu)
+            pm.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.newsEdit -> {
+                        val patchDialogFragment =
+                            PatchDialogFragment.newInstance(
+                                "PatchNews",
+                                pieceOfNews.id,
+                                pieceOfNews.title,
+                                pieceOfNews.content
+                            )
+                        patchDialogFragment.show(dashFragment.fragmentManager!!, "patchNews")
+                    }
+                    R.id.newsRemove -> {
+                        val removeDialogFragment =
+                            RemoveDialogFragment.newInstance("RemoveNews", pieceOfNews.id)
+                        removeDialogFragment.show(dashFragment.fragmentManager!!, "removeNews")
+                    }
+                }
+                true
+            }
+            pm.show()
         }
+
+//            val removeDialogFragment =
+//                RemoveDialogFragment.newInstance("AddNews", pieceOfNews.id)
+//            removeDialogFragment.show(dashFragment.fragmentManager!!, "addNews")
+//        }
 
         textContent.setOnClickListener {
             if (textContent.maxLines == 2 || textContent.lineCount < 2) {

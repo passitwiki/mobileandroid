@@ -32,7 +32,9 @@
     <string name="consultations">Terminy konsultacji: </string>
     <string name="contact">Kontakt: </string>
     <string name="opinions">Opinie: </string>
-    <string name="add_news">Add news</string>
+    <string name="add_news">Dodaj ogłoszenie</string>
+    <string name="edit_news">Edytuj ogłoszenie</string>
+    <string name="delete_news">Usuń ogłoszenie</string>
     <string name="news_title">Tytuł ogłoszenia</string>
     <string name="news_content">Treść ogłoszenia…</string>
     <string name="news_attachment">Dodaj załącznik</string>
