@@ -2,8 +2,10 @@ package com.passitwiki.passit.api
 
 import com.passitwiki.passit.models.*
 import com.passitwiki.passit.tools.RefreshResponse
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
+
 
 /**
  * A simple api interface which specifies endpoints and functions.
@@ -61,15 +63,18 @@ interface Api {
         @Header("Authorization") bearerToken: String
     ): Call<List<Event>>
 
-    @FormUrlEncoded
+    //    @FormUrlEncoded
+    @Multipart
     @POST("news/")
     fun postNews(
         @Header("Authorization") bearerToken: String,
-        @Field("title") title: String,
-        @Field("content") content: String,
-        @Field("subject_group") subjectGroup: Int,
-        @Field("field_age_group") fieldAgeGroup: Int
+        @Part("title") title: String,
+        @Part("content") content: String,
+        @Part("subject_group") subjectGroup: Int,
+        @Part("field_age_group") fieldAgeGroup: Int,
+        @Part file: MultipartBody.Part?
     ): Call<Unit>
+
 
     @FormUrlEncoded
     @POST("auth/jwt/refresh/")

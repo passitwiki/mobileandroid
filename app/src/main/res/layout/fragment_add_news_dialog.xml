@@ -48,12 +48,22 @@
             <TextView
                 android:id="@+id/textLayoutAddNews"
                 style="@style/bodyText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="30dp"
                 android:text="@string/add_news"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/buttonAttach"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:clickable="true"
+                android:contentDescription="@string/check"
+                android:focusable="true"
+                android:src="@drawable/ic_attach" />
 
             <EditText
                 android:id="@+id/editTextNewsTitle"

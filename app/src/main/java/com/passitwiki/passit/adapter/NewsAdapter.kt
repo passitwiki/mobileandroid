@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.passitwiki.passit.R
 import com.passitwiki.passit.dialogfragments.PatchDialogFragment
 import com.passitwiki.passit.dialogfragments.RemoveDialogFragment
+import com.passitwiki.passit.dialogfragments.WebViewDialogFragment
 import com.passitwiki.passit.fragments.DashboardFragment
 import com.passitwiki.passit.models.News
 import kotlinx.android.synthetic.main.item_news.view.*
@@ -64,6 +65,19 @@ class NewsAdapter(private val news: List<News>, private val dashFragment: Dashbo
         holder.content.text = pieceOfNews.content
         holder.creationDate.text = pieceOfNews.created_at.substring(0, 10)
         holder.createdBy.text = creation
+        if (pieceOfNews.attachment != null) {
+            holder.attachment.text = pieceOfNews.attachment.toString().substring(46)
+            holder.attachment.setOnClickListener {
+                val webViewDialogFragment =
+                    WebViewDialogFragment.newInstance(
+                        "RemoveNews",
+                        pieceOfNews.attachment.toString()
+                    )
+                webViewDialogFragment.show(dashFragment.fragmentManager!!, "removeNews")
+            }
+        } else {
+            holder.attachment.visibility = View.GONE
+        }
 
         val textContent = holder.content
         textContent.maxLines = 2
@@ -122,6 +136,7 @@ class NewsAdapter(private val news: List<News>, private val dashFragment: Dashbo
         val creationDate: TextView = itemView.textViewDatePosted
         val createdBy: TextView = itemView.textViewUserPosted
         val textViewRemove: TextView = itemView.textViewRemove
+        val attachment: TextView = itemView.textViewAttachment
     }
 
     override fun getFilter(): Filter {
