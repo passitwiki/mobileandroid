@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:paddingTop="?attr/actionBarSize"
     android:paddingBottom="?attr/actionBarSize"
-    tools:context=".fragments.MemesFragment">
+    tools:context=".fragment.MemesFragment">
 
     <ImageView
         android:id="@+id/ImageViewMemesFrag"

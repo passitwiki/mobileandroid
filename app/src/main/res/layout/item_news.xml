@@ -41,7 +41,6 @@
         <TextView
             android:id="@+id/textViewNewsContent"
             style="@style/bodyText"
-            android:textIsSelectable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewNewsTitle"
@@ -49,6 +48,7 @@
             android:focusable="true"
             android:paddingTop="9dp"
             android:paddingBottom="16dp"
+            android:textIsSelectable="true"
             android:textSize="16sp"
             tools:text="This is the content of news." />
 
@@ -82,8 +82,8 @@
             android:paddingLeft="6dp"
             android:paddingTop="2dp"
             android:paddingRight="6dp"
-            android:text="@string/xxx"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:text="XX.XX.XXXX" />
 
         <TextView
             android:id="@+id/textViewUserPosted"
@@ -93,8 +93,8 @@
             android:layout_below="@id/textViewAttachment"
             android:layout_alignParentEnd="true"
             android:paddingTop="2dp"
-            android:text="@string/rep"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            tools:text="@string/rep" />
 
 
     </RelativeLayout>

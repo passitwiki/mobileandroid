@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp"
-    tools:context=".dialogfragments.AddNewsDialogFragment">
+    tools:context=".dialogfragment.AddNewsDialogFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                 style="@style/bodyText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="30dp"
+                android:paddingBottom="16dp"
                 android:text="@string/add_news"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -65,14 +65,45 @@
                 android:focusable="true"
                 android:src="@drawable/ic_attach" />
 
+            <RelativeLayout
+                android:id="@+id/relativeLayoutAttachment"
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/textLayoutAddNews"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/buttonAttachCross"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentEnd="true"
+                    android:clickable="true"
+                    android:contentDescription="@string/cross"
+                    android:focusable="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_cross"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textViewUrl"
+                    style="@style/bodyText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/buttonAttachCross"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:visibility="gone"
+                    tools:text="lena_image_very_long_uri_very_very_so_that_it_overflows_this_view_well.png" />
+            </RelativeLayout>
+
             <EditText
                 android:id="@+id/editTextNewsTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textLayoutAddNews"
+                android:layout_below="@+id/relativeLayoutAttachment"
                 android:hint="@string/news_title"
                 android:inputType="text"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/editTextNewsContent"
@@ -81,7 +112,8 @@
                 android:layout_below="@+id/editTextNewsTitle"
                 android:hint="@string/news_content"
                 android:inputType="text"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:importantForAutofill="no" />
 
 
         </RelativeLayout>

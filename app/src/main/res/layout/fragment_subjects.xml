@@ -6,7 +6,7 @@
     android:layout_height="fill_parent"
     android:paddingTop="?attr/actionBarSize"
     android:paddingBottom="?attr/actionBarSize"
-    tools:context=".fragments.SubjectsFragment">
+    tools:context=".fragment.SubjectsFragment">
 
     <RelativeLayout
         android:layout_width="wrap_content"

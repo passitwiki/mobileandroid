@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
-    tools:context=".activities.MainActivity">
+    tools:context=".activity.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarMain"
@@ -53,8 +53,18 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/btmNav"
         android:layout_below="@+id/toolbarMain">
-
     </FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/progressMain"
+        android:layout_centerInParent="true"
+        android:layout_width="80dp"
+        android:layout_height="80dp"/>
+    </RelativeLayout>
+
 
 
     <!--  TODO make text gradient color  -->
@@ -68,9 +78,5 @@
         android:theme="@style/Widget.BottomNavigationView"
         app:itemHorizontalTranslationEnabled="false"
         app:menu="@menu/bottom_nav" />
-    <!--    app:layout_behavior="com.passitwiki.passit.tools.BottomNavigationBehavior"-->
-
-    <!--        app:itemTextColor="@drawable/test_gradient_colorstatelist"-->
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

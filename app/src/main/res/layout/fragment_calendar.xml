@@ -7,7 +7,7 @@
     android:paddingTop="?attr/actionBarSize"
     android:paddingEnd="16dp"
     android:paddingBottom="?attr/actionBarSize"
-    tools:context=".fragments.CalendarFragment">
+    tools:context=".fragment.CalendarFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventRecyclerView"

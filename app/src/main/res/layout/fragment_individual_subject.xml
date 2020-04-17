@@ -7,7 +7,7 @@
     android:paddingTop="?attr/actionBarSize"
     android:paddingEnd="16dp"
     android:paddingBottom="?attr/actionBarSize"
-    tools:context=".fragments.IndividualSubjectFragment">
+    tools:context=".fragment.IndividualSubjectFragment">
 
     <!--    <TextView-->
     <!--        android:id="@+id/textViewSubjectDescription"-->

@@ -7,7 +7,7 @@
     android:paddingTop="?attr/actionBarSize"
     android:paddingEnd="16dp"
     android:paddingBottom="?attr/actionBarSize"
-    tools:context=".fragments.IndividualLecturerFragment">
+    tools:context=".fragment.IndividualLecturerFragment">
 
     <!--    <TextView-->
     <!--        android:id="@+id/textViewLecturerGeneral"-->
@@ -34,8 +34,8 @@
         style="@style/bodyText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="11dp"
         android:paddingTop="8dp"
+        android:paddingBottom="11dp"
         android:textSize="18sp"
         android:textStyle="bold"
         tools:text="Lucjan Janowski" />
@@ -53,6 +53,7 @@
             style="@style/bodyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="0dp"
             android:paddingEnd="8dp"
             android:paddingBottom="10dp"
             android:text="@string/degree"
@@ -62,24 +63,25 @@
         <TextView
             android:id="@+id/textViewLecturersDegree"
             style="@style/bodyText"
-            android:layout_toEndOf="@+id/textViewDegree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/textViewDegree"
             android:paddingBottom="16dp"
-            tools:text="Dr. hab."
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:text="Dr. hab." />
 
         <TextView
             android:id="@+id/textViewConsultations"
             style="@style/bodyText"
-            android:paddingEnd="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewDegree"
+            android:paddingStart="0dp"
+            android:paddingEnd="8dp"
             android:paddingBottom="10dp"
-            android:textStyle="bold"
             android:text="@string/consultations"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewLecturersConsultations"
@@ -95,13 +97,14 @@
         <TextView
             android:id="@+id/textViewContact"
             style="@style/bodyText"
-            android:paddingEnd="8dp"
-            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewConsultations"
+            android:paddingStart="0dp"
+            android:paddingEnd="8dp"
             android:text="@string/contact"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewLecturersContact"

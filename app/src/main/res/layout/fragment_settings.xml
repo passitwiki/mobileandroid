@@ -7,7 +7,7 @@
     android:paddingTop="?attr/actionBarSize"
     android:paddingEnd="16dp"
     android:paddingBottom="?attr/actionBarSize"
-    tools:context=".fragments.SettingsFragment">
+    tools:context=".fragment.SettingsFragment">
 
     <RelativeLayout
         android:id="@+id/relativeLayoutUserPart"
