@@ -81,14 +81,15 @@ class DashboardNewsAdapter(
         holder.content.text = pieceOfNews.content
         holder.creationDate.text = pieceOfNews.created_at.substring(0, 10)
         holder.createdBy.text = creation
+
         if (pieceOfNews.attachment != null) {
             val link = pieceOfNews.attachment.toString().substring(46)
 
             val textShader = LinearGradient(
                 0F, 0F, 1000F, 0F,
                 intArrayOf(
-                    ContextCompat.getColor(dashFragment.context!!, R.color.gradientLeft),
-                    ContextCompat.getColor(dashFragment.context!!, R.color.gradientRight)
+                    ContextCompat.getColor(dashFragment.requireContext(), R.color.gradientLeft),
+                    ContextCompat.getColor(dashFragment.requireContext(), R.color.gradientRight)
                 ),
                 floatArrayOf(0F, 1F), Shader.TileMode.CLAMP
             )
@@ -97,14 +98,14 @@ class DashboardNewsAdapter(
             holder.attachment.setOnClickListener {
                 val permission =
                     ActivityCompat.checkSelfPermission(
-                        dashFragment.activity!!,
+                        dashFragment.requireActivity(),
                         Manifest.permission.WRITE_EXTERNAL_STORAGE
                     )
 
                 if (permission != PackageManager.PERMISSION_GRANTED) {
                     // We don't have permission so prompt the user
                     ActivityCompat.requestPermissions(
-                        dashFragment.activity!!,
+                        dashFragment.requireActivity(),
                         Array(1) { Manifest.permission.WRITE_EXTERNAL_STORAGE },
                         111
                     )
@@ -120,7 +121,7 @@ class DashboardNewsAdapter(
                 )
 
                 val manager =
-                    dashFragment.activity!!.applicationContext
+                    dashFragment.requireActivity().applicationContext
                         .getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager?
                 manager!!.enqueue(request)
 
@@ -136,7 +137,10 @@ class DashboardNewsAdapter(
         val remove = holder.textViewRemove
         remove.setOnClickListener {
             val pm = PopupMenu(dashFragment.activity, remove)
-            pm.menuInflater.inflate(R.menu.news_options, pm.menu)
+            when (pieceOfNews.is_owner) {
+                true -> pm.menuInflater.inflate(R.menu.news_options_owner, pm.menu)
+                false -> pm.menuInflater.inflate(R.menu.news_options, pm.menu)
+            }
             pm.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.newsEdit -> {
@@ -147,12 +151,15 @@ class DashboardNewsAdapter(
                                 pieceOfNews.content,
                                 pieceOfNews.id
                             )
-                        patchDialogFragment.show(dashFragment.fragmentManager!!, "patchNews")
+                        patchDialogFragment.show(dashFragment.requireFragmentManager(), "patchNews")
                     }
                     R.id.newsRemove -> {
                         val removeDialogFragment =
                             RemoveNewsDialogFragment("RemoveNews", pieceOfNews.id)
-                        removeDialogFragment.show(dashFragment.fragmentManager!!, "removeNews")
+                        removeDialogFragment.show(
+                            dashFragment.requireFragmentManager(),
+                            "removeNews"
+                        )
                     }
                 }
                 true

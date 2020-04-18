@@ -64,7 +64,7 @@ class SettingsFragment(
         rootView.textViewChangePassword.setOnClickListener {
             val passwordDialogFragment =
                 PasswordChangeSettingsDialogFragment("NewPassword")
-            passwordDialogFragment.show(fragmentManager!!, "password")
+            passwordDialogFragment.show(requireFragmentManager(), "password")
         }
 
         rootView.textViewLogout.setOnClickListener {
@@ -73,9 +73,9 @@ class SettingsFragment(
                 "SettingsFragment: onViewCreated: set logged_in to false"
             )
             sharedPreferences.edit().putBoolean("logged_in", false).apply()
-            val intent = (Intent(activity!!.applicationContext, LoginActivity::class.java))
+            val intent = (Intent(requireActivity().applicationContext, LoginActivity::class.java))
             startActivity(intent)
-            activity!!.finish()
+            requireActivity().finish()
         }
 
         return rootView

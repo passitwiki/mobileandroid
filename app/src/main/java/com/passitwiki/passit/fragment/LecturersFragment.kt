@@ -50,7 +50,7 @@ class LecturersFragment(val key: String) : Fragment() {
             when (resource.status) {
 //                Status.LOADING -> null //TODO loading
                 Status.ERROR -> Toast.makeText(
-                    activity!!.applicationContext,
+                    requireActivity().applicationContext,
                     resource.message,
                     Toast.LENGTH_SHORT
                 ).show()
@@ -68,8 +68,9 @@ class LecturersFragment(val key: String) : Fragment() {
                                     "showLecturerData: onResponse: $lecturersList"
                         )
                         lecturersRecyclerView.apply {
-                            layoutManager = LinearLayoutManager(activity!!.applicationContext)
-                            adapter = LecturersAdapter(lecturersList, activity!!)
+                            layoutManager =
+                                LinearLayoutManager(requireActivity().applicationContext)
+                            adapter = LecturersAdapter(lecturersList, requireActivity())
                         }
                     }
                 }

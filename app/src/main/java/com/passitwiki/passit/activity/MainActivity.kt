@@ -16,10 +16,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.inject
 import org.koin.androidx.fragment.android.setupKoinFragmentFactory
-import org.koin.core.parameter.parametersOf
 
 var accessToken = ""
 lateinit var activeFragment: Fragment
+lateinit var dashboardFragment: DashboardFragment
+
 
 class MainActivity : AppCompatActivity() {
     private var fieldAgeGroup = 0
@@ -27,12 +28,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fullName:String
 
     private val repository: Repository by inject()
-//    private val dashboardFragment: DashboardFragment by inject { parametersOf(fieldAgeGroup) }
-//    private val subjectsFragment: SubjectsFragment by inject()
-//    private val lecturersFragment: LecturersFragment by inject()
-//    private val memesFragment: MemesFragment by inject()
-//    private val settingsFragment: SettingsFragment by inject { parametersOf(fieldOfStudy, fullName)}
-    private lateinit var dashboardFragment: DashboardFragment
     private lateinit var subjectsFragment: SubjectsFragment
     private lateinit var lecturersFragment: LecturersFragment
     private lateinit var memesFragment: MemesFragment
@@ -111,7 +106,6 @@ class MainActivity : AppCompatActivity() {
         btmNav.setOnNavigationItemSelectedListener(mBtmNavItemSelectedListener)
 
     }
-
 
     override fun onBackPressed() {
         when (activeFragment.tag) {

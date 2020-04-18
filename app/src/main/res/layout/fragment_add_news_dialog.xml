@@ -115,6 +115,23 @@
                 android:textSize="16sp"
                 android:importantForAutofill="no" />
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTextNewsContent"
+                android:layout_gravity="center_vertical"
+                android:background="?attr/gradientBorderNewsCal"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:focusable="true"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/spinnerSubjectGroupAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
 
         </RelativeLayout>
 

@@ -101,10 +101,20 @@
                     android:paddingEnd="8dp"
                     android:paddingStart="0dp"
                     android:src="@drawable/ic_search" />
+
+                <ImageView
+                    android:id="@+id/imageViewFilter"
+                    android:layout_width="38dp"
+                    android:layout_height="30dp"
+                    android:layout_toStartOf="@+id/imageViewSearchNews"
+                    android:contentDescription="@string/plus"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="8dp"
+                    android:src="@drawable/ic_search" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/searchViewButton"
+                android:id="@+id/relativeLayoutForBothSearchAndFilter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/relativeLayoutNewsHeader"
@@ -114,6 +124,7 @@
                 android:visibility="gone">
 
                 <RelativeLayout
+                    android:id="@+id/relativeLayoutForSearchView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -131,13 +142,30 @@
                         app:iconifiedByDefault="false"
                         app:queryBackground="@null" />
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="?attr/gradientBorderNewsCal"
+                    android:clickable="true"
+                    android:elevation="4dp"
+                    android:focusable="true"
+                    android:orientation="vertical">
+
+                    <Spinner
+                        android:id="@+id/spinnerFilter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/newsRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/searchViewButton" />
+                android:layout_below="@id/relativeLayoutForBothSearchAndFilter" />
 
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

@@ -112,7 +112,7 @@ class PasswordChangeSettingsDialogFragment(private val key: String) : DialogFrag
                     }
                 } else {
                     Toast.makeText(
-                        activity!!.applicationContext,
+                        requireActivity().applicationContext,
                         resource!!.message,
                         Toast.LENGTH_SHORT
                     ).show()
@@ -125,7 +125,7 @@ class PasswordChangeSettingsDialogFragment(private val key: String) : DialogFrag
                             "response ${resource.toString()}"
                 )
                 Toast.makeText(
-                    activity!!.applicationContext,
+                    requireActivity().applicationContext,
                     getString(R.string.success_password),
                     Toast.LENGTH_LONG
                 ).show()

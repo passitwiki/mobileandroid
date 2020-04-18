@@ -37,7 +37,7 @@ class CalendarFragment(private val key: String) : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_calendar, container, false)
-        val toolbarTextView = activity!!.findViewById<TextView>(R.id.textViewToolbar)
+        val toolbarTextView = requireActivity().findViewById<TextView>(R.id.textViewToolbar)
         toolbarTextView.text = getString(R.string.exam_calendar)
         //TODO make the tpo text display like this for all of them
         return view
@@ -56,7 +56,7 @@ class CalendarFragment(private val key: String) : Fragment() {
             when (resource.status) {
 //                Status.LOADING -> null //TODO loading
                 Status.ERROR -> Toast.makeText(
-                    activity!!.applicationContext,
+                    requireActivity().applicationContext,
                     resource.message,
                     Toast.LENGTH_SHORT
                 ).show()
@@ -72,7 +72,8 @@ class CalendarFragment(private val key: String) : Fragment() {
                             "CalendarFragment: onCreateView: showCalendarData: onResponse: ${resource.data}"
                         )
                         eventRecyclerView.apply {
-                            layoutManager = LinearLayoutManager(activity!!.applicationContext)
+                            layoutManager =
+                                LinearLayoutManager(requireActivity().applicationContext)
                             adapter = CalendarAdapter(resource.data, this@CalendarFragment)
                         }
                     }

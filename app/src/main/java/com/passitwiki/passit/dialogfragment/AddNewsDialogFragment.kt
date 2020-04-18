@@ -11,6 +11,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
@@ -18,6 +20,7 @@ import com.hbisoft.pickit.PickiT
 import com.hbisoft.pickit.PickiTCallbacks
 import com.passitwiki.passit.R
 import com.passitwiki.passit.activity.accessToken
+import com.passitwiki.passit.model.SubjectGroup
 import com.passitwiki.passit.networking.Resource
 import com.passitwiki.passit.networking.Status
 import com.passitwiki.passit.repository.Repository
@@ -42,6 +45,7 @@ class AddNewsDialogFragment(private val key: String, private val fieldAgeGroup: 
     private var selectedUri: Uri? = null
     private var selectedPickiTFile: String = ""
     private var pickiT: PickiT? = null
+    private var chosenSubject: SubjectGroup? = null
 
     /**
      * Changes the layout's size to below.
@@ -65,6 +69,34 @@ class AddNewsDialogFragment(private val key: String, private val fieldAgeGroup: 
     ): View? {
         val view = inflater
             .inflate(R.layout.fragment_add_news_dialog, container, false)
+        var listOfSubjectGroup = ArrayList<SubjectGroup>()
+        var displayListOfSubjectGroup = ArrayList<String>()
+        runBlocking {
+            listOfSubjectGroup = getAllTheSubjects()
+        }
+        listOfSubjectGroup.forEach {
+            displayListOfSubjectGroup.add(it.subject_name)
+        }
+        val spinnerAdapter = ArrayAdapter(
+            requireActivity().applicationContext,
+            android.R.layout.simple_spinner_item,
+            displayListOfSubjectGroup
+        )
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        view.spinnerSubjectGroupAdd.adapter = spinnerAdapter
+
+        view.spinnerSubjectGroupAdd.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    chosenSubject = listOfSubjectGroup[position]
+                }
+            }
 
         val titleEditText = view.editTextNewsTitle
         val contentEditText = view.editTextNewsContent
@@ -72,21 +104,22 @@ class AddNewsDialogFragment(private val key: String, private val fieldAgeGroup: 
         val cross = view.buttonCross
         val buttonAttach = view.buttonAttach
 
+
         cross.setOnClickListener {
             dismiss()
         }
 
-        pickiT = PickiT(activity!!.applicationContext, this)
+        pickiT = PickiT(requireActivity().applicationContext, this)
         val permission =
             ActivityCompat.checkSelfPermission(
-                activity!!,
+                requireActivity(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             )
 
         if (permission != PackageManager.PERMISSION_GRANTED) {
             // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(
-                activity!!, Array(1) {
+                requireActivity(), Array(1) {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 }, 111
             )
@@ -111,6 +144,8 @@ class AddNewsDialogFragment(private val key: String, private val fieldAgeGroup: 
             )
         }
 
+
+
         check.setOnClickListener {
 
             val title = titleEditText.text.toString().trim()
@@ -133,19 +168,48 @@ class AddNewsDialogFragment(private val key: String, private val fieldAgeGroup: 
             if (selectedPickiTFile != "" && selectedUri != null) {
                 val file = File(selectedPickiTFile)
                 fileRequest = file.asRequestBody(
-                    activity!!.contentResolver.getType(selectedUri!!)!!.toMediaTypeOrNull()
+                    requireActivity().contentResolver.getType(selectedUri!!)!!.toMediaTypeOrNull()
                 )
                 fileBody =
                     MultipartBody.Part.createFormData("attachment", file.name, fileRequest)
             }
 
 
-            //TODO CHANGE THE SUBJECT GROUP ACCORDINGLY
-            postInputNews(title, content, 2, fieldAgeGroup, fileBody)
+            postInputNews(title, content, chosenSubject!!.id, fieldAgeGroup, fileBody)
 
         }
 
         return view
+    }
+
+    private suspend fun getAllTheSubjects(): ArrayList<SubjectGroup> {
+        var returnList = ArrayList<SubjectGroup>()
+        val resource = repository.handleGetSubjectsAgeGroup(accessToken)
+        when (resource.status) {
+//                Status.LOADING -> null //TODO loading
+            Status.ERROR -> {
+                if (resource.message == "Unauthorised. Please refresh.") {
+                    runBlocking {
+                        Utilities(repository).justRefresh(key)
+                        returnList = getAllTheSubjects()
+                    }
+                } else {
+                    Toast.makeText(
+                        requireActivity().applicationContext,
+                        resource.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            Status.SUCCESS -> {
+                Log.d(
+                    "MyTagExplicitNetworking",
+                    "AddNewsDialogFragment response $resource"
+                )
+                returnList = resource.data as ArrayList<SubjectGroup>
+            }
+        }
+        return returnList
     }
 
     /**
@@ -185,7 +249,7 @@ class AddNewsDialogFragment(private val key: String, private val fieldAgeGroup: 
                     }
                 } else {
                     Toast.makeText(
-                        activity!!.applicationContext,
+                        requireActivity().applicationContext,
                         resource!!.message,
                         Toast.LENGTH_SHORT
                     ).show()
@@ -212,10 +276,10 @@ class AddNewsDialogFragment(private val key: String, private val fieldAgeGroup: 
                 data?.data,
                 Build.VERSION.SDK_INT
             ) //The uri with the location of the file
-            view!!.buttonAttach.visibility = View.GONE
-            view!!.textViewUrl.text = selectedPickiTFile.split("/").last()
-            view!!.textViewUrl.visibility = View.VISIBLE
-            view!!.buttonAttachCross.visibility = View.VISIBLE
+            requireView().buttonAttach.visibility = View.GONE
+            requireView().textViewUrl.text = selectedPickiTFile.split("/").last()
+            requireView().textViewUrl.visibility = View.VISIBLE
+            requireView().buttonAttachCross.visibility = View.VISIBLE
         }
     }
 

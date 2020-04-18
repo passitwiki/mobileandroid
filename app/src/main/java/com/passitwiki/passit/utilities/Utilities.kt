@@ -2,12 +2,14 @@ package com.passitwiki.passit.utilities
 
 import android.annotation.SuppressLint
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.passitwiki.passit.R
 import com.passitwiki.passit.activity.accessToken
+import com.passitwiki.passit.activity.activeFragment
+import com.passitwiki.passit.activity.dashboardFragment
 import com.passitwiki.passit.activity.sharedPreferences
+import com.passitwiki.passit.fragment.DashboardFragment
 import com.passitwiki.passit.model.FieldAgeGroup
 import com.passitwiki.passit.model.User
 import com.passitwiki.passit.repository.Repository
@@ -16,6 +18,24 @@ inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
     val fragmentTransaction = beginTransaction()
     fragmentTransaction.func()
     fragmentTransaction.commit()
+}
+
+fun refreshDashboardFragment(key: String, fieldAgeGroupInt: Int) {
+    Log.d("MyTagExplicit", "onRefresh called from SwipeRefreshLayout")
+    val newDash = DashboardFragment(key, fieldAgeGroupInt)
+    dashboardFragment.requireActivity().supportFragmentManager.inTransaction {
+        add(
+            R.id.frameLayoutMain,
+            newDash,
+            "Dashboard"
+        )
+    }
+    dashboardFragment.requireActivity().supportFragmentManager.beginTransaction()
+        .remove(activeFragment)
+        .show(newDash)
+        .commit()
+    activeFragment = newDash
+    dashboardFragment = newDash
 }
 
 class Utilities(private val repository: Repository) {

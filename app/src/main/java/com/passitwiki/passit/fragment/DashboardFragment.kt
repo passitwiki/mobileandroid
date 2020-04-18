@@ -19,6 +19,7 @@ import com.passitwiki.passit.model.News
 import com.passitwiki.passit.networking.Status
 import com.passitwiki.passit.repository.Repository
 import com.passitwiki.passit.utilities.Utilities
+import com.passitwiki.passit.utilities.refreshDashboardFragment
 import com.passitwiki.passit.viewmodel.DashboardViewModel
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
@@ -56,18 +57,76 @@ class DashboardFragment(private val key: String, private val fieldAgeGroupInt: I
         }
 
         view.imageViewSearchNews.setOnClickListener {
-            if (view.searchViewButton.visibility == View.GONE) {
-                view.searchViewButton.visibility = View.VISIBLE
-            } else {
-                view.searchViewButton.visibility = View.GONE
+            when {
+                view.relativeLayoutForBothSearchAndFilter.visibility == View.GONE -> {
+                    view.relativeLayoutForBothSearchAndFilter.visibility = View.VISIBLE
+                    view.relativeLayoutForSearchView.visibility = View.VISIBLE
+                    view.spinnerFilter.visibility = View.GONE
+                }
+                view.spinnerFilter.visibility == View.VISIBLE -> {
+                    view.spinnerFilter.visibility = View.GONE
+                    view.relativeLayoutForSearchView.visibility = View.VISIBLE
+                }
+                else -> {
+                    view.relativeLayoutForSearchView.visibility = View.GONE
+                    view.relativeLayoutForBothSearchAndFilter.visibility = View.GONE
+                }
             }
         }
+        view.imageViewFilter.setOnClickListener {
+            when {
+                view.relativeLayoutForBothSearchAndFilter.visibility == View.GONE -> {
+                    view.relativeLayoutForBothSearchAndFilter.visibility = View.VISIBLE
+                    view.relativeLayoutForSearchView.visibility = View.GONE
+                    view.spinnerFilter.visibility = View.VISIBLE
+                }
+                view.relativeLayoutForSearchView.visibility == View.VISIBLE -> {
+                    view.spinnerFilter.visibility = View.VISIBLE
+                    view.relativeLayoutForSearchView.visibility = View.GONE
+                }
+                else -> {
+                    view.spinnerFilter.visibility = View.GONE
+                    view.relativeLayoutForBothSearchAndFilter.visibility = View.GONE
+                }
+            }
+        }
+
+
 
         view.buttonExam.setOnClickListener {
             replaceWithCalendarFragment()
         }
 
         val dashboardAdapter = DashboardNewsAdapter(news, this@DashboardFragment)
+
+//        var listOfSubjectGroup = ArrayList<SubjectGroup>()
+//        var displayListOfSubjectGroup = ArrayList<String>()
+//        runBlocking {
+//            listOfSubjectGroup = getAllTheSubjects()
+//        }
+//        listOfSubjectGroup.forEach{
+//            displayListOfSubjectGroup.add(it.subject_name)
+//        }
+//        val spinnerAdapter = ArrayAdapter(
+//            requireActivity().applicationContext,
+//            android.R.layout.simple_spinner_item,
+//            displayListOfSubjectGroup
+//        )
+//        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//        view.spinnerSubjectGroupAdd.adapter = spinnerAdapter
+//
+//        view.spinnerSubjectGroupAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onNothingSelected(parent: AdapterView<*>?) {}
+//            override fun onItemSelected(
+//                parent: AdapterView<*>?,
+//                view: View?,
+//                position: Int,
+//                id: Long
+//            ) {
+//                chosenSubject = listOfSubjectGroup[position]
+//            }
+//        }
+
 
         view.searchViewNews.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -82,15 +141,7 @@ class DashboardFragment(private val key: String, private val fieldAgeGroupInt: I
         })
 
         view.swipeRefreshDashboard.setOnRefreshListener {
-            Log.d("MyTagExplicit", "onRefresh called from SwipeRefreshLayout")
-            val newDash = DashboardFragment(key, fieldAgeGroupInt)
-            requireActivity().supportFragmentManager.beginTransaction()
-                .add(R.id.frameLayoutMain, newDash, "Dashboard").commit()
-            requireActivity().supportFragmentManager.beginTransaction()
-                .remove(this)
-                .show(newDash)
-                .commit()
-            activeFragment = newDash
+            refreshDashboardFragment(key, fieldAgeGroupInt)
         }
         Log.d(
             "MyTa",

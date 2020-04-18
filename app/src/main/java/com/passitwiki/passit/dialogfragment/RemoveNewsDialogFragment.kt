@@ -54,7 +54,7 @@ class RemoveNewsDialogFragment(private val key: String, private val idNews: Int)
                     }
                 } else {
                     Toast.makeText(
-                        activity!!.applicationContext,
+                        requireActivity().applicationContext,
                         resource!!.message,
                         Toast.LENGTH_SHORT
                     ).show()
