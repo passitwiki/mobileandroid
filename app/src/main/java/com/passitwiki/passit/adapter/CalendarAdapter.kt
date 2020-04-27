@@ -98,11 +98,14 @@ class CalendarAdapter(
 
         val timeOfDay = "${calendar.get(Calendar.HOUR_OF_DAY)}:$minutes"
 
+        val subText = "SAG: ${event.subject_group.toString()}"
+        val dayMonthText = "$dayInTheWeek\n$dayInTheMonth"
+
         holder.name.text = event.name
-        holder.subject.text = "SAG: ${event.subject_group.toString()}"
+        holder.subject.text = subText
         holder.time.text = timeOfDay
         holder.content.text = event.description
-        holder.date.text = "$dayInTheWeek\n$dayInTheMonth"
+        holder.date.text = dayMonthText
     }
 
     /**

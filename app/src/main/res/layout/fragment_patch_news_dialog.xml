@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/editTextEditNewsTitle"
                 android:hint="@string/news_content"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:textSize="16sp"
                 android:importantForAutofill="no" />
 

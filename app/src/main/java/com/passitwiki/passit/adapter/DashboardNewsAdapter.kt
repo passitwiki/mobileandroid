@@ -78,7 +78,11 @@ class DashboardNewsAdapter(
 
 
         holder.title.text = pieceOfNews.title
+
         holder.content.text = pieceOfNews.content
+//        val markwon = Markwon.builder(dashFragment.requireActivity().applicationContext).build()
+//        markwon.setMarkdown(holder.content, pieceOfNews.content)
+
         holder.creationDate.text = pieceOfNews.created_at.substring(0, 10)
         holder.createdBy.text = creation
 
@@ -131,6 +135,7 @@ class DashboardNewsAdapter(
         }
 
         val textContent = holder.content
+        textContent.isSingleLine = false
         textContent.maxLines = 2
         textContent.ellipsize = TextUtils.TruncateAt.END
 
@@ -227,6 +232,7 @@ class DashboardNewsAdapter(
             }
         }
     }
+
 
 }
 

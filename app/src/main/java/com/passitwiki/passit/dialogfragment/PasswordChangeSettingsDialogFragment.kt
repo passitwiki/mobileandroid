@@ -97,7 +97,7 @@ class PasswordChangeSettingsDialogFragment(private val key: String) : DialogFrag
      * Takes the input values and posts them to the API. Closes the dialog.
      */
     private fun postInputPassword(newPassword: String, currPassword: String) {
-        var resource: Resource<Unit>? = null
+        var resource: Resource<Unit?>? = null
         runBlocking {
             resource = repository.handlePostSetPassword(accessToken, newPassword, currPassword)
         }

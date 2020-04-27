@@ -2,6 +2,7 @@ package com.passitwiki.passit.networking
 
 import com.passitwiki.passit.model.*
 import okhttp3.MultipartBody
+import retrofit2.Response
 import retrofit2.http.*
 
 /**
@@ -23,7 +24,7 @@ interface Api {
         @Header("Authorization") bearerToken: String,
         @Field("new_password") newPassword: String,
         @Field("current_password") currentPassword: String
-    )
+    ): Response<Unit>
 
     @GET("auth/users/me/?expand=profile,profile.field_age_groups,profile.memberships")
     suspend fun getUserInfo(
@@ -71,7 +72,6 @@ interface Api {
         @Part("field_age_group") fieldAgeGroup: Int,
         @Part file: MultipartBody.Part?
     )
-
 
     @FormUrlEncoded
     @POST("auth/jwt/refresh/")

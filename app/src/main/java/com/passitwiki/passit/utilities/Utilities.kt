@@ -24,11 +24,7 @@ fun refreshDashboardFragment(key: String, fieldAgeGroupInt: Int) {
     Log.d("MyTagExplicit", "onRefresh called from SwipeRefreshLayout")
     val newDash = DashboardFragment(key, fieldAgeGroupInt)
     dashboardFragment.requireActivity().supportFragmentManager.inTransaction {
-        add(
-            R.id.frameLayoutMain,
-            newDash,
-            "Dashboard"
-        )
+        add(R.id.frameLayoutMain, newDash, "Dashboard")
     }
     dashboardFragment.requireActivity().supportFragmentManager.beginTransaction()
         .remove(activeFragment)

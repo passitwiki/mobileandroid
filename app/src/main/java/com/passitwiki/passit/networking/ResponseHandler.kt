@@ -1,5 +1,6 @@
 package com.passitwiki.passit.networking
 
+import android.util.Log
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -15,6 +16,7 @@ open class ResponseHandler {
     }
 
     fun <T : Any> handleException(exception: Exception): Resource<T> {
+        Log.d("MyTagExplitcit", exception.message + "\n" + exception.stackTrace)
         return when (exception) {
             is SocketTimeoutException -> Resource
                 .error("Please refresh, there was a timeout.", null)
@@ -27,9 +29,12 @@ open class ResponseHandler {
 
     private fun getErrorMessage(httpCode: Int): String {
         return when (httpCode) {
+            201 -> "Created. To see, please refresh."
+            204 -> "Success. Please refresh."
+            400 -> "Invalid password. Try again."
             401 -> "Unauthorised. Please refresh."
             404 -> "Not found. Please refresh."
-            else -> "Something went wrong. Please refresh."
+            else -> httpCode.toString()
         }
     }
 }

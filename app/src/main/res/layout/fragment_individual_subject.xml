@@ -65,6 +65,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
             android:textSize="16sp"
+            android:visibility="gone"
             tools:text="E -subject with an exam" />
 
         <TextView
@@ -85,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewSubjectsLecturers"
-            android:text="Not yet implemented"
+            android:text=""
             android:textSize="16sp" />
 
     </RelativeLayout>

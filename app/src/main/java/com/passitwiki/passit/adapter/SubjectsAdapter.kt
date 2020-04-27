@@ -12,7 +12,6 @@ import com.passitwiki.passit.activity.activeFragment
 import com.passitwiki.passit.fragment.IndividualSubjectFragment
 import com.passitwiki.passit.model.Subject
 import kotlinx.android.synthetic.main.item_subject.view.*
-import java.lang.System.setProperty
 
 
 /**

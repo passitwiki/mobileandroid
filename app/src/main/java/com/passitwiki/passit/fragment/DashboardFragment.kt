@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -16,6 +18,7 @@ import com.passitwiki.passit.activity.activeFragment
 import com.passitwiki.passit.adapter.DashboardNewsAdapter
 import com.passitwiki.passit.dialogfragment.AddNewsDialogFragment
 import com.passitwiki.passit.model.News
+import com.passitwiki.passit.model.SubjectGroup
 import com.passitwiki.passit.networking.Status
 import com.passitwiki.passit.repository.Repository
 import com.passitwiki.passit.utilities.Utilities
@@ -35,6 +38,7 @@ class DashboardFragment(private val key: String, private val fieldAgeGroupInt: I
     private val dashboardViewModel: DashboardViewModel by viewModel()
     private val repository: Repository by inject()
     private val news: MutableList<News> = ArrayList()
+    private var chosenSubjectGroup: SubjectGroup? = null
 //    private val dashboardFragment: DashboardFragment by inject()
 //    private val calendarFragment: CalendarFragment by inject()
 
@@ -53,8 +57,56 @@ class DashboardFragment(private val key: String, private val fieldAgeGroupInt: I
             val addNewsDialogFragment =
                 AddNewsDialogFragment("AddNews", fieldAgeGroupInt)
             addNewsDialogFragment.show(requireFragmentManager(), "addNews")
-            //TODO try with childfragmentmanager
+            //TODO try with child_fragment_manager
         }
+
+        view.buttonExam.setOnClickListener {
+            replaceWithCalendarFragment()
+        }
+
+        val dashboardAdapter = DashboardNewsAdapter(news, this@DashboardFragment)
+
+        var listOfSubjectGroup = ArrayList<SubjectGroup>()
+        val displayListOfSubjectGroup = ArrayList<String>()
+        runBlocking {
+            listOfSubjectGroup = getAllTheSubjects()
+        }
+        listOfSubjectGroup.forEach {
+            displayListOfSubjectGroup.add(it.subject_name)
+        }
+        val spinnerAdapter = ArrayAdapter(
+            requireActivity().applicationContext,
+            android.R.layout.simple_spinner_item,
+            displayListOfSubjectGroup
+        )
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        view.spinnerFilter.adapter = spinnerAdapter
+
+        view.spinnerFilter.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                chosenSubjectGroup = listOfSubjectGroup[position]
+                showNewsData(dashboardAdapter, true)
+            }
+        }
+
+
+        view.searchViewNews.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                dashboardAdapter.filter.filter(newText)
+                return false
+            }
+
+        })
 
         view.imageViewSearchNews.setOnClickListener {
             when {
@@ -85,60 +137,12 @@ class DashboardFragment(private val key: String, private val fieldAgeGroupInt: I
                     view.relativeLayoutForSearchView.visibility = View.GONE
                 }
                 else -> {
+                    showNewsData(dashboardAdapter, false)
                     view.spinnerFilter.visibility = View.GONE
                     view.relativeLayoutForBothSearchAndFilter.visibility = View.GONE
                 }
             }
         }
-
-
-
-        view.buttonExam.setOnClickListener {
-            replaceWithCalendarFragment()
-        }
-
-        val dashboardAdapter = DashboardNewsAdapter(news, this@DashboardFragment)
-
-//        var listOfSubjectGroup = ArrayList<SubjectGroup>()
-//        var displayListOfSubjectGroup = ArrayList<String>()
-//        runBlocking {
-//            listOfSubjectGroup = getAllTheSubjects()
-//        }
-//        listOfSubjectGroup.forEach{
-//            displayListOfSubjectGroup.add(it.subject_name)
-//        }
-//        val spinnerAdapter = ArrayAdapter(
-//            requireActivity().applicationContext,
-//            android.R.layout.simple_spinner_item,
-//            displayListOfSubjectGroup
-//        )
-//        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        view.spinnerSubjectGroupAdd.adapter = spinnerAdapter
-//
-//        view.spinnerSubjectGroupAdd.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onNothingSelected(parent: AdapterView<*>?) {}
-//            override fun onItemSelected(
-//                parent: AdapterView<*>?,
-//                view: View?,
-//                position: Int,
-//                id: Long
-//            ) {
-//                chosenSubject = listOfSubjectGroup[position]
-//            }
-//        }
-
-
-        view.searchViewNews.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                dashboardAdapter.filter.filter(newText)
-                return false
-            }
-
-        })
 
         view.swipeRefreshDashboard.setOnRefreshListener {
             refreshDashboardFragment(key, fieldAgeGroupInt)
@@ -148,7 +152,7 @@ class DashboardFragment(private val key: String, private val fieldAgeGroupInt: I
             "DashboardFragment: onCreateView: " +
                     "checking accessToken before init of showNewsData: $accessToken"
         )
-        showNewsData(dashboardAdapter)
+        showNewsData(dashboardAdapter, false)
 
         return view
     }
@@ -174,7 +178,10 @@ class DashboardFragment(private val key: String, private val fieldAgeGroupInt: I
     /**
      * Get the data to populate the recyclerView with news.
      */
-    private fun showNewsData(adapterOfDashboardNews: DashboardNewsAdapter) {
+    private fun showNewsData(
+        adapterOfDashboardNews: DashboardNewsAdapter?,
+        isFiltered: Boolean
+    ) {
         dashboardViewModel.loadNews().observe(viewLifecycleOwner, Observer { resource ->
             when (resource.status) {
 //                Status.LOADING -> null //TODO loading
@@ -184,31 +191,100 @@ class DashboardFragment(private val key: String, private val fieldAgeGroupInt: I
                     Toast.LENGTH_SHORT
                 ).show()
                 Status.SUCCESS -> {
-                    if (resource.data == null) {
-                        runBlocking {
-                            Utilities(repository).justRefresh(key)
-                            showNewsData(adapterOfDashboardNews)
-                        }
-                    } else {
-                        val newsList = resource.data
-                        Log.d(
-                            "MyTa",
-                            "DashboardFragment: onCreateView: " +
-                                    "showNewsData: onResponse: $newsList"
-                        )
+                    when (isFiltered) {
+                        true -> {
+                            if (resource.data == null) {
+                                runBlocking {
+                                    Utilities(repository).justRefresh(key)
+                                    showNewsData(adapterOfDashboardNews, true)
+                                }
+                            } else {
+                                val filterArray = ArrayList<News>()
+                                resource.data.forEach {
+                                    if (it.subject_group == chosenSubjectGroup!!.id) {
+                                        filterArray.add(
+                                            it
+                                        )
+                                    }
+                                }
+                                val newsList = filterArray as List<News>
+                                Log.d(
+                                    "MyTa",
+                                    "DashboardFragment: onCreateView: " +
+                                            "showNewsData: onResponse: $newsList"
+                                )
 
-                        if (news.isEmpty() || newsList != news) {
-                            news.addAll(newsList)
-                            newsRecyclerView.apply {
-                                layoutManager =
-                                    LinearLayoutManager(requireActivity().applicationContext)
-                                adapter = adapterOfDashboardNews
+                                if (news.isEmpty() || newsList != news) {
+                                    news.removeAll(news)
+                                    news.addAll(newsList)
+                                    newsRecyclerView.apply {
+                                        layoutManager =
+                                            LinearLayoutManager(requireActivity().applicationContext)
+                                        adapter = adapterOfDashboardNews
+                                    }
+                                }
+                            }
+                        }
+                        false -> {
+                            if (resource.data == null) {
+                                runBlocking {
+                                    Utilities(repository).justRefresh(key)
+                                    showNewsData(adapterOfDashboardNews, false)
+                                }
+                            } else {
+                                val newsList = resource.data
+                                Log.d(
+                                    "MyTa",
+                                    "DashboardFragment: onCreateView: " +
+                                            "showNewsData: onResponse: $newsList"
+                                )
+
+                                if (news.isEmpty() || newsList != news) {
+                                    news.addAll(newsList)
+                                    newsRecyclerView.apply {
+                                        layoutManager =
+                                            LinearLayoutManager(requireActivity().applicationContext)
+                                        adapter = adapterOfDashboardNews
+                                    }
+                                }
                             }
                         }
                     }
+
                 }
             }
         })
     }
+
+    private suspend fun getAllTheSubjects(): ArrayList<SubjectGroup> {
+        var returnList = ArrayList<SubjectGroup>()
+        val resource = repository.handleGetSubjectsAgeGroup(accessToken)
+        when (resource.status) {
+//                Status.LOADING -> null //TODO loading
+            Status.ERROR -> {
+                if (resource.message == "Unauthorised. Please refresh.") {
+                    runBlocking {
+                        Utilities(repository).justRefresh(key)
+                        returnList = getAllTheSubjects()
+                    }
+                } else {
+                    Toast.makeText(
+                        requireActivity().applicationContext,
+                        resource.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+            Status.SUCCESS -> {
+                Log.d(
+                    "MyTagExplicitNetworking",
+                    "AddNewsDialogFragment response $resource"
+                )
+                returnList = resource.data as ArrayList<SubjectGroup>
+            }
+        }
+        return returnList
+    }
+
 }
 

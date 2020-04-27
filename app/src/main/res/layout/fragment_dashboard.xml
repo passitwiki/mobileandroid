@@ -154,6 +154,7 @@
                     android:orientation="vertical">
 
                     <Spinner
+                        android:padding="8dp"
                         android:id="@+id/spinnerFilter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />

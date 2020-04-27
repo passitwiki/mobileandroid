@@ -26,7 +26,7 @@ class Repository(private val api: Api, private val responseHandler: ResponseHand
         currentPassword: String
     ): Resource<Unit> {
         return try {
-            val response = api.postSetPassword(bearerToken, newPassword, currentPassword)
+            val response = api.postSetPassword(bearerToken, newPassword, currentPassword).body()
             responseHandler.handleSuccess(response)
         } catch (e: Exception) {
             responseHandler.handleException(e)

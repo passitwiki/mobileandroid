@@ -7,7 +7,10 @@ import com.passitwiki.passit.networking.provideOkHttpClient
 import com.passitwiki.passit.networking.provideRetrofit
 import com.passitwiki.passit.repository.Repository
 import com.passitwiki.passit.utilities.Utilities
-import com.passitwiki.passit.viewmodel.*
+import com.passitwiki.passit.viewmodel.CalendarViewModel
+import com.passitwiki.passit.viewmodel.DashboardViewModel
+import com.passitwiki.passit.viewmodel.LecturersViewModel
+import com.passitwiki.passit.viewmodel.SubjectsViewModel
 import org.koin.androidx.fragment.dsl.fragment
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -15,7 +18,6 @@ import org.koin.dsl.module
 /**
  * Application module for Koin specification of all factories/singles in one place.
  */
-//TODO add more modules (fragment, viewModel)
 val appModule = module {
     factory { provideOkHttpClient() }
     factory { provideApi(get()) }

@@ -70,7 +70,7 @@ class AddNewsDialogFragment(private val key: String, private val fieldAgeGroup: 
         val view = inflater
             .inflate(R.layout.fragment_add_news_dialog, container, false)
         var listOfSubjectGroup = ArrayList<SubjectGroup>()
-        var displayListOfSubjectGroup = ArrayList<String>()
+        val displayListOfSubjectGroup = ArrayList<String>()
         runBlocking {
             listOfSubjectGroup = getAllTheSubjects()
         }
